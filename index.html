@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mengzhe — Thoughtful Creative</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      text-decoration: none;
     }
 
     body {
@@ -356,7 +357,7 @@
     }
 
     .card-title {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Source Sans Pro', sans-serif;
       font-size: 18px;
       font-weight: 700;
       color: #1a1a1a;
@@ -376,7 +377,7 @@
     }
 
     .card-desc {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Source Sans Pro', sans-serif;
       font-size: 13px;
       font-weight: 400;
       line-height: 1.55;
@@ -385,9 +386,9 @@
     }
 
     .card-meta {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Source Sans Pro', sans-serif;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       color: #1a1a1a;
       letter-spacing: 0.5px;
     }
@@ -543,75 +544,72 @@
   <!-- AI Page -->
   <div class="page page-ai" id="page-ai">
     <div class="cards-grid">
+      <!-- Card 1: Cluster Report Insights -->
       <div class="card">
-        <div class="card-thumbnail">
-          <div style="padding: 16px; width: 100%; height: 100%; display: flex; flex-direction: column; gap: 8px;">
-            <div style="background: white; border-radius: 8px; padding: 12px; font-family: Inter, sans-serif; font-size: 11px; color: #555; flex: 1;">
-              <div style="font-weight: 700; font-size: 13px; color: #1a1a1a; margin-bottom: 6px;">About</div>
-              <div style="display: flex; gap: 4px; margin-bottom: 8px;">
-                <span style="background: #e84a30; color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px;">Design</span>
-                <span style="background: #1a5fb4; color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px;">Strategy</span>
-                <span style="background: #1a8a3f; color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px;">Research</span>
+        <div class="card-thumbnail" style="background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 24px;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+              <div style="width: 32px; height: 20px; background: #1a5fb4; border-radius: 3px;"></div>
+              <div style="width: 32px; height: 32px; background: #2272d4; border-radius: 3px;"></div>
+              <div style="width: 32px; height: 26px; background: #1a5fb4; border-radius: 3px;"></div>
+              <div style="width: 32px; height: 28px; background: #e8a817; border-radius: 3px;"></div>
+              <div style="width: 32px; height: 16px; background: #f0c020; border-radius: 3px;"></div>
+              <div style="width: 32px; height: 36px; background: #e8a817; border-radius: 3px;"></div>
+            </div>
+            <div style="width: 100%; height: 1px; background: #333;"></div>
+            <div style="font-family: Inter; font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase;">Cluster Insights</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row"><span class="card-title">Figma Make Cluster Report Insights</span></div>
+          <p class="card-desc">Designed and launched a cluster-level reporting system that translates complex learner data into actionable insights for educators. Defined product direction, structured data visualization patterns, and partnered closely with engineering.</p>
+          <div class="card-meta">Hats &amp; Ladders<span>&middot;</span>2025</div>
+        </div>
+      </div>
+
+      <!-- Card 2: AI Image Generation -->
+      <div class="card">
+        <div class="card-thumbnail" style="background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%); display: flex; align-items: center; justify-content: center; padding: 24px;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+            <div style="position: relative; width: 80px; height: 80px;">
+              <div style="width: 80px; height: 80px; border: 2px solid #333; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#e8a817" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
               </div>
-              <div style="font-size: 10px; line-height: 1.4; color: #888;">Currently: AI Design</div>
+              <div style="position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; background: #e8a817; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: Inter; font-size: 9px; font-weight: 700; color: #0f0f0f;">AI</span>
+              </div>
             </div>
-            <div style="font-size: 10px; font-family: Inter; color: #999; font-style: italic;">Current Projects</div>
-            <div style="background: white; border-radius: 8px; padding: 10px; font-family: Inter; font-size: 10px; color: #aaa; text-align: center; flex: 0.6; display: flex; align-items: center; justify-content: center;">No projects yet</div>
+            <div style="font-family: Inter; font-size: 10px; color: #555; letter-spacing: 2px; text-transform: uppercase;">Generate</div>
           </div>
         </div>
         <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Figma prompt to edit</span></div>
-          <p class="card-desc">Founding member of the AI powered prompt to edit tool. Defined and designed product vision, prompt engineered and collaborated with researchers to improve model quality.</p>
-          <div class="card-meta">Figma<span>&middot;</span>2025</div>
+          <div class="card-title-row"><span class="card-title">Scalable AI Image Generation Tool</span></div>
+          <p class="card-desc">Built an AI-powered image generation system to support large-scale curriculum and product needs. Established prompt frameworks, standardized output quality, and enabled cross-team adoption.</p>
+          <div class="card-meta">Hats &amp; Ladders<span>&middot;</span>2025</div>
         </div>
       </div>
+
+      <!-- Card 3: Scalable Icon System -->
       <div class="card">
-        <div class="card-thumbnail" style="background: #c8c2b6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px;">
-          <div style="display: flex; gap: 14px;">
-            <div style="width: 52px; height: 52px; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <div class="card-thumbnail" style="background: #f5f0e8; display: flex; align-items: center; justify-content: center; padding: 24px;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </div>
-            <div style="width: 52px; height: 52px; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#22c55e" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
-          </div>
-          <div class="chat-bubble" style="position: relative; margin-top: 4px;">
-            <p>Create a sign-up modal, add a way to store user accounts</p>
-            <div class="chat-icons">
-              <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-              <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-              <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-              <div class="chat-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
+            <div style="font-family: Inter; font-size: 10px; color: #999; letter-spacing: 2px; text-transform: uppercase;">Icon System</div>
           </div>
         </div>
         <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Figma Make Supabase</span><span class="card-badge">Shipped &#8599;</span></div>
-          <p class="card-desc">Designed the Figma Make × Supabase integration, shaping end-to-end UX and partnering with UX writing for technical copy and engineers.</p>
-          <div class="card-meta">Figma<span>&middot;</span>2025</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-thumbnail" style="background: #2a2a2a; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 20px;">
-          <div style="font-family: Inter; font-size: 28px; font-weight: 800; color: white; letter-spacing: -1px; margin-bottom: 8px;">EA</div>
-          <div style="background: #3a3a3a; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-            <span style="font-family: Inter; font-size: 9px; color: #ccc; background: #555; padding: 1px 5px; border-radius: 3px;">h4</span>
-            <span style="font-family: Inter; font-size: 14px; font-weight: 600; color: white;">Dreamy Haze</span>
-          </div>
-          <div style="background: #3a3a3a; border-radius: 8px; padding: 6px 12px; display: flex; align-items: center; gap: 8px; width: 100%;">
-            <div style="display: flex; gap: 4px; align-items: center;">
-              <div style="width: 18px; height: 18px; background: #7c3aed; border-radius: 50%;"></div>
-              <div style="width: 18px; height: 18px; background: #1a1a1a; border-radius: 50%; border: 2px solid #666;"></div>
-            </div>
-            <span style="font-family: Inter; font-size: 11px; color: #ccc; margin-left: 4px;">Michroma</span>
-            <span style="font-family: Inter; font-size: 11px; color: #888; margin-left: auto;">16</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Figma Make edit tool</span><span class="card-badge">Shipped &#8599;</span></div>
-          <p class="card-desc">Designed and shipped V1 of the editing tool in Figma Make for one off style edits. Shipped visual polish code fixes to support engineers.</p>
-          <div class="card-meta">Figma<span>&middot;</span>2025</div>
+          <div class="card-title-row"><span class="card-title">Scalable Icon System</span></div>
+          <p class="card-desc">Created a unified icon system to improve visual consistency and scalability across the platform. Developed guidelines, streamlined asset production, and aligned design and engineering.</p>
+          <div class="card-meta">Hats &amp; Ladders<span>&middot;</span>2025</div>
         </div>
       </div>
     </div>
