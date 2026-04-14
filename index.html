@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mengzhe — Thoughtful Creative</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #e8e2d6;
+      font-family: 'Space Mono', monospace;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      color: #2c3e50;
+    }
+
+    /* Brush strokes canvas */
+    .brush-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .brush-container svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Header */
+    .header-left {
+      position: fixed;
+      top: 28px;
+      left: 32px;
+      z-index: 10;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #1a1a1a;
+      transition: color 0.5s ease;
+    }
+
+    .header-right {
+      position: fixed;
+      top: 28px;
+      right: 32px;
+      z-index: 10;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.5s ease;
+    }
+
+    .status-online {
+      color: #2a9d2a;
+      font-weight: 700;
+      transition: color 0.5s ease;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 72px;
+      left: 32px;
+      z-index: 10;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      cursor: pointer;
+      color: #1a1a1a;
+      transition: color 0.5s ease;
+    }
+
+    .nav li .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.5s ease, border-color 0.5s ease;
+    }
+
+    .nav li.active .dot {
+      width: 18px;
+      height: 18px;
+      background: transparent;
+      border: 2px solid #1a1a1a;
+    }
+
+    .nav li.active .dot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      transition: background 0.5s ease;
+    }
+
+    .nav li:hover {
+      opacity: 0.7;
+    }
+
+    /* Burst particle */
+    .burst-dot {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 100;
+      animation: burstOut 350ms ease-out forwards;
+    }
+
+    @keyframes burstOut {
+      0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+      50% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 0.8; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(0.5); opacity: 0; }
+    }
+
+    /* ===== PAGES ===== */
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .page.active {
+      pointer-events: auto;
+    }
+
+    /* HOME page — scrollable */
+    .page-home {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .page-home:not(.active) {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .home-cover {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .center-content {
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .main-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(80px, 14vw, 220px);
+      font-weight: 900;
+      color: #2d3748;
+      letter-spacing: 8px;
+      line-height: 0.9;
+      text-transform: uppercase;
+      mix-blend-mode: multiply;
+      opacity: 0.88;
+    }
+
+    .subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(12px, 1.8vw, 22px);
+      font-weight: 400;
+      color: #8a8a8a;
+      letter-spacing: 14px;
+      margin-top: 20px;
+      text-transform: uppercase;
+    }
+
+    /* Intro section (dark) */
+    .home-intro {
+      position: relative;
+      width: 100%;
+      min-height: 200vh;
+      background: #0a0a0a;
+      padding: 120px 80px 160px 140px;
+    }
+
+    .intro-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 80px;
+      letter-spacing: 0.5px;
+      opacity: 0.7;
+    }
+
+    .intro-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      position: sticky;
+      top: 15vh;
+    }
+
+    .intro-line {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    .intro-line .word {
+      color: #2a2a2a;
+      transition: color 0.2s ease;
+      display: inline;
+    }
+
+    .intro-line .word.revealed {
+      color: #ffffff;
+    }
+
+    .intro-line.accent .word {
+      color: #1a1a1a;
+    }
+
+    .intro-line.accent .word.revealed {
+      color: #777777;
+    }
+
+    .intro-line.dim .word {
+      color: #181818;
+    }
+
+    .intro-line.dim .word.revealed {
+      color: #444444;
+    }
+
+    /* AI page */
+    .page-ai {
+      opacity: 0;
+      transition: opacity 0.6s ease 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 60px 40px 140px;
+      overflow-y: auto;
+    }
+
+    .page-ai.active { opacity: 1; }
+    .page-ai:not(.active) { opacity: 0; transition: opacity 0.3s ease; }
+
+    /* Work page */
+    .page-work {
+      opacity: 0;
+      transition: opacity 0.6s ease 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 60px 40px 140px;
+      overflow-y: auto;
+    }
+
+    .page-work.active { opacity: 1; }
+    .page-work:not(.active) { opacity: 0; transition: opacity 0.3s ease; }
+
+    /* About page (simple redirect to home intro) */
+    .page-about {
+      display: none;
+    }
+
+    /* Cards grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: #f2ede4;
+      border: 1px solid #d6d0c4;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+
+    .card-thumbnail {
+      width: 100%;
+      height: 180px;
+      background: #ddd8cc;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-body { padding: 16px 20px 18px; }
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .card-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: #666;
+      border: 1px solid #c8c2b6;
+      border-radius: 20px;
+      padding: 3px 10px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .card-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1a1a1a;
+      letter-spacing: 0.5px;
+    }
+
+    .card-meta span { margin: 0 6px; color: #aaa; }
+
+    /* Chat bubble in thumbnail */
+    .chat-bubble {
+      background: white;
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      max-width: 260px;
+    }
+
+    .chat-bubble p {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .chat-icons {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      align-items: center;
+    }
+
+    .chat-icons .chat-icon { width: 22px; height: 22px; color: #888; }
+
+    .chat-send {
+      width: 32px;
+      height: 32px;
+      background: #1a1a1a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+    }
+
+    .chat-send svg { width: 16px; height: 16px; fill: white; }
+
+    /* Footer */
+    .footer {
+      position: fixed;
+      bottom: 28px;
+      left: 32px;
+      z-index: 10;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      font-weight: 400;
+      transition: color 0.5s ease, opacity 0.5s ease;
+    }
+
+    /* Dark mode overrides for UI chrome */
+    body.dark-ui .header-left,
+    body.dark-ui .header-right,
+    body.dark-ui .footer { color: #ffffff; }
+
+    body.dark-ui .footer { opacity: 0.4; }
+
+    body.dark-ui .status-online { color: #4ade80; }
+
+    body.dark-ui .nav li { color: #ffffff; }
+
+    body.dark-ui .nav li .dot { background: #ffffff; }
+
+    body.dark-ui .nav li.active .dot {
+      background: transparent;
+      border-color: #ffffff;
+    }
+
+    body.dark-ui .nav li.active .dot::after { background: #ffffff; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header-left">SYSTEM</div>
+  <div class="header-right">SYS_STATUS: <span class="status-online">ONLINE</span></div>
+
+  <!-- Navigation -->
+  <ul class="nav">
+    <li class="active" data-page="home"><span class="dot"></span>HOME</li>
+    <li data-page="ai"><span class="dot"></span>AI</li>
+    <li data-page="work"><span class="dot"></span>WORK</li>
+    <li data-page="about"><span class="dot"></span>ABOUT</li>
+  </ul>
+
+  <!-- Brush Strokes -->
+  <div class="brush-container">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="brushTexture" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="4" seed="2" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="brushTexture2" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.035 0.07" numOctaves="4" seed="5" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="22" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+
+      <!-- Blue stroke -->
+      <g filter="url(#brushTexture)">
+        <path id="blue1" d="M-80,920 C100,850 300,760 500,670 C700,580 900,520 1100,460 C1300,400 1500,350 1700,300 C1820,260 1960,220 2050,190"
+              stroke="#1a5fb4" stroke-width="76" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+        <path id="blue2" d="M-80,928 C100,858 300,768 500,678 C700,588 900,528 1100,468 C1300,408 1500,358 1700,308 C1820,268 1960,228 2050,198"
+              stroke="#2272d4" stroke-width="38" fill="none" stroke-linecap="round" opacity="0.45"/>
+      </g>
+
+      <!-- Yellow stroke -->
+      <g filter="url(#brushTexture2)">
+        <path id="yellow1" d="M-100,700 C100,660 300,620 500,570 C700,520 900,480 1100,440 C1300,400 1500,380 1700,360 C1820,350 1960,330 2050,320"
+              stroke="#e8a817" stroke-width="82" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.93"/>
+        <path id="yellow2" d="M-100,708 C100,668 300,628 500,578 C700,528 900,488 1100,448 C1300,408 1500,388 1700,368 C1820,358 1960,338 2050,328"
+              stroke="#f0c020" stroke-width="36" fill="none" stroke-linecap="round" opacity="0.4"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- HOME Page (scrollable: cover + intro) -->
+  <div class="page page-home active" id="page-home">
+    <div class="home-cover">
+      <div class="center-content">
+        <h1 class="main-title">MENGZHE</h1>
+        <p class="subtitle">THOUGHTFUL CREATIVE</p>
+      </div>
+    </div>
+
+    <div class="home-intro" id="home-intro">
+      <div class="intro-label">Info</div>
+      <div class="intro-text-block">
+        <div class="intro-line">
+          <span class="word">CREATIVE </span><span class="word">TECHNOLOGIST </span><span class="word">FROM </span><span class="word">SEOUL </span><span class="word">[BASED </span><span class="word">IN </span><span class="word">NYC].</span>
+        </div>
+        <div class="intro-line">
+          <span class="word">FROM </span><span class="word">CONCEPT </span><span class="word">TO </span><span class="word">EXECUTION,</span>
+        </div>
+        <div class="intro-line accent">
+          <span class="word">I </span><span class="word">DESIGN </span><span class="word">IT, </span><span class="word">I </span><span class="word">BUILD </span><span class="word">IT.</span>
+        </div>
+        <div class="intro-line dim">
+          <span class="word">[WEB </span><span class="word">DEVELOPMENT, </span><span class="word">UI/UX, </span><span class="word">GRAPHIC </span><span class="word">DESIGN, </span><span class="word">MOTION, </span><span class="word">BRANDING]</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Page -->
+  <div class="page page-ai" id="page-ai">
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-thumbnail">
+          <div style="padding: 16px; width: 100%; height: 100%; display: flex; flex-direction: column; gap: 8px;">
+            <div style="background: white; border-radius: 8px; padding: 12px; font-family: Inter, sans-serif; font-size: 11px; color: #555; flex: 1;">
+              <div style="font-weight: 700; font-size: 13px; color: #1a1a1a; margin-bottom: 6px;">About</div>
+              <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                <span style="background: #e84a30; color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px;">Design</span>
+                <span style="background: #1a5fb4; color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px;">Strategy</span>
+                <span style="background: #1a8a3f; color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px;">Research</span>
+              </div>
+              <div style="font-size: 10px; line-height: 1.4; color: #888;">Currently: AI Design</div>
+            </div>
+            <div style="font-size: 10px; font-family: Inter; color: #999; font-style: italic;">Current Projects</div>
+            <div style="background: white; border-radius: 8px; padding: 10px; font-family: Inter; font-size: 10px; color: #aaa; text-align: center; flex: 0.6; display: flex; align-items: center; justify-content: center;">No projects yet</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row"><span class="card-title">Figma prompt to edit</span></div>
+          <p class="card-desc">Founding member of the AI powered prompt to edit tool. Defined and designed product vision, prompt engineered and collaborated with researchers to improve model quality.</p>
+          <div class="card-meta">Figma<span>&middot;</span>2025</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumbnail" style="background: #c8c2b6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px;">
+          <div style="display: flex; gap: 14px;">
+            <div style="width: 52px; height: 52px; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div style="width: 52px; height: 52px; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#22c55e" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+          </div>
+          <div class="chat-bubble" style="position: relative; margin-top: 4px;">
+            <p>Create a sign-up modal, add a way to store user accounts</p>
+            <div class="chat-icons">
+              <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              <div class="chat-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row"><span class="card-title">Figma Make Supabase</span><span class="card-badge">Shipped &#8599;</span></div>
+          <p class="card-desc">Designed the Figma Make × Supabase integration, shaping end-to-end UX and partnering with UX writing for technical copy and engineers.</p>
+          <div class="card-meta">Figma<span>&middot;</span>2025</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumbnail" style="background: #2a2a2a; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 20px;">
+          <div style="font-family: Inter; font-size: 28px; font-weight: 800; color: white; letter-spacing: -1px; margin-bottom: 8px;">EA</div>
+          <div style="background: #3a3a3a; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="font-family: Inter; font-size: 9px; color: #ccc; background: #555; padding: 1px 5px; border-radius: 3px;">h4</span>
+            <span style="font-family: Inter; font-size: 14px; font-weight: 600; color: white;">Dreamy Haze</span>
+          </div>
+          <div style="background: #3a3a3a; border-radius: 8px; padding: 6px 12px; display: flex; align-items: center; gap: 8px; width: 100%;">
+            <div style="display: flex; gap: 4px; align-items: center;">
+              <div style="width: 18px; height: 18px; background: #7c3aed; border-radius: 50%;"></div>
+              <div style="width: 18px; height: 18px; background: #1a1a1a; border-radius: 50%; border: 2px solid #666;"></div>
+            </div>
+            <span style="font-family: Inter; font-size: 11px; color: #ccc; margin-left: 4px;">Michroma</span>
+            <span style="font-family: Inter; font-size: 11px; color: #888; margin-left: auto;">16</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row"><span class="card-title">Figma Make edit tool</span><span class="card-badge">Shipped &#8599;</span></div>
+          <p class="card-desc">Designed and shipped V1 of the editing tool in Figma Make for one off style edits. Shipped visual polish code fixes to support engineers.</p>
+          <div class="card-meta">Figma<span>&middot;</span>2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK Page -->
+  <div class="page page-work" id="page-work">
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-thumbnail" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+          <div style="font-family: Inter; font-size: 32px; font-weight: 800; color: white; letter-spacing: 2px; text-align: center;">BRAND<br>SYSTEM</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row"><span class="card-title">Visual identity system</span></div>
+          <p class="card-desc">Created a comprehensive brand identity system including typography, color palette, iconography, and component library for a design studio.</p>
+          <div class="card-meta">Branding<span>&middot;</span>2024</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumbnail" style="background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 24px;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+              <div style="width: 28px; height: 28px; background: #e84a30; border-radius: 4px;"></div>
+              <div style="width: 28px; height: 28px; background: #1a5fb4; border-radius: 4px;"></div>
+              <div style="width: 28px; height: 28px; background: #e8a817; border-radius: 4px;"></div>
+              <div style="width: 28px; height: 28px; background: #1a8a3f; border-radius: 4px;"></div>
+              <div style="width: 28px; height: 28px; background: #7c3aed; border-radius: 4px;"></div>
+              <div style="width: 28px; height: 28px; background: #f472b6; border-radius: 4px;"></div>
+            </div>
+            <div style="font-family: Inter; font-size: 11px; color: #888; letter-spacing: 2px; text-transform: uppercase;">Palette</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row"><span class="card-title">Design system tokens</span><span class="card-badge">Shipped &#8599;</span></div>
+          <p class="card-desc">Built and maintained a scalable design token system powering consistent UI across web and mobile platforms for a fintech product.</p>
+          <div class="card-meta">Systems<span>&middot;</span>2024</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumbnail" style="background: #f5f0e8; display: flex; align-items: center; justify-content: center; padding: 20px;">
+          <div style="background: white; border-radius: 12px; padding: 16px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+            <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+              <div style="width: 32px; height: 32px; background: #e8e2d6; border-radius: 50%;"></div>
+              <div style="flex: 1;">
+                <div style="height: 8px; background: #e8e2d6; border-radius: 4px; width: 60%; margin-bottom: 4px;"></div>
+                <div style="height: 6px; background: #f0ece4; border-radius: 4px; width: 40%;"></div>
+              </div>
+            </div>
+            <div style="height: 6px; background: #f0ece4; border-radius: 4px; width: 100%; margin-bottom: 6px;"></div>
+            <div style="height: 6px; background: #f0ece4; border-radius: 4px; width: 80%; margin-bottom: 6px;"></div>
+            <div style="height: 6px; background: #f0ece4; border-radius: 4px; width: 90%;"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title-row"><span class="card-title">Social platform redesign</span><span class="card-badge">Shipped &#8599;</span></div>
+          <p class="card-desc">Led the end-to-end redesign of a social platform's feed experience, improving engagement metrics and content readability.</p>
+          <div class="card-meta">Product<span>&middot;</span>2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2026 Mengzhe Ye<br>
+    All rights reserved
+  </div>
+
+  <script>
+    const colors = ['#1a5fb4', '#e8a817', '#d93425', '#1a8a3f', '#2272d4', '#f0c020', '#e84a30', '#28a850'];
+
+    const strokeStates = {
+      home: {
+        blue1: "M-80,920 C100,850 300,760 500,670 C700,580 900,520 1100,460 C1300,400 1500,350 1700,300 C1820,260 1960,220 2050,190",
+        blue2: "M-80,928 C100,858 300,768 500,678 C700,588 900,528 1100,468 C1300,408 1500,358 1700,308 C1820,268 1960,228 2050,198",
+        yellow1: "M-100,700 C100,660 300,620 500,570 C700,520 900,480 1100,440 C1300,400 1500,380 1700,360 C1820,350 1960,330 2050,320",
+        yellow2: "M-100,708 C100,668 300,628 500,578 C700,528 900,488 1100,448 C1300,408 1500,388 1700,368 C1820,358 1960,338 2050,328",
+        blueOpacity: 0.92, blue2Opacity: 0.45, yellowOpacity: 0.93, yellow2Opacity: 0.4
+      },
+      ai: {
+        blue1: "M1540,-120 C1545,50 1550,220 1545,400 C1540,580 1538,760 1540,940 C1542,1020 1544,1100 1546,1200",
+        blue2: "M1548,-120 C1553,50 1558,220 1553,400 C1548,580 1546,760 1548,940 C1550,1020 1552,1100 1554,1200",
+        yellow1: "M640,-120 C645,50 650,220 645,400 C640,580 638,760 640,940 C642,1020 644,1100 646,1200",
+        yellow2: "M648,-120 C653,50 658,220 653,400 C648,580 646,760 648,940 C650,1020 652,1100 654,1200",
+        blueOpacity: 0.25, blue2Opacity: 0.12, yellowOpacity: 0.25, yellow2Opacity: 0.12
+      },
+      work: {
+        blue1: "M1540,-120 C1545,50 1550,220 1545,400 C1540,580 1538,760 1540,940 C1542,1020 1544,1100 1546,1200",
+        blue2: "M1548,-120 C1553,50 1558,220 1553,400 C1548,580 1546,760 1548,940 C1550,1020 1552,1100 1554,1200",
+        yellow1: "M640,-120 C645,50 650,220 645,400 C640,580 638,760 640,940 C642,1020 644,1100 646,1200",
+        yellow2: "M648,-120 C653,50 658,220 653,400 C648,580 646,760 648,940 C650,1020 652,1100 654,1200",
+        blueOpacity: 0.25, blue2Opacity: 0.12, yellowOpacity: 0.25, yellow2Opacity: 0.12
+      }
+    };
+
+    const ANIM_DURATION = 900;
+
+    function animateStrokes(page) {
+      const state = strokeStates[page] || strokeStates.home;
+      const ids = ['blue1', 'blue2', 'yellow1', 'yellow2'];
+      const opacityKeys = ['blueOpacity', 'blue2Opacity', 'yellowOpacity', 'yellow2Opacity'];
+
+      ids.forEach((id, i) => {
+        const el = document.getElementById(id);
+        const currentD = el.getAttribute('d');
+        const targetD = state[id];
+        const targetOpacity = state[opacityKeys[i]];
+        const currentOpacity = parseFloat(el.style.opacity || el.getAttribute('opacity') || 1);
+
+        try {
+          el.animate(
+            [
+              { d: 'path("' + currentD + '")', opacity: currentOpacity },
+              { d: 'path("' + targetD + '")', opacity: targetOpacity }
+            ],
+            { duration: ANIM_DURATION, easing: 'cubic-bezier(0.4, 0, 0.15, 1)', fill: 'forwards' }
+          );
+        } catch (e) {
+          animatePathFallback(el, currentD, targetD, currentOpacity, targetOpacity);
+        }
+
+        setTimeout(() => {
+          el.setAttribute('d', targetD);
+          el.style.opacity = targetOpacity;
+        }, ANIM_DURATION);
+      });
+    }
+
+    function animatePathFallback(el, fromD, toD, fromOpacity, toOpacity) {
+      const fromPts = parsePathNumbers(fromD);
+      const toPts = parsePathNumbers(toD);
+      const fromTemplate = fromD.replace(/-?[\d.]+/g, '{}');
+      const start = performance.now();
+
+      function tick(now) {
+        let t = Math.min((now - start) / ANIM_DURATION, 1);
+        t = 1 - Math.pow(1 - t, 3);
+
+        if (fromPts.length === toPts.length) {
+          const interpPts = fromPts.map((v, i) => v + (toPts[i] - v) * t);
+          let idx = 0;
+          el.setAttribute('d', fromTemplate.replace(/\{\}/g, () => interpPts[idx++].toFixed(1)));
+        }
+        el.style.opacity = fromOpacity + (toOpacity - fromOpacity) * t;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function parsePathNumbers(d) {
+      return (d.match(/-?[\d.]+/g) || []).map(Number);
+    }
+
+    function switchPage(pageName) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + pageName);
+
+      // "About" scrolls home page to intro section
+      if (pageName === 'about') {
+        const homePage = document.getElementById('page-home');
+        homePage.classList.add('active');
+        setTimeout(() => {
+          homePage.scrollTo({ top: homePage.querySelector('.home-intro').offsetTop, behavior: 'smooth' });
+        }, 100);
+        animateStrokes('home');
+        return;
+      }
+
+      if (target) setTimeout(() => target.classList.add('active'), 50);
+
+      // Reset home scroll when leaving
+      if (pageName !== 'home') {
+        document.getElementById('page-home').scrollTop = 0;
+      }
+
+      animateStrokes(pageName);
+    }
+
+    // Nav click handler
+    document.querySelectorAll('.nav li').forEach(li => {
+      li.addEventListener('click', (e) => {
+        document.querySelector('.nav li.active')?.classList.remove('active');
+        li.classList.add('active');
+
+        const pageName = li.getAttribute('data-page');
+        switchPage(pageName);
+
+        // Burst particles
+        const dot = li.querySelector('.dot');
+        const rect = dot.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+
+        for (let i = 0; i < 8; i++) {
+          const particle = document.createElement('div');
+          particle.classList.add('burst-dot');
+          const angle = (i / 8) * Math.PI * 2;
+          const dist = 22 + Math.random() * 14;
+          particle.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+          particle.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+          particle.style.left = cx + 'px';
+          particle.style.top = cy + 'px';
+          particle.style.background = colors[i % colors.length];
+          document.body.appendChild(particle);
+          particle.addEventListener('animationend', () => particle.remove());
+        }
+      });
+    });
+
+    // ===== HOME SCROLL: intro word reveal + UI color transition =====
+    const homePage = document.getElementById('page-home');
+    const introSection = document.getElementById('home-intro');
+    const allWords = introSection.querySelectorAll('.word');
+    const totalWords = allWords.length;
+    const brushContainer = document.querySelector('.brush-container');
+
+    homePage.addEventListener('scroll', () => {
+      const scrollTop = homePage.scrollTop;
+      const viewH = homePage.clientHeight;
+      const introTop = introSection.offsetTop;
+
+      // How far into the intro section (0 = just entered, 1 = fully scrolled)
+      const introProgress = Math.max(0, Math.min((scrollTop - introTop + viewH) / (introSection.offsetHeight), 1));
+      // How far past the cover (0 = at top, 1 = cover fully scrolled away)
+      const coverExit = Math.max(0, Math.min(scrollTop / viewH, 1));
+
+      // Fade brush strokes out as we enter intro
+      const strokeFade = Math.max(0, 1 - coverExit * 2);
+      brushContainer.style.opacity = strokeFade;
+
+      // Toggle dark UI when past ~60% of cover
+      if (coverExit > 0.6) {
+        document.body.classList.add('dark-ui');
+      } else {
+        document.body.classList.remove('dark-ui');
+      }
+
+      // Word reveal based on scroll through intro section
+      const introScrollStart = introTop;
+      const introScrollEnd = introTop + introSection.offsetHeight - viewH;
+      const wordProgress = Math.max(0, Math.min((scrollTop - introScrollStart) / (introScrollEnd - introScrollStart), 1));
+
+      const wordsToReveal = Math.floor(wordProgress * totalWords);
+      allWords.forEach((word, i) => {
+        if (i < wordsToReveal) {
+          word.classList.add('revealed');
+        } else {
+          word.classList.remove('revealed');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
