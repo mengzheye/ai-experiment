@@ -4,7 +4,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/index.html)",
       "mcp__mcp-registry__search_mcp_registry",
       "Bash(gh auth:*)",
-      "Bash(brew install:*)"
+      "Bash(brew install:*)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }
