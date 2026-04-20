@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mengzhe — Thoughtful Creative</title>
+  <title>Mengzhe Ye — Thoughtful Creative</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
 
@@ -14,854 +14,1058 @@
       text-decoration: none;
     }
 
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
-      background-color: #e8e2d6;
-      font-family: 'Space Mono', monospace;
-      overflow: hidden;
-      width: 100vw;
+      background: #f4f1ea;
+      font-family: 'Source Sans Pro', sans-serif;
+      color: #17202a;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== Top bar ===== */
+    .topbar {
+      position: fixed;
+      top: 24px; left: 32px; right: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #17202a;
+      z-index: 50;
+    }
+    .status-online { color: #1f9d55; }
+
+    /* ===== Layout ===== */
+    .app {
+      display: grid;
+      grid-template-columns: 300px 1fr;
       height: 100vh;
-      position: relative;
-      color: #2c3e50;
+      padding: 72px 32px 24px;
+      gap: 0;
     }
 
-    /* Brush strokes canvas */
-    .brush-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      overflow: hidden;
-      pointer-events: none;
+    /* ===== Sidebar ===== */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #dcd6c8;
+      padding-right: 0;
     }
 
-    .brush-container svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Header */
-    .header-left {
-      position: fixed;
-      top: 28px;
-      left: 32px;
-      z-index: 10;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: #1a1a1a;
-      transition: color 0.5s ease;
-    }
-
-    .header-right {
-      position: fixed;
-      top: 28px;
-      right: 32px;
-      z-index: 10;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: #1a1a1a;
+    .brand {
+      padding: 8px 16px 20px;
+      border-bottom: 1px solid #dcd6c8;
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: color 0.5s ease;
+      gap: 10px;
     }
-
-    .status-online {
-      color: #2a9d2a;
+    .brand-logo {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2F68B7 0%, #e8b64a 100%);
+      flex-shrink: 0;
+    }
+    .brand-name {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 13px;
       font-weight: 700;
-      transition: color 0.5s ease;
+      letter-spacing: 1px;
     }
 
-    /* Navigation */
-    .nav {
-      position: fixed;
-      top: 72px;
-      left: 32px;
-      z-index: 10;
+    .cards {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card {
+      flex: 1;
+      padding: 24px 20px;
+      border-bottom: 1px solid #dcd6c8;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      background: transparent;
+    }
+    .card:hover {
+      background: #ffffff;
+      transform: translateX(4px);
+      box-shadow: 0 8px 24px rgba(23, 32, 42, 0.08);
+    }
+    .card .card-logo {
+      width: 44px; height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #17202a;
+    }
+    .card .card-logo svg { width: 100%; height: 100%; }
+
+    .card .card-meta {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #6b6558;
+      line-height: 1.6;
+    }
+    .card .card-meta .tags {
+      color: #17202a;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .card .view-projects {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      color: #17202a;
+    }
+    .card:hover .view-projects {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .bottom-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid #dcd6c8;
+    }
+    .bottom-nav a {
+      padding: 20px 0;
+      text-align: center;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #17202a;
+      border-right: 1px solid #dcd6c8;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .bottom-nav a:last-child { border-right: none; }
+    .bottom-nav a:hover { background: #ffffff; }
+
+    /* ===== Main panel ===== */
+    .main {
+      position: relative;
+      padding: 12px 0 0 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* Default hero */
+    .hero {
+      position: absolute;
+      inset: 12px 0 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 1;
+      transition: opacity 0.35s ease;
+    }
+    .hero.hidden { opacity: 0; pointer-events: none; }
+
+    .hero-headline {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: 700;
+      font-size: clamp(36px, 4.4vw, 64px);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      max-width: 1100px;
+      color: #17202a;
+    }
+    .hero-bullet {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #17202a;
+      margin-left: 12%;
+      align-self: flex-start;
+    }
+    .hero-meta {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 20px;
+      line-height: 1.6;
+      color: #17202a;
+    }
+    .hero-meta strong { font-weight: 700; }
+
+    /* Preview (shown on hover) */
+    .preview {
+      position: absolute;
+      inset: 12px 0 80px 56px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      overflow: hidden;
+      border-radius: 6px;
+    }
+    .preview.active { opacity: 1; }
+
+    .preview-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 0.6s ease;
+    }
+    .preview.active .preview-bg { transform: scale(1); }
+
+    .preview-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,18,32,0.25) 0%, rgba(10,18,32,0.6) 100%);
+    }
+
+    .preview-content {
+      position: relative;
+      height: 100%;
+      padding: 48px 48px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #ffffff;
+    }
+    .preview-title {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: 700;
+      font-size: clamp(36px, 4vw, 64px);
+      letter-spacing: -0.01em;
+      line-height: 1.05;
+      max-width: 900px;
+    }
+    .preview-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-width: 900px;
+    }
+    .preview-info h4 {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+    .preview-info p {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 17px;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+    .preview-info p strong { font-weight: 700; }
+    .preview-info ul {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-
-    .nav li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 1px;
-      cursor: pointer;
-      color: #1a1a1a;
-      transition: color 0.5s ease;
-    }
-
-    .nav li .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #1a1a1a;
-      flex-shrink: 0;
-      position: relative;
-      transition: background 0.5s ease, border-color 0.5s ease;
-    }
-
-    .nav li.active .dot {
-      width: 18px;
-      height: 18px;
-      background: transparent;
-      border: 2px solid #1a1a1a;
-    }
-
-    .nav li.active .dot::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #1a1a1a;
-      transition: background 0.5s ease;
-    }
-
-    .nav li:hover {
-      opacity: 0.7;
-    }
-
-    /* Burst particle */
-    .burst-dot {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 100;
-      animation: burstOut 350ms ease-out forwards;
-    }
-
-    @keyframes burstOut {
-      0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
-      50% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 0.8; }
-      100% { transform: translate(var(--tx), var(--ty)) scale(0.5); opacity: 0; }
-    }
-
-    /* ===== PAGES ===== */
-    .page {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .page.active {
-      pointer-events: auto;
-    }
-
-    /* HOME page — scrollable */
-    .page-home {
-      opacity: 1;
-      transition: opacity 0.3s ease;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-
-    .page-home:not(.active) {
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .home-cover {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .center-content {
-      text-align: center;
-      pointer-events: none;
-    }
-
-    .main-title {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(80px, 14vw, 220px);
-      font-weight: 900;
-      color: #2d3748;
-      letter-spacing: 8px;
-      line-height: 0.9;
-      text-transform: uppercase;
-      mix-blend-mode: multiply;
-      opacity: 0.88;
-    }
-
-    .subtitle {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(12px, 1.8vw, 22px);
-      font-weight: 400;
-      color: #8a8a8a;
-      letter-spacing: 14px;
-      margin-top: 20px;
-      text-transform: uppercase;
-    }
-
-    /* Intro section (dark) */
-    .home-intro {
-      position: relative;
-      width: 100%;
-      min-height: 200vh;
-      background: #2F68B7;
-      padding: 120px 80px 160px 140px;
-    }
-
-    .intro-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 18px;
-      font-style: italic;
-      font-weight: 400;
-      color: #ffffff;
-      margin-bottom: 80px;
-      letter-spacing: 0.5px;
-      opacity: 0.7;
-    }
-
-    .intro-text-block {
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-      position: sticky;
-      top: 15vh;
-    }
-
-    .intro-line {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(36px, 5vw, 72px);
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -1px;
-      text-transform: uppercase;
-    }
-
-    .intro-line .word {
-      color: #1e4a82;
-      transition: color 0.2s ease;
-      display: inline;
-    }
-
-    .intro-line .word.revealed {
-      color: #ffffff;
-    }
-
-    .intro-line.accent .word {
-      color: #1b4078;
-    }
-
-    .intro-line.accent .word.revealed {
-      color: #b8d4f0;
-    }
-
-    .intro-line.dim .word {
-      color: #194070;
-    }
-
-    .intro-line.dim .word.revealed {
-      color: #8cb4da;
-    }
-
-    /* AI page */
-    .page-ai {
-      opacity: 0;
-      transition: opacity 0.6s ease 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 60px 40px 140px;
-      overflow-y: auto;
-    }
-
-    .page-ai.active { opacity: 1; }
-    .page-ai:not(.active) { opacity: 0; transition: opacity 0.3s ease; }
-
-    /* Work page */
-    .page-work {
-      opacity: 0;
-      transition: opacity 0.6s ease 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 60px 40px 140px;
-      overflow-y: auto;
-    }
-
-    .page-work.active { opacity: 1; }
-    .page-work:not(.active) { opacity: 0; transition: opacity 0.3s ease; }
-
-    /* About page (simple redirect to home intro) */
-    .page-about {
-      display: none;
-    }
-
-    /* Cards grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      width: 100%;
-      max-width: 1200px;
-    }
-
-    .card {
-      background: #f2ede4;
-      border: 1px solid #d6d0c4;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-    }
-
-    .card-thumbnail {
-      width: 100%;
-      height: 180px;
-      background: #ddd8cc;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card-body { padding: 16px 20px 18px; }
-
-    .card-title-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-
-    .card-title {
+    .preview-info ul li {
       font-family: 'Source Sans Pro', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: #1a1a1a;
+      font-size: 17px;
+      line-height: 1.4;
     }
+    .preview-info ul li .ico { margin-right: 8px; }
 
-    .card-badge {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 1px;
-      color: #666;
-      border: 1px solid #c8c2b6;
-      border-radius: 20px;
-      padding: 3px 10px;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .card-desc {
-      font-family: 'Source Sans Pro', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.55;
-      color: #555;
-      margin-bottom: 12px;
-    }
-
-    .card-meta {
-      font-family: 'Source Sans Pro', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: #1a1a1a;
-      letter-spacing: 0.5px;
-    }
-
-    .card-meta span { margin: 0 6px; color: #aaa; }
-
-    /* Chat bubble in thumbnail */
-    .chat-bubble {
-      background: white;
-      border-radius: 14px;
-      padding: 16px 20px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-      max-width: 260px;
-    }
-
-    .chat-bubble p {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: #333;
-      line-height: 1.5;
-    }
-
-    .chat-icons {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-      align-items: center;
-    }
-
-    .chat-icons .chat-icon { width: 22px; height: 22px; color: #888; }
-
-    .chat-send {
-      width: 32px;
-      height: 32px;
-      background: #1a1a1a;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: auto;
-    }
-
-    .chat-send svg { width: 16px; height: 16px; fill: white; }
-
-    /* Footer */
+    /* ===== Footer ===== */
     .footer {
       position: fixed;
-      bottom: 28px;
-      left: 32px;
-      z-index: 10;
-      font-size: 11px;
-      line-height: 1.6;
-      color: #1a1a1a;
+      left: 32px; right: 32px; bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 12px;
+      color: #4a4637;
+      z-index: 40;
+    }
+    .footer .socials {
+      display: flex;
+      gap: 18px;
+      color: #17202a;
+    }
+    .footer .socials a {
+      color: #17202a;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .footer .socials svg { width: 18px; height: 18px; }
+
+    /* ===== Case Study Overlay ===== */
+    .case-study {
+      position: fixed;
+      inset: 0;
+      background: #f4f1ea;
+      z-index: 100;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .case-study.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .case-study-inner {
+      padding: 64px 144px;
+      max-width: none;
+    }
+
+    .case-close {
+      position: fixed;
+      top: 64px;
+      right: 144px;
+      z-index: 110;
+      background: #17202a;
+      color: #f4f1ea;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 20px;
       font-weight: 400;
-      transition: color 0.5s ease, opacity 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .case-close:hover { transform: rotate(90deg); background: #000; }
+
+    /* Header section */
+    .cs-header {
+      padding: 80px 0 0;
+    }
+    .cs-title {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: clamp(40px, 5vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: #17202a;
+      margin-bottom: 12px;
+    }
+    .cs-subtitle {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: clamp(20px, 2vw, 28px);
+      font-weight: 400;
+      color: #17202a;
+      margin-bottom: 64px;
+    }
+    .cs-facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 64px;
+      max-width: 1400px;
+    }
+    .cs-facts h4 {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #17202a;
+      margin-bottom: 16px;
+    }
+    .cs-facts ul {
+      list-style: none;
+    }
+    .cs-facts li,
+    .cs-facts p {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #17202a;
     }
 
-    /* Dark mode overrides for UI chrome */
-    body.dark-ui .header-left,
-    body.dark-ui .header-right,
-    body.dark-ui .footer { color: #ffffff; }
-
-    body.dark-ui .footer { opacity: 0.4; }
-
-    body.dark-ui .status-online { color: #4ade80; }
-
-    body.dark-ui .nav li { color: #ffffff; }
-
-    body.dark-ui .nav li .dot { background: #ffffff; }
-
-    body.dark-ui .nav li.active .dot {
-      background: transparent;
-      border-color: #ffffff;
+    /* Hero image placeholder */
+    .cs-hero-image {
+      margin-top: 80px;
+      width: 100%;
+      height: 1200px;
+      background: #d5cfc0;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #8a8372;
+      text-transform: uppercase;
     }
 
-    body.dark-ui .nav li.active .dot::after { background: #ffffff; }
+    /* Impact section */
+    .cs-impact {
+      margin-top: 80px;
+      padding: 0;
+    }
+    .cs-impact-sub {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #6b3fd4;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .cs-impact-heading {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: #17202a;
+      margin-bottom: 16px;
+      max-width: 1000px;
+    }
+    .cs-impact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px 96px;
+    }
+    .cs-stat-num {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #6b3fd4;
+      margin-bottom: 12px;
+    }
+    .cs-stat-desc {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #17202a;
+      max-width: 520px;
+    }
+
+    /* Contribution section (reuses impact layout) */
+    .cs-contribution {
+      margin-top: 80px;
+    }
+    .cs-contribution-body {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #17202a;
+      width: 100%;
+    }
+
+    /* Detailed / narrative sections */
+    .cs-detail {
+      margin-top: 80px;
+      padding: 0;
+      max-width: 1400px;
+    }
+    .cs-section {
+      margin-top: 80px;
+    }
+    .cs-section:last-child {
+      padding-bottom: 96px;
+    }
+    .cs-section-body {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #17202a;
+      width: 100%;
+    }
+    .cs-section-body p + p { margin-top: 16px; }
+    .cs-section-body ul {
+      list-style: disc;
+      padding-left: 24px;
+      margin-top: 12px;
+    }
+    .cs-section-body ul li { margin-bottom: 8px; }
+
+    /* Image blocks */
+    .cs-images {
+      margin-top: 40px;
+      display: grid;
+      gap: 24px;
+    }
+    .cs-images.layout-single   { grid-template-columns: 1fr; }
+    .cs-images.layout-2-col    { grid-template-columns: repeat(2, 1fr); }
+    .cs-images.layout-3-col    { grid-template-columns: repeat(3, 1fr); }
+    .cs-images.layout-4-col    { grid-template-columns: repeat(4, 1fr); }
+    .cs-images.layout-2x2      { grid-template-columns: repeat(2, 1fr); }
+    .cs-images.layout-stacked  { grid-template-columns: 1fr; }
+    .cs-images.layout-asymmetric {
+      grid-template-columns: 2fr 1fr;
+      grid-auto-rows: auto;
+    }
+    .cs-images.layout-asymmetric .cs-image:first-child { grid-row: span 2; }
+
+    .cs-image {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .cs-image .cs-image-box {
+      width: 100%;
+      background: #d5cfc0;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #8a8372;
+      text-transform: uppercase;
+    }
+    .cs-image .cs-image-caption {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #6b6558;
+      line-height: 1.4;
+    }
+    .cs-lead {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: clamp(18px, 1.4vw, 22px);
+      font-weight: 400;
+      color: #17202a;
+      margin-bottom: 24px;
+    }
+    .cs-headline {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: clamp(36px, 3.6vw, 56px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #17202a;
+      margin-bottom: 40px;
+    }
+    .cs-body {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: clamp(17px, 1.2vw, 20px);
+      font-weight: 400;
+      line-height: 1.6;
+      color: #17202a;
+      max-width: 1100px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="header-left">SYSTEM</div>
-  <div class="header-right">SYS_STATUS: <span class="status-online">ONLINE</span></div>
-
-  <!-- Navigation -->
-  <ul class="nav">
-    <li class="active" data-page="home"><span class="dot"></span>HOME</li>
-    <li data-page="ai"><span class="dot"></span>AI</li>
-    <li data-page="work"><span class="dot"></span>WORK</li>
-    <li data-page="about"><span class="dot"></span>ABOUT</li>
-  </ul>
-
-  <!-- Brush Strokes -->
-  <div class="brush-container">
-    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="brushTexture" x="-5%" y="-5%" width="110%" height="110%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="4" seed="2" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-        <filter id="brushTexture2" x="-5%" y="-5%" width="110%" height="110%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.035 0.07" numOctaves="4" seed="5" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="22" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-      </defs>
-
-      <!-- Blue stroke -->
-      <g filter="url(#brushTexture)">
-        <path id="blue1" d="M-80,920 C100,850 300,760 500,670 C700,580 900,520 1100,460 C1300,400 1500,350 1700,300 C1820,260 1960,220 2050,190"
-              stroke="#1a5fb4" stroke-width="76" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
-        <path id="blue2" d="M-80,928 C100,858 300,768 500,678 C700,588 900,528 1100,468 C1300,408 1500,358 1700,308 C1820,268 1960,228 2050,198"
-              stroke="#2272d4" stroke-width="38" fill="none" stroke-linecap="round" opacity="0.45"/>
-      </g>
-
-      <!-- Yellow stroke -->
-      <g filter="url(#brushTexture2)">
-        <path id="yellow1" d="M-100,700 C100,660 300,620 500,570 C700,520 900,480 1100,440 C1300,400 1500,380 1700,360 C1820,350 1960,330 2050,320"
-              stroke="#e8a817" stroke-width="82" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.93"/>
-        <path id="yellow2" d="M-100,708 C100,668 300,628 500,578 C700,528 900,488 1100,448 C1300,408 1500,388 1700,368 C1820,358 1960,338 2050,328"
-              stroke="#f0c020" stroke-width="36" fill="none" stroke-linecap="round" opacity="0.4"/>
-      </g>
-    </svg>
+  <div class="topbar">
+    <span>SYSTEM</span>
+    <span>SYS_STATUS: <span class="status-online">ONLINE</span></span>
   </div>
 
-  <!-- HOME Page (scrollable: cover + intro) -->
-  <div class="page page-home active" id="page-home">
-    <div class="home-cover">
-      <div class="center-content">
-        <h1 class="main-title">MENGZHE</h1>
-        <p class="subtitle">THOUGHTFUL CREATIVE</p>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-name">MENGZHE YE</div>
       </div>
+
+      <div class="cards">
+
+        <div class="card" data-project="cluster">
+          <div class="card-logo">
+            <svg viewBox="0 0 44 44" fill="none">
+              <circle cx="12" cy="12" r="5" fill="#2F68B7"/>
+              <circle cx="32" cy="14" r="4" fill="#e8b64a"/>
+              <circle cx="18" cy="30" r="6" fill="#17202a"/>
+              <circle cx="34" cy="32" r="3" fill="#2F68B7"/>
+            </svg>
+          </div>
+          <div class="card-meta">
+            <span class="tags">AI, EDTECH</span>
+            UX/UI + DATA VIZ, AI STRATEGY
+          </div>
+          <div class="view-projects">View project ↗</div>
+        </div>
+
+        <div class="card" data-project="imagegen">
+          <div class="card-logo">
+            <svg viewBox="0 0 44 44" fill="none">
+              <rect x="6" y="6" width="14" height="14" rx="2" fill="#17202a"/>
+              <rect x="24" y="6" width="14" height="14" rx="2" fill="#e8b64a"/>
+              <rect x="6" y="24" width="14" height="14" rx="2" fill="#2F68B7"/>
+              <rect x="24" y="24" width="14" height="14" rx="2" stroke="#17202a" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="card-meta">
+            <span class="tags">AI, DESIGN TOOL</span>
+            UX/UI + AI WORKFLOWS, DESIGN SYSTEMS
+          </div>
+          <div class="view-projects">View project ↗</div>
+        </div>
+
+        <div class="card" data-project="icons">
+          <div class="card-logo">
+            <svg viewBox="0 0 44 44" fill="none">
+              <path d="M22 4 L40 22 L22 40 L4 22 Z" fill="#17202a"/>
+              <path d="M22 12 L32 22 L22 32 L12 22 Z" fill="#f4f1ea"/>
+              <circle cx="22" cy="22" r="3" fill="#17202a"/>
+            </svg>
+          </div>
+          <div class="card-meta">
+            <span class="tags">DESIGN SYSTEMS, BRANDING</span>
+            UX/UI + ICONOGRAPHY, SCALABILITY
+          </div>
+          <div class="view-projects">View project ↗</div>
+        </div>
+
+      </div>
+
+      <nav class="bottom-nav">
+        <a href="#play">Play</a>
+        <a href="#about">About</a>
+        <a href="#resume">Resume</a>
+      </nav>
+
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <main class="main">
+
+      <div class="hero" id="hero">
+        <h1 class="hero-headline">
+          Mengzhe Ye is a product designer who ships thoughtful AI&nbsp;experiences across edtech, healthcare, and cybersecurity.
+        </h1>
+        <div class="hero-bullet"></div>
+        <div class="hero-meta">
+          Currently at <strong>Hats &amp; Ladders</strong><br>
+          <strong>5 YOE</strong> Product Designer based in <strong>Seattle</strong><br>
+          From concept to execution — design, experiment, ship.
+        </div>
+      </div>
+
+      <!-- Project previews -->
+      <div class="preview" data-preview="cluster">
+        <div class="preview-bg" style="background:
+          radial-gradient(circle at 20% 30%, rgba(47,104,183,0.9), transparent 45%),
+          radial-gradient(circle at 80% 20%, rgba(232,182,74,0.75), transparent 50%),
+          radial-gradient(circle at 60% 80%, rgba(23,32,42,0.95), transparent 60%),
+          linear-gradient(135deg, #0c1a2e 0%, #1b3a63 100%);"></div>
+        <div class="preview-scrim"></div>
+        <div class="preview-content">
+          <h2 class="preview-title">Cluster Report Insights</h2>
+          <div class="preview-info">
+            <div>
+              <h4>ROLE</h4>
+              <p><strong>Lead Designer</strong> of AI-driven insight reports for career-readiness educators</p>
+            </div>
+            <div>
+              <h4>IMPACT</h4>
+              <ul>
+                <li><span class="ico">🧭</span><strong>Clarified AI outputs</strong> into actionable insights</li>
+                <li><span class="ico">🤝</span><strong>Raised educator trust</strong> with transparent reasoning</li>
+                <li><span class="ico">📈</span><strong>Scaled reporting</strong> across 100+ district cohorts</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview" data-preview="imagegen">
+        <div class="preview-bg" style="background:
+          radial-gradient(circle at 75% 25%, rgba(232,182,74,0.85), transparent 55%),
+          radial-gradient(circle at 25% 75%, rgba(47,104,183,0.85), transparent 55%),
+          linear-gradient(135deg, #1a1d2b 0%, #3b2a12 100%);"></div>
+        <div class="preview-scrim"></div>
+        <div class="preview-content">
+          <h2 class="preview-title">Scalable AI Image Generation Tool</h2>
+          <div class="preview-info">
+            <div>
+              <h4>ROLE</h4>
+              <p><strong>Product Designer</strong> for an internal AI image tool used across marketing &amp; product</p>
+            </div>
+            <div>
+              <h4>IMPACT</h4>
+              <ul>
+                <li><span class="ico">⚡</span><strong>Cut production time</strong> by 70% on visual assets</li>
+                <li><span class="ico">🎨</span><strong>Preserved brand</strong> across AI-generated output</li>
+                <li><span class="ico">🧩</span><strong>Shipped prompt library</strong> adopted by 4 teams</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview" data-preview="icons">
+        <div class="preview-bg" style="background:
+          radial-gradient(circle at 30% 30%, rgba(47,104,183,0.8), transparent 55%),
+          radial-gradient(circle at 70% 70%, rgba(244,241,234,0.2), transparent 55%),
+          linear-gradient(135deg, #0f1420 0%, #26304a 100%);"></div>
+        <div class="preview-scrim"></div>
+        <div class="preview-content">
+          <h2 class="preview-title">Scalable Icon System</h2>
+          <div class="preview-info">
+            <div>
+              <h4>ROLE</h4>
+              <p><strong>Design Systems Lead</strong> on a unified iconography library across platforms</p>
+            </div>
+            <div>
+              <h4>IMPACT</h4>
+              <ul>
+                <li><span class="ico">🧱</span><strong>Unified 400+ icons</strong> into a single token system</li>
+                <li><span class="ico">🚀</span><strong>Cut handoff time</strong> for new features by 40%</li>
+                <li><span class="ico">🪞</span><strong>Consistent brand</strong> across web, mobile &amp; docs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===== Case Study: Cluster Report Insights ===== -->
+  <div class="case-study" id="case-cluster" aria-hidden="true">
+    <button class="case-close" id="case-close" aria-label="Close case study">×</button>
+    <div class="case-study-inner">
+
+      <section class="cs-header">
+        <h1 class="cs-title">Cluster Report Insights.</h1>
+        <p class="cs-subtitle">Product Designer @Hats &amp; Ladders</p>
+
+        <div class="cs-facts">
+          <div>
+            <h4>Timeline</h4>
+            <p>4 months</p>
+          </div>
+          <div>
+            <h4>Role</h4>
+            <ul>
+              <li>AI Strategy</li>
+              <li>UX / UI Design</li>
+              <li>Data Visualization</li>
+              <li>User Testing</li>
+            </ul>
+          </div>
+          <div>
+            <h4>With</h4>
+            <ul>
+              <li>Product Manager</li>
+              <li>Engineering Team</li>
+              <li>Data Scientist</li>
+              <li>Learning Designers</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Team</h4>
+            <p>AI Platform Team</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="cs-hero-image">Header image placeholder</div>
+
+      <section class="cs-impact">
+        <div class="cs-impact-sub">Impact</div>
+        <h2 class="cs-impact-heading">What we achieved in 2026 Q1</h2>
+        <div class="cs-impact-grid">
+          <div>
+            <div class="cs-stat-num">10+</div>
+            <p class="cs-stat-desc">new school district contracts by enabling more flexible, classroom-ready delivery.</p>
+          </div>
+          <div>
+            <div class="cs-stat-num">Tier 2</div>
+            <p class="cs-stat-desc">verified, expanding the addressable learner base from 300K workforce-focused Climbers to over 30M students across grades 6–12.</p>
+          </div>
+          <div>
+            <div class="cs-stat-num">5+</div>
+            <p class="cs-stat-desc">new industry partnerships with instructional leaders including IBM SkillsBuild, the NFL, and AT&amp;T.</p>
+          </div>
+          <div>
+            <div class="cs-stat-num">3×</div>
+            <p class="cs-stat-desc">students leave their first session with a strong sense of direction—shifting from exploration to decision.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-contribution">
+        <div class="cs-impact-sub">My Contribution</div>
+        <h2 class="cs-impact-heading">How I shaped the experience</h2>
+        <p class="cs-contribution-body">
+          I designed and shipped a middle school platform experience that balances student engagement with educator control—turning structured curriculum into something students actually want to use. My core contribution was building the system that connects it all: aligning progression logic, content frameworks, and UI patterns into a scalable experience. This enabled personalized learning for students while giving educators meaningful visibility—shifting the platform from a static tool into an engaging, guided learning environment.
+        </p>
+      </section>
+
+      <!-- OVERVIEW -->
+      <section id="Overview" class="cs-detail">
+        <p class="cs-lead">What are the design and business goals?</p>
+        <h2 class="cs-headline">Why career education needed to feel more alive</h2>
+        <p class="cs-body">
+          Middle school is the core opportunity as we upgrade our MVP product with new features and "magic moments" to nail product market fit. We need to acquire new industry partners and grow sales funnel with school districts. We also found most competitors focus on tracking something to finish—tracking hours, scheduling, and video resources—few effectively capture or validate what students actually learn.
+        </p>
+        <div class="cs-images layout-2-col">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 420px;">Image placeholder</div>
+            <div class="cs-image-caption">Student dashboard — overview</div>
+          </div>
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 420px;">Image placeholder</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESIGN GOALS -->
+      <section id="solution" class="cs-section">
+        <div class="cs-impact-sub">Solution</div>
+        <h2 class="cs-impact-heading">A progressive journey through clusters, pathways, and Hats</h2>
+        <div class="cs-section-body">
+          <p>The final experience centers on discovering career "Hats" across 16 clusters through engaging, easy-to-digest activities. Learners begin with broad exploration, progress into clusters and related pathways, and then unlock more specific career content based on their activity history.</p>
+          <p>The product combines gamified moments like "Your Work Personality," "Unlock Hat Packs," and scenario-based activities with instructor-led lessons. This allows educators to run structured classroom workshops while still giving students a personalized sense of discovery.</p>
+        </div>
+        <div class="cs-images layout-stacked">
+          <div class="cs-image"><div class="cs-image-box" style="height: 640px;">Image placeholder</div></div>
+          <div class="cs-image"><div class="cs-image-box" style="height: 640px;">Image placeholder</div></div>
+          <div class="cs-image"><div class="cs-image-box" style="height: 640px;">Image placeholder</div></div>
+        </div>
+      </section>
+
+      <!-- RESEARCH -->
+      <section id="research" class="cs-section">
+        <div class="cs-impact-sub">Research</div>
+        <h2 class="cs-impact-heading">Learning from district buyers, current users, and early demos</h2>
+        <div class="cs-section-body">
+          <p>I partnered closely with the sales team to synthesize prior research and uncover deeper industry insights from their conversations with school and district purchasers. We also ran four collaborative workshops with current users from the New York City Department of Youth and Community Development to validate the feature direction.</p>
+          <p>To make feedback concrete, I created feature demos for prospective district administrators. Their reactions helped us iterate toward stronger product-market alignment and clarify which parts of the experience needed to support classroom delivery, buyer confidence, and student motivation at the same time.</p>
+        </div>
+        <div class="cs-images layout-single">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 640px;">Image placeholder</div>
+            <div class="cs-image-caption">Research synthesis and feature validation with district-facing stakeholders.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSIGHTS -->
+      <section id="insights" class="cs-section">
+        <div class="cs-impact-sub">Building While Learning</div>
+        <h2 class="cs-impact-heading">The product needed modularity, feedback, guidance, and multiple ways to learn</h2>
+        <div class="cs-section-body">
+          <p>Multiple rounds of early testing and product discovery helped us identify the "aha" moments that spark curiosity about new careers. The strongest moments came when learners could connect broad cluster exploration to a specific career Hat and see evidence that their actions were shaping a more personal path.</p>
+          <ul>
+            <li>Learning activities should be modular and digestible so coaches, administrators, and students can adapt pacing to different instructional needs.</li>
+            <li>The feedback system should help users move from Career Cluster learning toward a more specific Career Hat.</li>
+            <li>Navigation should reinforce the gamified experience with timely prompts that guide learners to the next useful activity.</li>
+            <li>The interface should support multiple learning modalities to deepen understanding and retention.</li>
+          </ul>
+        </div>
+        <div class="cs-images layout-4-col">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 220px;">Image placeholder</div>
+            <div class="cs-image-caption">Modular activities</div>
+          </div>
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 220px;">Image placeholder</div>
+            <div class="cs-image-caption">Personalized feedback loop</div>
+          </div>
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 220px;">Image placeholder</div>
+            <div class="cs-image-caption">Guided navigation</div>
+          </div>
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 220px;">Image placeholder</div>
+            <div class="cs-image-caption">Multimodal content strategy</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GAME MECHANISM -->
+      <section id="game-mechanism" class="cs-section">
+        <div class="cs-impact-sub">Game Mechanism</div>
+        <h2 class="cs-impact-heading">Reveal content gradually so exploration becomes direction</h2>
+        <div class="cs-section-body">
+          <p>The experience is designed as a progressive journey where students unlock career content and role-based experiences through exploration and interaction. Instead of exposing everything at once, content is revealed based on engagement and evolving interests.</p>
+          <p>The core loop turns student actions into momentum: complete one Cluster Quiz to unlock two new Clusters, complete a Pathway Quiz to unlock advanced Tier 2 clusters, and give ratings to unlock more personalized recommendations.</p>
+        </div>
+        <div class="cs-images layout-single">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 900px;">Image placeholder</div>
+            <div class="cs-image-caption">Game flow for unlocking clusters, pathways, and personalized recommendations.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEVELOPMENT -->
+      <section id="development" class="cs-section">
+        <div class="cs-impact-sub">Development</div>
+        <h2 class="cs-impact-heading">Designing through agile delivery from Sprint 28 to Sprint 40</h2>
+        <div class="cs-section-body">
+          <p>During development, we worked in agile mode from Sprint 28 through Sprint 40. The team set up CMS structures for cross-product features and launched the main Cluster Exploration experience in the app.</p>
+          <p>Because the experience was being designed and built in parallel, we used each sprint to validate specific design questions. The biggest iteration areas were dashboard navigation, the Hat page, and the Profile page.</p>
+        </div>
+        <div class="cs-images layout-single">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 760px;">Image placeholder</div>
+            <div class="cs-image-caption">Dashboard navigation iteration.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD ITERATION -->
+      <section id="dashboard-iteration" class="cs-section">
+        <div class="cs-impact-sub">Design Challenge 01</div>
+        <h2 class="cs-impact-heading">Make the dashboard more goal-directed</h2>
+        <div class="cs-section-body">
+          <p>Feedback from school purchasers showed that learners and coaches needed clearer structure and more actionable next steps. Entry points to main learning pages were getting lost in the interface, and the greeting widget pulled focus away from key actions.</p>
+          <p>I reduced the screen space dedicated to the greeting, merged navigation with the primary next action, and introduced background visuals that reinforced the climbing metaphor. The dashboard became more useful as a launch point for students and a clearer instruction surface for coaches.</p>
+        </div>
+        <div class="cs-images layout-single">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 760px;">Image placeholder</div>
+            <div class="cs-image-caption">Dashboard navigation moved toward clearer entry points and next actions.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HAT PAGE ITERATION -->
+      <section id="hat-page-iteration" class="cs-section">
+        <div class="cs-impact-sub">Design Challenge 02</div>
+        <h2 class="cs-impact-heading">Reduce scrolling and make Hat content easier to explore</h2>
+        <div class="cs-section-body">
+          <p>The Hat page needed to make modular assignment faster and more intuitive for coaches while keeping the student experience playful. A long scrolling page buried key information, and early layouts made it hard to scale activity types.</p>
+          <p>We shifted to a flipped-card interaction that made information more interactive and easier to scan. The back of the "Player Card" introduced stats, ratings, and labels, giving career content a more game-like credibility while preserving space for larger activity moments.</p>
+        </div>
+        <div class="cs-images layout-stacked">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 760px;">Image placeholder</div>
+            <div class="cs-image-caption">Hat page iteration from long scrolling content to a more interactive card model.</div>
+          </div>
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 760px;">Image placeholder</div>
+            <div class="cs-image-caption">Process exploration for Hat activity layout and scalable navigation.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROFILE ITERATION -->
+      <section id="profile-iteration" class="cs-section">
+        <div class="cs-impact-sub">Design Challenge 03</div>
+        <h2 class="cs-impact-heading">Turn Profile into a living record of progress</h2>
+        <div class="cs-section-body">
+          <p>Profile needed to become the student's home base: a place where activities, challenges, and reflections turned into visible progress. Early versions felt fun, but scattered sections made it hard for students to understand what information they had earned or why it mattered.</p>
+          <p>I moved the profile panel into a stronger central position, grouped information more clearly, and highlighted recent badges to make progress feel visible and rewarding. The goal was to help students connect dream interests to actual high school choices, classes, and extracurriculars.</p>
+        </div>
+        <div class="cs-images layout-single">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 760px;">Image placeholder</div>
+            <div class="cs-image-caption">Profile page iteration for stronger identity, grouping, and visible rewards.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LAUNCH -->
+      <section id="launch" class="cs-section">
+        <div class="cs-impact-sub">Launch</div>
+        <h2 class="cs-impact-heading">Middle School product launched with NEISD students</h2>
+        <div class="cs-section-body">
+          <p>The Middle School product launched in January with North East ISD students. The launch validated the direction of a more modular, classroom-ready, and student-centered career learning experience.</p>
+          <p>My main takeaway was that career learning becomes more powerful when the system does not simply ask students to complete content, but helps them recognize themselves inside the content. The design work was about creating that bridge: from district requirements to coach facilitation, from clusters to Hats, and from playful exploration to a clearer next step.</p>
+        </div>
+        <div class="cs-images layout-single">
+          <div class="cs-image">
+            <div class="cs-image-box" style="height: 760px;">Image placeholder</div>
+            <div class="cs-image-caption">Launch moment for the Middle School career learning product.</div>
+          </div>
+        </div>
+      </section>
+
     </div>
+  </div>
 
-    <div class="home-intro" id="home-intro">
-      <div class="intro-label">Info</div>
-      <div class="intro-text-block">
-        <div class="intro-line">
-          <span class="word">5 </span><span class="word">YOE </span><span class="word">PRODUCT </span><span class="word">DESIGNER </span><span class="word">BASED </span><span class="word">IN </span><span class="word">SEATTLE.</span>
-        </div>
-        <div class="intro-line">
-          <span class="word">FROM </span><span class="word">CONCEPT </span><span class="word">TO </span><span class="word">EXECUTION,</span>
-        </div>
-        <div class="intro-line accent">
-          <span class="word">DESIGN, </span><span class="word">EXPERIMENT, </span><span class="word">SHIP</span>
-        </div>
-        <div class="intro-line dim">
-          <span class="word">[EDTECH, </span><span class="word">HEALTHCARE, </span><span class="word">CYBERSECURITY]</span>
-        </div>
-      </div>
+  <footer class="footer">
+    <div>Designed in Figma, built with Claude, debugged with an AI-powered rubber duck.</div>
+    <div class="socials">
+      <a href="mailto:mengzheye@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </a>
+      <a href="#" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11.02 5 2.5 2.5 0 01-.02-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.1c.5-1 1.9-2 3.9-2 4.2 0 5 2.7 5 6.3V21h-4v-5.3c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4V9z"/></svg>
+      </a>
+      <a href="https://github.com/mengzheye" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg>
+      </a>
     </div>
-  </div>
-
-  <!-- AI Page -->
-  <div class="page page-ai" id="page-ai">
-    <div class="cards-grid">
-      <!-- Card 1: Cluster Report Insights -->
-      <div class="card">
-        <div class="card-thumbnail" style="background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 24px;">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
-              <div style="width: 32px; height: 20px; background: #1a5fb4; border-radius: 3px;"></div>
-              <div style="width: 32px; height: 32px; background: #2272d4; border-radius: 3px;"></div>
-              <div style="width: 32px; height: 26px; background: #1a5fb4; border-radius: 3px;"></div>
-              <div style="width: 32px; height: 28px; background: #e8a817; border-radius: 3px;"></div>
-              <div style="width: 32px; height: 16px; background: #f0c020; border-radius: 3px;"></div>
-              <div style="width: 32px; height: 36px; background: #e8a817; border-radius: 3px;"></div>
-            </div>
-            <div style="width: 100%; height: 1px; background: #333;"></div>
-            <div style="font-family: Inter; font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase;">Cluster Insights</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Figma Make Cluster Report Insights</span></div>
-          <p class="card-desc">Designed and launched a cluster-level reporting system that translates complex learner data into actionable insights for educators. Defined product direction, structured data visualization patterns, and partnered closely with engineering.</p>
-          <div class="card-meta">Hats &amp; Ladders<span>&middot;</span>2025</div>
-        </div>
-      </div>
-
-      <!-- Card 2: AI Image Generation -->
-      <div class="card">
-        <div class="card-thumbnail" style="background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%); display: flex; align-items: center; justify-content: center; padding: 24px;">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
-            <div style="position: relative; width: 80px; height: 80px;">
-              <div style="width: 80px; height: 80px; border: 2px solid #333; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#e8a817" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-              </div>
-              <div style="position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; background: #e8a817; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <span style="font-family: Inter; font-size: 9px; font-weight: 700; color: #0f0f0f;">AI</span>
-              </div>
-            </div>
-            <div style="font-family: Inter; font-size: 10px; color: #555; letter-spacing: 2px; text-transform: uppercase;">Generate</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Scalable AI Image Generation Tool</span></div>
-          <p class="card-desc">Built an AI-powered image generation system to support large-scale curriculum and product needs. Established prompt frameworks, standardized output quality, and enabled cross-team adoption.</p>
-          <div class="card-meta">Hats &amp; Ladders<span>&middot;</span>2025</div>
-        </div>
-      </div>
-
-      <!-- Card 3: Scalable Icon System -->
-      <div class="card">
-        <div class="card-thumbnail" style="background: #f5f0e8; display: flex; align-items: center; justify-content: center; padding: 24px;">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1a1a1a" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </div>
-            <div style="font-family: Inter; font-size: 10px; color: #999; letter-spacing: 2px; text-transform: uppercase;">Icon System</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Scalable Icon System</span></div>
-          <p class="card-desc">Created a unified icon system to improve visual consistency and scalability across the platform. Developed guidelines, streamlined asset production, and aligned design and engineering.</p>
-          <div class="card-meta">Hats &amp; Ladders<span>&middot;</span>2025</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WORK Page -->
-  <div class="page page-work" id="page-work">
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-thumbnail" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
-          <div style="font-family: Inter; font-size: 32px; font-weight: 800; color: white; letter-spacing: 2px; text-align: center;">BRAND<br>SYSTEM</div>
-        </div>
-        <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Visual identity system</span></div>
-          <p class="card-desc">Created a comprehensive brand identity system including typography, color palette, iconography, and component library for a design studio.</p>
-          <div class="card-meta">Branding<span>&middot;</span>2024</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-thumbnail" style="background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 24px;">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
-              <div style="width: 28px; height: 28px; background: #e84a30; border-radius: 4px;"></div>
-              <div style="width: 28px; height: 28px; background: #1a5fb4; border-radius: 4px;"></div>
-              <div style="width: 28px; height: 28px; background: #e8a817; border-radius: 4px;"></div>
-              <div style="width: 28px; height: 28px; background: #1a8a3f; border-radius: 4px;"></div>
-              <div style="width: 28px; height: 28px; background: #7c3aed; border-radius: 4px;"></div>
-              <div style="width: 28px; height: 28px; background: #f472b6; border-radius: 4px;"></div>
-            </div>
-            <div style="font-family: Inter; font-size: 11px; color: #888; letter-spacing: 2px; text-transform: uppercase;">Palette</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Design system tokens</span><span class="card-badge">Shipped &#8599;</span></div>
-          <p class="card-desc">Built and maintained a scalable design token system powering consistent UI across web and mobile platforms for a fintech product.</p>
-          <div class="card-meta">Systems<span>&middot;</span>2024</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-thumbnail" style="background: #f5f0e8; display: flex; align-items: center; justify-content: center; padding: 20px;">
-          <div style="background: white; border-radius: 12px; padding: 16px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-            <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-              <div style="width: 32px; height: 32px; background: #e8e2d6; border-radius: 50%;"></div>
-              <div style="flex: 1;">
-                <div style="height: 8px; background: #e8e2d6; border-radius: 4px; width: 60%; margin-bottom: 4px;"></div>
-                <div style="height: 6px; background: #f0ece4; border-radius: 4px; width: 40%;"></div>
-              </div>
-            </div>
-            <div style="height: 6px; background: #f0ece4; border-radius: 4px; width: 100%; margin-bottom: 6px;"></div>
-            <div style="height: 6px; background: #f0ece4; border-radius: 4px; width: 80%; margin-bottom: 6px;"></div>
-            <div style="height: 6px; background: #f0ece4; border-radius: 4px; width: 90%;"></div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-title-row"><span class="card-title">Social platform redesign</span><span class="card-badge">Shipped &#8599;</span></div>
-          <p class="card-desc">Led the end-to-end redesign of a social platform's feed experience, improving engagement metrics and content readability.</p>
-          <div class="card-meta">Product<span>&middot;</span>2023</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    &copy; 2026 Mengzhe Ye<br>
-    All rights reserved
-  </div>
+  </footer>
 
   <script>
-    const colors = ['#1a5fb4', '#e8a817', '#d93425', '#1a8a3f', '#2272d4', '#f0c020', '#e84a30', '#28a850'];
+    const cards = document.querySelectorAll('.card');
+    const hero = document.getElementById('hero');
+    const previews = document.querySelectorAll('.preview');
 
-    const strokeStates = {
-      home: {
-        blue1: "M-80,920 C100,850 300,760 500,670 C700,580 900,520 1100,460 C1300,400 1500,350 1700,300 C1820,260 1960,220 2050,190",
-        blue2: "M-80,928 C100,858 300,768 500,678 C700,588 900,528 1100,468 C1300,408 1500,358 1700,308 C1820,268 1960,228 2050,198",
-        yellow1: "M-100,700 C100,660 300,620 500,570 C700,520 900,480 1100,440 C1300,400 1500,380 1700,360 C1820,350 1960,330 2050,320",
-        yellow2: "M-100,708 C100,668 300,628 500,578 C700,528 900,488 1100,448 C1300,408 1500,388 1700,368 C1820,358 1960,338 2050,328",
-        blueOpacity: 0.92, blue2Opacity: 0.45, yellowOpacity: 0.93, yellow2Opacity: 0.4
-      },
-      ai: {
-        blue1: "M1540,-120 C1545,50 1550,220 1545,400 C1540,580 1538,760 1540,940 C1542,1020 1544,1100 1546,1200",
-        blue2: "M1548,-120 C1553,50 1558,220 1553,400 C1548,580 1546,760 1548,940 C1550,1020 1552,1100 1554,1200",
-        yellow1: "M640,-120 C645,50 650,220 645,400 C640,580 638,760 640,940 C642,1020 644,1100 646,1200",
-        yellow2: "M648,-120 C653,50 658,220 653,400 C648,580 646,760 648,940 C650,1020 652,1100 654,1200",
-        blueOpacity: 0.25, blue2Opacity: 0.12, yellowOpacity: 0.25, yellow2Opacity: 0.12
-      },
-      work: {
-        blue1: "M1540,-120 C1545,50 1550,220 1545,400 C1540,580 1538,760 1540,940 C1542,1020 1544,1100 1546,1200",
-        blue2: "M1548,-120 C1553,50 1558,220 1553,400 C1548,580 1546,760 1548,940 C1550,1020 1552,1100 1554,1200",
-        yellow1: "M640,-120 C645,50 650,220 645,400 C640,580 638,760 640,940 C642,1020 644,1100 646,1200",
-        yellow2: "M648,-120 C653,50 658,220 653,400 C648,580 646,760 648,940 C650,1020 652,1100 654,1200",
-        blueOpacity: 0.25, blue2Opacity: 0.12, yellowOpacity: 0.25, yellow2Opacity: 0.12
-      }
-    };
-
-    const ANIM_DURATION = 900;
-
-    function animateStrokes(page) {
-      const state = strokeStates[page] || strokeStates.home;
-      const ids = ['blue1', 'blue2', 'yellow1', 'yellow2'];
-      const opacityKeys = ['blueOpacity', 'blue2Opacity', 'yellowOpacity', 'yellow2Opacity'];
-
-      ids.forEach((id, i) => {
-        const el = document.getElementById(id);
-        const currentD = el.getAttribute('d');
-        const targetD = state[id];
-        const targetOpacity = state[opacityKeys[i]];
-        const currentOpacity = parseFloat(el.style.opacity || el.getAttribute('opacity') || 1);
-
-        try {
-          el.animate(
-            [
-              { d: 'path("' + currentD + '")', opacity: currentOpacity },
-              { d: 'path("' + targetD + '")', opacity: targetOpacity }
-            ],
-            { duration: ANIM_DURATION, easing: 'cubic-bezier(0.4, 0, 0.15, 1)', fill: 'forwards' }
-          );
-        } catch (e) {
-          animatePathFallback(el, currentD, targetD, currentOpacity, targetOpacity);
-        }
-
-        setTimeout(() => {
-          el.setAttribute('d', targetD);
-          el.style.opacity = targetOpacity;
-        }, ANIM_DURATION);
+    function show(projectId) {
+      hero.classList.add('hidden');
+      previews.forEach(p => {
+        p.classList.toggle('active', p.dataset.preview === projectId);
       });
     }
-
-    function animatePathFallback(el, fromD, toD, fromOpacity, toOpacity) {
-      const fromPts = parsePathNumbers(fromD);
-      const toPts = parsePathNumbers(toD);
-      const fromTemplate = fromD.replace(/-?[\d.]+/g, '{}');
-      const start = performance.now();
-
-      function tick(now) {
-        let t = Math.min((now - start) / ANIM_DURATION, 1);
-        t = 1 - Math.pow(1 - t, 3);
-
-        if (fromPts.length === toPts.length) {
-          const interpPts = fromPts.map((v, i) => v + (toPts[i] - v) * t);
-          let idx = 0;
-          el.setAttribute('d', fromTemplate.replace(/\{\}/g, () => interpPts[idx++].toFixed(1)));
-        }
-        el.style.opacity = fromOpacity + (toOpacity - fromOpacity) * t;
-        if (t < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
+    function reset() {
+      hero.classList.remove('hidden');
+      previews.forEach(p => p.classList.remove('active'));
     }
 
-    function parsePathNumbers(d) {
-      return (d.match(/-?[\d.]+/g) || []).map(Number);
-    }
-
-    function switchPage(pageName) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      const target = document.getElementById('page-' + pageName);
-
-      // "About" scrolls home page to intro section
-      if (pageName === 'about') {
-        const homePage = document.getElementById('page-home');
-        homePage.classList.add('active');
-        setTimeout(() => {
-          homePage.scrollTo({ top: homePage.querySelector('.home-intro').offsetTop, behavior: 'smooth' });
-        }, 100);
-        animateStrokes('home');
-        return;
-      }
-
-      if (target) setTimeout(() => target.classList.add('active'), 50);
-
-      // Reset home scroll when leaving
-      if (pageName !== 'home') {
-        document.getElementById('page-home').scrollTop = 0;
-      }
-
-      animateStrokes(pageName);
-    }
-
-    // Nav click handler
-    document.querySelectorAll('.nav li').forEach(li => {
-      li.addEventListener('click', (e) => {
-        document.querySelector('.nav li.active')?.classList.remove('active');
-        li.classList.add('active');
-
-        const pageName = li.getAttribute('data-page');
-        switchPage(pageName);
-
-        // Burst particles
-        const dot = li.querySelector('.dot');
-        const rect = dot.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-
-        for (let i = 0; i < 8; i++) {
-          const particle = document.createElement('div');
-          particle.classList.add('burst-dot');
-          const angle = (i / 8) * Math.PI * 2;
-          const dist = 22 + Math.random() * 14;
-          particle.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
-          particle.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
-          particle.style.left = cx + 'px';
-          particle.style.top = cy + 'px';
-          particle.style.background = colors[i % colors.length];
-          document.body.appendChild(particle);
-          particle.addEventListener('animationend', () => particle.remove());
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => show(card.dataset.project));
+      card.addEventListener('mouseleave', reset);
+      card.addEventListener('focus', () => show(card.dataset.project));
+      card.addEventListener('blur', reset);
+      card.addEventListener('click', () => {
+        const id = card.dataset.project;
+        const cs = document.getElementById('case-' + id);
+        if (cs) {
+          cs.classList.add('open');
+          cs.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
         }
       });
     });
 
-    // ===== HOME SCROLL: intro word reveal + UI color transition =====
-    const homePage = document.getElementById('page-home');
-    const introSection = document.getElementById('home-intro');
-    const allWords = introSection.querySelectorAll('.word');
-    const totalWords = allWords.length;
-    const brushContainer = document.querySelector('.brush-container');
-
-    homePage.addEventListener('scroll', () => {
-      const scrollTop = homePage.scrollTop;
-      const viewH = homePage.clientHeight;
-      const introTop = introSection.offsetTop;
-
-      // How far into the intro section (0 = just entered, 1 = fully scrolled)
-      const introProgress = Math.max(0, Math.min((scrollTop - introTop + viewH) / (introSection.offsetHeight), 1));
-      // How far past the cover (0 = at top, 1 = cover fully scrolled away)
-      const coverExit = Math.max(0, Math.min(scrollTop / viewH, 1));
-
-      // Fade brush strokes out as we enter intro
-      const strokeFade = Math.max(0, 1 - coverExit * 2);
-      brushContainer.style.opacity = strokeFade;
-
-      // Toggle dark UI when past ~60% of cover
-      if (coverExit > 0.6) {
-        document.body.classList.add('dark-ui');
-      } else {
-        document.body.classList.remove('dark-ui');
-      }
-
-      // Word reveal based on scroll through intro section
-      const introScrollStart = introTop;
-      const introScrollEnd = introTop + introSection.offsetHeight - viewH;
-      const wordProgress = Math.max(0, Math.min((scrollTop - introScrollStart) / (introScrollEnd - introScrollStart), 1));
-
-      const wordsToReveal = Math.floor(wordProgress * totalWords);
-      allWords.forEach((word, i) => {
-        if (i < wordsToReveal) {
-          word.classList.add('revealed');
-        } else {
-          word.classList.remove('revealed');
-        }
+    document.getElementById('case-close').addEventListener('click', () => {
+      document.querySelectorAll('.case-study.open').forEach(cs => {
+        cs.classList.remove('open');
+        cs.setAttribute('aria-hidden', 'true');
+        cs.scrollTop = 0;
       });
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.case-study.open').forEach(cs => {
+          cs.classList.remove('open');
+          cs.setAttribute('aria-hidden', 'true');
+          cs.scrollTop = 0;
+        });
+      }
     });
   </script>
-
 </body>
 </html>

@@ -5,7 +5,29 @@
       "mcp__mcp-registry__search_mcp_registry",
       "Bash(gh auth:*)",
       "Bash(brew install:*)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Read(//Users/mengzheye/.claude/**)",
+      "Bash(cp -r \"/Users/mengzheye/Documents/GitHub New/architecture-diagram-generator/architecture-diagram\" ~/.claude/skills/)",
+      "Read(//Users/mengzheye/.claude/skills/**)",
+      "Bash(mkdir -p ~/.claude/skills)",
+      "Bash(claude mcp *)",
+      "Read(//Applications/Google Chrome.app/Contents/MacOS/**)",
+      "Read(//Applications/**)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --hide-scrollbars --window-size=1200,1800 --screenshot=\"$\\(pwd\\)/_bg.png\" \"file://$\\(pwd\\)/_bg_render.html\")",
+      "Bash(sips -s format jpeg -s formatOptions 85 _bg.png --out background.jpg)",
+      "Bash(sed -i '' '276,367d' badge-page.html)",
+      "Bash(sed -n '270,285p' badge-page.html)",
+      "Bash(gh repo *)",
+      "WebFetch(domain:github.com)",
+      "Read(//private/tmp/**)",
+      "Bash(unzip -o \"/Users/mengzheye/Downloads/Written Case Study Required Format.docx\" -d format_docx)",
+      "Bash(textutil -convert txt -output /tmp/wallace_sample.txt \"/Users/mengzheye/Downloads/Wallace Group case study analysis sample.doc\")",
+      "Read(//tmp/**)",
+      "Bash(python3 -c \"import docx; print\\(docx.__version__\\)\")",
+      "Bash(pip3 install *)",
+      "Bash(python3 /tmp/make_lime_doc.py)",
+      "WebFetch(domain:www.mengzhe.design)",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.mengzhe.design/works/career-learning-app\" -o /tmp/mengzhe-case.html)"
     ]
   }
 }
