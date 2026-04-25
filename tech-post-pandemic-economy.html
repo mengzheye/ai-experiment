@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Technology &amp; the Post-Pandemic Economy</title>
+
+<!-- Swiss Modern: Archivo (display) + Nunito (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* === THEME TOKENS — Swiss Modern === */
+:root {
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --muted: #6b6b6b;
+    --rule: #1a1a1a;
+    --accent: #ff3300;
+    --grid: rgba(10,10,10,0.06);
+
+    --font-display: 'Archivo', 'Helvetica Neue', sans-serif;
+    --font-body: 'Nunito', 'Helvetica Neue', sans-serif;
+
+    --title-size: clamp(2rem, 7vw, 6rem);
+    --h2-size: clamp(1.4rem, 4vw, 3rem);
+    --h3-size: clamp(1rem, 2.2vw, 1.5rem);
+    --body-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    --small-size: clamp(0.65rem, 0.9vw, 0.8rem);
+
+    --slide-padding: clamp(1.5rem, 5vw, 5rem);
+    --content-gap: clamp(0.75rem, 2vw, 2rem);
+    --element-gap: clamp(0.4rem, 1vw, 1rem);
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur: 0.7s;
+}
+
+/* === RESET === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* === VIEWPORT BASE (mandatory) === */
+html, body { height: 100%; overflow-x: hidden; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--bg);
+    font-size: var(--body-size);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--bg);
+}
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    padding: var(--slide-padding);
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-height: 700px) {
+    :root { --slide-padding: clamp(1rem, 3vw, 2.5rem); --content-gap: clamp(0.5rem, 1.5vw, 1rem); --title-size: clamp(1.5rem, 5vw, 3rem); --h2-size: clamp(1.1rem, 3vw, 2rem); }
+}
+@media (max-height: 600px) {
+    :root { --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem); --title-size: clamp(1.25rem, 4vw, 2.25rem); --h2-size: clamp(1rem, 2.5vw, 1.5rem); --body-size: clamp(0.75rem, 1.1vw, 0.95rem); }
+    .nav-dots, .keyboard-hint, .decorative { display: none; }
+}
+@media (max-height: 500px) {
+    :root { --slide-padding: clamp(0.5rem, 2vw, 1rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --body-size: clamp(0.65rem, 1vw, 0.85rem); }
+}
+@media (max-width: 600px) {
+    :root { --title-size: clamp(1.5rem, 9vw, 3rem); }
+    .grid-2, .grid-4 { grid-template-columns: 1fr !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+    html { scroll-behavior: auto; }
+}
+
+/* === SWISS GRID BACKDROP === */
+.grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: clamp(40px, 6vw, 80px) clamp(40px, 6vw, 80px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* === SLIDE NUMBER + META === */
+.slide-meta {
+    position: absolute;
+    top: var(--slide-padding);
+    left: var(--slide-padding);
+    right: var(--slide-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--small-size);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 3;
+}
+.slide-meta .num { color: var(--accent); font-weight: 700; }
+.slide-meta .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--ink);
+    margin: 0 1.5rem;
+    opacity: 0.4;
+}
+
+/* === TYPOGRAPHY === */
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+}
+h1 { font-size: var(--title-size); }
+h2 { font-size: var(--h2-size); margin-bottom: var(--content-gap); }
+h3 { font-size: var(--h3-size); font-weight: 700; }
+p { font-size: var(--body-size); color: var(--ink); }
+.kicker {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--small-size);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--element-gap);
+}
+
+/* === REVEAL ANIMATIONS === */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
+.slide.visible .reveal:nth-child(2) { transition-delay: 0.15s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: 0.25s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: 0.35s; }
+.slide.visible .reveal:nth-child(5) { transition-delay: 0.45s; }
+.slide.visible .reveal:nth-child(6) { transition-delay: 0.55s; }
+.slide.visible .reveal:nth-child(7) { transition-delay: 0.65s; }
+
+/* === TITLE SLIDE === */
+.title-slide .slide-content {
+    justify-content: flex-end;
+    padding-bottom: clamp(3rem, 8vh, 6rem);
+}
+.title-slide h1 {
+    font-size: clamp(2.5rem, 9vw, 8rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+}
+.title-slide h1 .accent { color: var(--accent); }
+.title-slide .subtitle {
+    margin-top: var(--content-gap);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    max-width: 60ch;
+}
+.title-corner {
+    position: absolute;
+    top: var(--slide-padding);
+    right: var(--slide-padding);
+    width: clamp(60px, 10vw, 140px);
+    height: clamp(60px, 10vw, 140px);
+    background: var(--accent);
+    z-index: 2;
+}
+.title-marker {
+    position: absolute;
+    top: var(--slide-padding);
+    left: var(--slide-padding);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--small-size);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    z-index: 2;
+}
+.title-marker::before {
+    content: "";
+    display: inline-block;
+    width: clamp(20px, 3vw, 40px);
+    height: 2px;
+    background: var(--ink);
+    vertical-align: middle;
+    margin-right: 0.75rem;
+}
+
+/* === BULLET LIST === */
+.bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.6rem, 1.5vh, 1.25rem);
+    max-width: 50ch;
+}
+.bullets li {
+    font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+    font-weight: 400;
+    color: var(--ink);
+    padding-left: clamp(1.5rem, 2.5vw, 2.5rem);
+    position: relative;
+    line-height: 1.4;
+}
+.bullets li::before {
+    content: counter(bullet, decimal-leading-zero);
+    counter-increment: bullet;
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    color: var(--accent);
+    letter-spacing: 0.05em;
+}
+.bullets { counter-reset: bullet; }
+
+/* Two column layout */
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    height: 100%;
+}
+@media (max-width: 760px) {
+    .split { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* === STAT BLOCK === */
+.stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+.stat-num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(3rem, 12vw, 9rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+}
+.stat-num .unit { color: var(--accent); }
+.stat-label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--small-size);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.5rem;
+}
+
+/* === CARD GRID === */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.75rem, 2vw, 1.5rem); }
+.grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: clamp(0.5rem, 1.5vw, 1.25rem); }
+.card {
+    border: 1.5px solid var(--ink);
+    padding: clamp(0.85rem, 2vw, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.35rem, 0.8vw, 0.6rem);
+    background: var(--bg);
+    transition: transform 0.4s var(--ease);
+    min-height: 0;
+}
+.card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--accent); }
+.card-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--small-size);
+    color: var(--accent);
+    letter-spacing: 0.15em;
+}
+.card h3 {
+    font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+    line-height: 1.1;
+}
+.card p {
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+/* === HERO QUOTE / SECTION SLIDE === */
+.hero-text {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(1.8rem, 5.5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    max-width: 18ch;
+}
+.hero-text .accent { color: var(--accent); }
+
+/* === PROGRESS BAR === */
+.progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.2s linear;
+}
+
+/* === NAV DOTS === */
+.nav-dots {
+    position: fixed;
+    right: clamp(0.75rem, 2vw, 1.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 100;
+}
+.nav-dot {
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+.nav-dot.active { background: var(--accent); border-color: var(--accent); }
+
+/* === EDIT MODE === */
+.edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
+.edit-toggle {
+    position: fixed;
+    top: clamp(0.5rem, 1.5vw, 1rem);
+    left: clamp(0.5rem, 1.5vw, 1rem);
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--ink);
+    background: var(--bg);
+    cursor: pointer;
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+.edit-toggle.active { background: var(--accent); color: white; border-color: var(--accent); }
+.edit-banner {
+    position: fixed;
+    bottom: 1rem; left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: white;
+    padding: 0.6rem 1.25rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.edit-banner.active { opacity: 1; }
+body.edit-active [contenteditable="true"] {
+    outline: 1px dashed var(--accent);
+    outline-offset: 2px;
+    cursor: text;
+}
+body.edit-active [contenteditable="true"]:focus { outline: 2px solid var(--accent); }
+
+/* === KEYBOARD HINT === */
+.keyboard-hint {
+    position: fixed;
+    bottom: clamp(0.5rem, 1.5vw, 1rem);
+    right: clamp(0.5rem, 1.5vw, 1rem);
+    font-family: var(--font-display);
+    font-size: var(--small-size);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 50;
+    opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Nav dots -->
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+<!-- Edit mode UI -->
+<div class="edit-hotzone" aria-hidden="true"></div>
+<button class="edit-toggle" id="editToggle" title="Edit mode (E)" aria-label="Toggle edit mode">✎</button>
+<div class="edit-banner" id="editBanner">Edit mode — click text to edit · Ctrl+S to save</div>
+
+<!-- Keyboard hint -->
+<div class="keyboard-hint">← → · Space · Scroll</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 1 — TITLE                                -->
+<!-- ============================================ -->
+<section class="slide title-slide">
+    <div class="grid-bg"></div>
+    <div class="title-marker reveal">A Lecture in 15 Parts</div>
+    <div class="title-corner reveal" aria-hidden="true"></div>
+    <div class="slide-content">
+        <h1 class="reveal" contenteditable="false">
+            Technology<br>
+            &amp; the<br>
+            <span class="accent">Post-Pandemic</span><br>
+            Economy
+        </h1>
+        <p class="subtitle reveal" contenteditable="false">How a global shock rewired work, markets, and the way we live online</p>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 2 — OVERVIEW                             -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">01 / 15</span><span class="rule"></span><span>Overview</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">The thesis</p>
+        <h2 class="reveal" contenteditable="false">Technology &amp; the Post-Pandemic Economy</h2>
+        <ul class="bullets" contenteditable="false">
+            <li class="reveal">Accelerated digital transformation across every sector</li>
+            <li class="reveal">Remote and hybrid work normalized for knowledge workers</li>
+            <li class="reveal">E-commerce and digital services surged into mainstream use</li>
+            <li class="reveal">Automation and AI began reshaping the nature of work itself</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 3 — ECONOMIC SHOCK                       -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">02 / 15</span><span class="rule"></span><span>The Shock</span></div>
+    <div class="slide-content">
+        <div class="split">
+            <div>
+                <p class="kicker reveal">2020</p>
+                <div class="stat-block reveal">
+                    <div class="stat-num">−3.<span class="unit">1</span><span class="unit">%</span></div>
+                    <div class="stat-label">Global GDP, 2020</div>
+                </div>
+            </div>
+            <div>
+                <h2 class="reveal" contenteditable="false">Economic Shock of the Pandemic</h2>
+                <ul class="bullets" contenteditable="false">
+                    <li class="reveal">Global GDP contraction unprecedented since WWII</li>
+                    <li class="reveal">Mass business closures and layoffs across services</li>
+                    <li class="reveal">Disrupted supply and demand simultaneously</li>
+                    <li class="reveal">Emergency government intervention worldwide</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 4 — GOVERNMENT RESPONSE                  -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">03 / 15</span><span class="rule"></span><span>Policy</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">Fiscal &amp; monetary</p>
+        <h2 class="reveal" contenteditable="false">Government Response</h2>
+        <div class="grid-4" contenteditable="false">
+            <div class="card reveal">
+                <div class="card-num">01</div>
+                <h3>Stimulus &amp; Relief</h3>
+                <p>Direct payments, business loans, and rescue programs at historic scale.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">02</div>
+                <h3>Low Interest Rates</h3>
+                <p>Central banks slashed rates to keep credit flowing and prop up markets.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">03</div>
+                <h3>Unemployment Support</h3>
+                <p>Expanded benefits cushioned millions of displaced workers.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">04</div>
+                <h3>Public Spending</h3>
+                <p>Health, infrastructure, and digital services received major investment.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 5 — LABOR MARKET                         -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">04 / 15</span><span class="rule"></span><span>Labor</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">Where work went</p>
+        <h2 class="reveal" contenteditable="false">Labor Market Shifts</h2>
+        <ul class="bullets" contenteditable="false">
+            <li class="reveal">Sharp rise in remote-work job postings and acceptance</li>
+            <li class="reveal">Growth in gig and freelance work as a primary income</li>
+            <li class="reveal">Persistent labor shortages in healthcare, logistics, hospitality</li>
+            <li class="reveal">Skill demands shifted toward digital, technical, and adaptable roles</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 6 — DIGITAL ECONOMY                      -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">05 / 15</span><span class="rule"></span><span>Digital</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">Infrastructure of the new economy</p>
+        <h2 class="reveal" contenteditable="false">Rise of the Digital Economy</h2>
+        <div class="grid-4" contenteditable="false">
+            <div class="card reveal">
+                <div class="card-num">01</div>
+                <h3>Online Platforms</h3>
+                <p>Marketplaces, streaming, and SaaS became the default storefront.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">02</div>
+                <h3>Digital Payments</h3>
+                <p>Contactless and online payments leapt years ahead in adoption.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">03</div>
+                <h3>Cloud Services</h3>
+                <p>Cloud became critical infrastructure for nearly every business.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">04</div>
+                <h3>Data-Driven Decisions</h3>
+                <p>Real-time analytics moved from competitive edge to baseline expectation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 7 — SMALL BUSINESS                       -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">06 / 15</span><span class="rule"></span><span>Main Street</span></div>
+    <div class="slide-content">
+        <div class="split">
+            <div>
+                <p class="kicker reveal">The squeeze</p>
+                <div class="stat-block reveal">
+                    <div class="stat-num">1 in <span class="unit">3</span></div>
+                    <div class="stat-label">Small businesses at risk of closure (2020)</div>
+                </div>
+            </div>
+            <div>
+                <h2 class="reveal" contenteditable="false">Small Business Impact</h2>
+                <ul class="bullets" contenteditable="false">
+                    <li class="reveal">High closure rates, especially in dense urban service zones</li>
+                    <li class="reveal">Rapid shift to online operations and delivery</li>
+                    <li class="reveal">Heavier dependence on digital tools and platforms</li>
+                    <li class="reveal">Recovery uneven — by sector, geography, and ownership</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 8 — BIG TECH                             -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">07 / 15</span><span class="rule"></span><span>Concentration</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">The other side of the K</p>
+        <h2 class="reveal" contenteditable="false">Big Tech Growth</h2>
+        <ul class="bullets" contenteditable="false">
+            <li class="reveal">Market dominance expanded across cloud, ads, and devices</li>
+            <li class="reveal">User dependency deepened — work, school, social, commerce</li>
+            <li class="reveal">Innovation cycles accelerated, especially in AI and infrastructure</li>
+            <li class="reveal">Greater regulatory attention — antitrust, privacy, content</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 9 — E-COMMERCE                           -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">08 / 15</span><span class="rule"></span><span>Commerce</span></div>
+    <div class="slide-content">
+        <div class="split">
+            <div>
+                <p class="kicker reveal">Years pulled forward</p>
+                <div class="stat-block reveal">
+                    <div class="stat-num">+10<span class="unit">yr</span></div>
+                    <div class="stat-label">E-commerce adoption, accelerated</div>
+                </div>
+            </div>
+            <div>
+                <h2 class="reveal" contenteditable="false">E-commerce Boom</h2>
+                <ul class="bullets" contenteditable="false">
+                    <li class="reveal">Surge in online shopping across every category</li>
+                    <li class="reveal">Same-day and next-day delivery became table stakes</li>
+                    <li class="reveal">Massive expansion of warehousing and last-mile networks</li>
+                    <li class="reveal">Decline and reformatting of physical retail footprints</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 10 — SUPPLY CHAINS                       -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">09 / 15</span><span class="rule"></span><span>Supply</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">Globalization, stress-tested</p>
+        <h2 class="reveal" contenteditable="false">Supply Chain Disruptions</h2>
+        <ul class="bullets" contenteditable="false">
+            <li class="reveal">Global shortages and shipping delays cascaded across industries</li>
+            <li class="reveal">Costs of goods rose; inventories whipsawed between scarcity and glut</li>
+            <li class="reveal">Shift toward local sourcing, near-shoring, and friend-shoring</li>
+            <li class="reveal">Long-term investment in resilience, redundancy, and visibility</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 11 — AUTOMATION & AI                     -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">10 / 15</span><span class="rule"></span><span>Automation</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">Machines on the line</p>
+        <h2 class="reveal" contenteditable="false">Automation &amp; AI Expansion</h2>
+        <div class="grid-4" contenteditable="false">
+            <div class="card reveal">
+                <div class="card-num">01</div>
+                <h3>Workplace Automation</h3>
+                <p>Warehouses, factories, and offices adopted automation faster than planned.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">02</div>
+                <h3>Manual Labor Shifts</h3>
+                <p>Reduced reliance on routine manual tasks; more humans paired with machines.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">03</div>
+                <h3>Tech Skill Demand</h3>
+                <p>Data, software, and AI literacy moved up the hiring priority list.</p>
+            </div>
+            <div class="card reveal">
+                <div class="card-num">04</div>
+                <h3>Productivity Gains</h3>
+                <p>Output per worker rose where automation and software took root.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 12 — EDUCATION & TRAINING                -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">11 / 15</span><span class="rule"></span><span>Learning</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">Skills as a half-life</p>
+        <h2 class="reveal" contenteditable="false">Education &amp; Workforce Training</h2>
+        <ul class="bullets" contenteditable="false">
+            <li class="reveal">Mass shift to online learning, K–12 through higher ed</li>
+            <li class="reveal">Rapid growth of digital skills bootcamps and credentials</li>
+            <li class="reveal">Access gaps widened where broadband or devices were missing</li>
+            <li class="reveal">Lifelong learning emphasized as careers grow more fluid</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 13 — CONSUMER BEHAVIOR                   -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">12 / 15</span><span class="rule"></span><span>Consumers</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">A different shopper</p>
+        <h2 class="reveal" contenteditable="false">Consumer Behavior Changes</h2>
+        <ul class="bullets" contenteditable="false">
+            <li class="reveal">Strong preference for convenience and frictionless experience</li>
+            <li class="reveal">Growth in subscriptions, streaming, and on-demand services</li>
+            <li class="reveal">Increased savings during early lockdowns; later spent down</li>
+            <li class="reveal">Spending priorities shifted: home, health, hobbies, mobility</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 14 — INFLATION & RECOVERY                -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">13 / 15</span><span class="rule"></span><span>Recovery</span></div>
+    <div class="slide-content">
+        <div class="split">
+            <div>
+                <p class="kicker reveal">The aftershock</p>
+                <div class="stat-block reveal">
+                    <div class="stat-num">9.<span class="unit">1</span><span class="unit">%</span></div>
+                    <div class="stat-label">US CPI peak, June 2022</div>
+                </div>
+            </div>
+            <div>
+                <h2 class="reveal" contenteditable="false">Inflation &amp; Economic Recovery</h2>
+                <ul class="bullets" contenteditable="false">
+                    <li class="reveal">Prices rose sharply across food, energy, and housing</li>
+                    <li class="reveal">Supply-demand imbalance lingered well past lockdowns</li>
+                    <li class="reveal">Wage pressure built as labor markets tightened</li>
+                    <li class="reveal">Policy adjusted: rate hikes, tightening, fiscal pullback</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 15 — INEQUALITY                          -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">14 / 15</span><span class="rule"></span><span>Equity</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">The K-shaped recovery</p>
+        <h2 class="reveal" contenteditable="false">Inequality &amp; the Digital Divide</h2>
+        <ul class="bullets" contenteditable="false">
+            <li class="reveal">Unequal access to broadband, devices, and digital fluency</li>
+            <li class="reveal">Income inequality widened along sector and geography lines</li>
+            <li class="reveal">Education disparities deepened between connected and not</li>
+            <li class="reveal">Opportunity gaps expanded where remote work was unreachable</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 16 — FUTURE OUTLOOK                      -->
+<!-- ============================================ -->
+<section class="slide">
+    <div class="grid-bg"></div>
+    <div class="slide-meta"><span class="num">15 / 15</span><span class="rule"></span><span>Outlook</span></div>
+    <div class="slide-content">
+        <p class="kicker reveal">Looking forward</p>
+        <h1 class="hero-text reveal" contenteditable="false">
+            What endures<br>
+            is <span class="accent">how we work,</span><br>
+            learn, and trade.
+        </h1>
+        <ul class="bullets reveal" style="margin-top: var(--content-gap);" contenteditable="false">
+            <li>Continued tech integration into daily economic life</li>
+            <li>Hybrid work as a long-term equilibrium, not a phase</li>
+            <li>Innovation-driven growth, especially in AI and energy</li>
+            <li>Need for inclusive policies that close, not widen, the divide</li>
+        </ul>
+    </div>
+</section>
+
+<script>
+/* ============================================
+   SLIDE PRESENTATION CONTROLLER
+   ============================================ */
+class SlidePresentation {
+    constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.currentSlide = 0;
+        this.progressBar = document.getElementById('progressBar');
+        this.navDotsContainer = document.getElementById('navDots');
+
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupProgressBar();
+        this.setupNavDots();
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                    entry.target.classList.add('visible');
+                    this.currentSlide = this.slides.indexOf(entry.target);
+                    this.updateNavDots();
+                }
+            });
+        }, { threshold: [0.5] });
+
+        this.slides.forEach(slide => observer.observe(slide));
+    }
+
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            // Don't intercept while editing text
+            if (e.target.getAttribute('contenteditable') === 'true') return;
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+                e.preventDefault();
+                this.goTo(this.currentSlide + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                this.goTo(this.currentSlide - 1);
+            }
+        });
+    }
+
+    setupTouchNav() {
+        let startY = 0;
+        document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dy = startY - e.changedTouches[0].clientY;
+            if (Math.abs(dy) > 50) this.goTo(this.currentSlide + (dy > 0 ? 1 : -1));
+        }, { passive: true });
+    }
+
+    setupProgressBar() {
+        const update = () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+            this.progressBar.style.width = pct + '%';
+        };
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+    }
+
+    setupNavDots() {
+        // Clear before building (avoids duplicate dots if outerHTML was saved with dots present)
+        this.navDotsContainer.innerHTML = '';
+        this.slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+            dot.addEventListener('click', () => this.goTo(i));
+            this.navDotsContainer.appendChild(dot);
+        });
+    }
+
+    updateNavDots() {
+        this.navDotsContainer.querySelectorAll('.nav-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === this.currentSlide);
+        });
+    }
+
+    goTo(index) {
+        index = Math.max(0, Math.min(this.slides.length - 1, index));
+        this.slides[index].scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+/* ============================================
+   INLINE EDITING
+   ============================================ */
+class SlideEditor {
+    constructor() {
+        this.isActive = false;
+        this.toggle = document.getElementById('editToggle');
+        this.banner = document.getElementById('editBanner');
+        this.editableEls = Array.from(document.querySelectorAll('h1, h2, h3, p, li'));
+        this.STORAGE_KEY = 'tech-postpandemic-slides-v1';
+
+        this.restore();
+        this.bind();
+    }
+
+    bind() {
+        // Toggle button click
+        this.toggle.addEventListener('click', () => this.toggleEditMode());
+
+        // Hotzone hover with grace period
+        const hotzone = document.querySelector('.edit-hotzone');
+        let hideTimeout = null;
+        hotzone.addEventListener('mouseenter', () => {
+            clearTimeout(hideTimeout);
+            this.toggle.classList.add('show');
+        });
+        hotzone.addEventListener('mouseleave', () => {
+            hideTimeout = setTimeout(() => { if (!this.isActive) this.toggle.classList.remove('show'); }, 400);
+        });
+        this.toggle.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+        this.toggle.addEventListener('mouseleave', () => {
+            hideTimeout = setTimeout(() => { if (!this.isActive) this.toggle.classList.remove('show'); }, 400);
+        });
+        hotzone.addEventListener('click', () => this.toggleEditMode());
+
+        // E key
+        document.addEventListener('keydown', (e) => {
+            if ((e.key === 'e' || e.key === 'E') && !e.target.getAttribute('contenteditable')) {
+                this.toggleEditMode();
+            }
+            // Ctrl+S to export
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                if (this.isActive) this.exportFile();
+            }
+        });
+
+        // Auto-save on input
+        document.addEventListener('input', (e) => {
+            if (e.target.getAttribute('contenteditable') === 'true') this.save();
+        });
+    }
+
+    toggleEditMode() {
+        this.isActive = !this.isActive;
+        document.body.classList.toggle('edit-active', this.isActive);
+        this.toggle.classList.toggle('active', this.isActive);
+        this.banner.classList.toggle('active', this.isActive);
+        this.editableEls.forEach(el => {
+            if (this.isActive) el.setAttribute('contenteditable', 'true');
+            else el.removeAttribute('contenteditable');
+        });
+    }
+
+    save() {
+        const data = this.editableEls.map(el => el.innerHTML);
+        try { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+    }
+
+    restore() {
+        try {
+            const data = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || 'null');
+            if (Array.isArray(data) && data.length === this.editableEls.length) {
+                data.forEach((html, i) => { this.editableEls[i].innerHTML = html; });
+            }
+        } catch (e) {}
+    }
+
+    exportFile() {
+        // Strip edit state before snapshotting outerHTML
+        const editableEls = Array.from(document.querySelectorAll('[contenteditable]'));
+        editableEls.forEach(el => el.removeAttribute('contenteditable'));
+        document.body.classList.remove('edit-active');
+        this.toggle.classList.remove('active', 'show');
+        this.banner.classList.remove('active', 'show');
+
+        const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+        // Restore so user can keep editing
+        document.body.classList.add('edit-active');
+        editableEls.forEach(el => el.setAttribute('contenteditable', 'true'));
+        this.toggle.classList.add('active');
+        this.banner.classList.add('active');
+
+        const blob = new Blob([html], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'tech-post-pandemic-economy.html';
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }
+}
+
+const presentation = new SlidePresentation();
+const editor = new SlideEditor();
+</script>
+</body>
+</html>
