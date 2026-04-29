@@ -127,8 +127,11 @@
 
     .card .view-projects {
       position: absolute;
-      bottom: 12px;
-      right: 16px;
+      top: 24px;
+      right: 20px;
+      height: 44px;
+      display: flex;
+      align-items: center;
       font-family: 'Source Sans Pro', sans-serif;
       font-size: 11px;
       font-weight: 700;
@@ -186,10 +189,10 @@
 
     .hero-headline {
       font-family: 'Source Sans Pro', sans-serif;
-      font-weight: 700;
+      font-weight: 600;
       font-size: clamp(36px, 4.4vw, 64px);
       letter-spacing: -0.02em;
-      line-height: 1.05;
+      line-height: 1.25;
       max-width: 1100px;
       color: #17202a;
     }
@@ -247,10 +250,10 @@
     }
     .preview-title {
       font-family: 'Source Sans Pro', sans-serif;
-      font-weight: 700;
-      font-size: clamp(36px, 4vw, 64px);
-      letter-spacing: -0.01em;
-      line-height: 1.05;
+      font-weight: 600;
+      font-size: clamp(36px, 4.4vw, 64px);
+      letter-spacing: -0.02em;
+      line-height: 1.25;
       max-width: 900px;
     }
     .preview-info {
@@ -292,7 +295,7 @@
       position: fixed;
       left: 32px; right: 32px; bottom: 16px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       font-family: 'Source Sans Pro', sans-serif;
       font-size: 12px;
@@ -448,7 +451,7 @@
     }
     .cs-stat-num {
       font-family: 'Source Sans Pro', sans-serif;
-      font-size: 40px;
+      font-size: 64px;
       font-weight: 700;
       line-height: 1.1;
       letter-spacing: -0.02em;
@@ -484,7 +487,7 @@
       max-width: 1400px;
     }
     .cs-section {
-      margin-top: 80px;
+      margin-top: 104px;
     }
     .cs-section:last-child {
       padding-bottom: 96px;
@@ -573,6 +576,147 @@
       color: #17202a;
       max-width: 1100px;
     }
+    /* Overview callouts */
+    .cs-callouts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+    .cs-callout { border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+    .cs-callout--purple { background: #e6dbf7; }
+    .cs-callout--cream { background: #f4e8d0; }
+    .cs-callout-tag {
+      display: inline-block; align-self: flex-start; padding: 8px 16px; border-radius: 10px;
+      font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 700; color: #17202a;
+    }
+    .cs-callout--purple .cs-callout-tag { background: #c9b5ea; }
+    .cs-callout--cream .cs-callout-tag { background: #e8d5a5; }
+    .cs-callout-body {
+      font-family: 'Source Sans Pro', sans-serif; font-size: 22px; font-weight: 400;
+      line-height: 1.5; color: #17202a; margin: 0;
+    }
+    .cs-callout-icon { font-size: 40px; margin-top: auto; }
+    .cs-goal {
+      margin-top: 24px; background: #faf9fb; border-radius: 20px;
+      padding: 48px 56px; text-align: center;
+    }
+    .cs-goal-icon { font-size: 48px; margin-bottom: 16px; }
+    .cs-goal-heading {
+      font-family: 'Source Sans Pro', sans-serif; font-size: 32px; font-weight: 700;
+      color: #17202a; margin: 0 0 24px 0;
+    }
+    .cs-goal-list {
+      list-style: none; padding: 0; margin: 0 auto; display: flex; flex-direction: column;
+      gap: 16px; max-width: 760px; text-align: left;
+    }
+    .cs-goal-list li {
+      display: flex; align-items: flex-start; gap: 16px;
+      font-family: 'Source Sans Pro', sans-serif; font-size: 22px; line-height: 1.5; color: #17202a;
+    }
+    .cs-goal-check {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px;
+      background: #8b5cf6; color: #fff; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 18px; margin-top: 2px;
+    }
+    /* Split layout (Solution) */
+    .cs-split {
+      display: grid; grid-template-columns: 308px 1fr; gap: 80px; align-items: start; margin-top: 24px;
+    }
+    .cs-split-left {
+      position: sticky; top: 80px; opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .cs-split-left.is-visible { opacity: 1; transform: translateX(0); }
+    .cs-split-right { display: flex; flex-direction: column; gap: 32px; }
+    @media (max-width: 900px) {
+      .cs-split { grid-template-columns: 1fr; gap: 32px; }
+      .cs-split-left { position: static; }
+    }
+    .cs-tabs { display: flex; flex-direction: column; gap: 8px; }
+    .cs-tab {
+      text-align: left; background: transparent; border: none; border-left: 3px solid #e5e7eb;
+      padding: 14px 20px; cursor: pointer; font-family: 'Source Sans Pro', sans-serif;
+      font-size: 18px; font-weight: 500; line-height: 1.4; color: #6b7280;
+      transition: all 0.25s ease;
+    }
+    .cs-tab:hover { color: #17202a; }
+    .cs-tab.is-active {
+      border-left-color: #6b3fd4; color: #17202a; font-weight: 700; background: #f5f0ff;
+    }
+    .cs-tab-num {
+      display: block; font-family: 'Space Mono', monospace; font-size: 12px;
+      color: #6b3fd4; letter-spacing: 0.08em; margin-bottom: 4px;
+    }
+    .cs-tab-panel { display: none; }
+    .cs-tab-panel.is-active { display: block; }
+    .cs-image-box.cs-image-contain {
+      background: #f5f0ff; display: flex; align-items: center; justify-content: center;
+      padding: 24px; box-sizing: border-box; height: auto !important;
+    }
+    .cs-image-contain img { width: 100%; height: auto; display: block; }
+    /* Research synthesis graph */
+    .cs-synth { margin-top: 40px; position: relative; }
+    .cs-synth-quotes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center; }
+    .cs-synth-col { display: flex; flex-direction: column; gap: 24px; }
+    .cs-synth-quote {
+      background: #f5f2fa; border-radius: 16px; padding: 28px 28px 24px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .cs-synth-mark {
+      font-family: 'Source Sans Pro', sans-serif; font-size: 40px; line-height: 1;
+      font-weight: 700; color: #4a3f8a; margin-bottom: 12px;
+    }
+    .cs-synth-text {
+      font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 600;
+      line-height: 1.45; color: #4a3f8a; margin: 0 0 20px 0;
+    }
+    .cs-synth-role {
+      font-family: 'Source Sans Pro', sans-serif; font-size: 14px; color: #6b6b85;
+    }
+    .cs-synth-arrows { height: 80px; position: relative; margin: 8px 0; }
+    .cs-synth-arrows svg { width: 100%; height: 100%; display: block; }
+    .cs-synth-challenges { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+    .cs-synth-challenge {
+      background: #4a3f8a; color: #fff; border-radius: 16px; padding: 28px; min-height: 180px;
+    }
+    .cs-synth-challenge-label {
+      font-family: 'Source Sans Pro', sans-serif; font-size: 14px; font-weight: 400;
+      color: #c9c2e8; margin-bottom: 12px;
+    }
+    .cs-synth-challenge-title {
+      font-family: 'Source Sans Pro', sans-serif; font-size: 20px; font-weight: 700;
+      line-height: 1.35; margin: 0;
+    }
+    /* Insights 4-card row */
+    .cs-insight-grid {
+      margin-top: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    }
+    .cs-insight-card { display: flex; flex-direction: column; gap: 20px; }
+    .cs-insight-icon { font-size: 48px; line-height: 1; }
+    .cs-insight-text {
+      font-family: 'Source Sans Pro', sans-serif; font-size: 20px; font-weight: 400;
+      line-height: 1.5; color: #17202a; margin: 0;
+    }
+    /* Case study top nav */
+    .cs-topnav {
+      position: sticky; top: 16px; z-index: 5;
+      display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center;
+      padding: 16px 28px; margin: 16px 24px 0;
+      background: #0e1218; border: 1px solid #2a2f38; border-radius: 18px;
+      font-family: 'Source Sans Pro', sans-serif; font-size: 16px; color: #d8dde5;
+    }
+    .cs-topnav-left { text-align: left; display: flex; align-items: center; gap: 10px; }
+    .cs-topnav-center { text-align: center; color: #fff; font-weight: 500; }
+    .cs-topnav-right {
+      text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+      font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: 700;
+      letter-spacing: 2px; color: #6b3fd4; text-transform: uppercase;
+    }
+    .cs-topnav-right::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%;
+      background: #6b3fd4; box-shadow: 0 0 10px #6b3fd4;
+    }
+    .cs-topnav-back {
+      cursor: pointer; background: none; border: none; color: #d8dde5; font-size: 16px;
+      display: inline-flex; align-items: center; gap: 8px; padding: 0; font-family: inherit;
+    }
+    .cs-topnav-back:hover { color: #fff; }
   </style>
 </head>
 <body>
@@ -656,7 +800,7 @@
 
       <div class="hero" id="hero">
         <h1 class="hero-headline">
-          Mengzhe Ye is a product designer who ships thoughtful AI&nbsp;experiences across edtech, healthcare, and cybersecurity.
+          I'm Mengzhe (Manzie). A product designer with 5+ years of experience specializing in EdTech, AI, and Healthcare.
         </h1>
         <div class="hero-bullet"></div>
         <div class="hero-meta">
@@ -675,7 +819,7 @@
           linear-gradient(135deg, #0c1a2e 0%, #1b3a63 100%);"></div>
         <div class="preview-scrim"></div>
         <div class="preview-content">
-          <h2 class="preview-title">Cluster Report Insights</h2>
+          <h2 class="preview-title">Gamified Middle School Career Learning Platform</h2>
           <div class="preview-info">
             <div>
               <h4>ROLE</h4>
@@ -748,11 +892,18 @@
 
   <!-- ===== Case Study: Cluster Report Insights ===== -->
   <div class="case-study" id="case-cluster" aria-hidden="true">
-    <button class="case-close" id="case-close" aria-label="Close case study">×</button>
     <div class="case-study-inner">
 
+      <nav class="cs-topnav">
+        <div class="cs-topnav-left">
+          <button class="cs-topnav-back" id="cs-topnav-home" aria-label="Back to home">← Home</button>
+        </div>
+        <div class="cs-topnav-center">Career Education — Gamified MS Career Learning Platform</div>
+        <div class="cs-topnav-right">Context</div>
+      </nav>
+
       <section class="cs-header">
-        <h1 class="cs-title">Cluster Report Insights.</h1>
+        <h1 class="cs-title">Reimagining Career Exploration Through Gamified Learning Systems.</h1>
         <p class="cs-subtitle">Product Designer @Hats &amp; Ladders</p>
 
         <div class="cs-facts">
@@ -819,20 +970,31 @@
       </section>
 
       <!-- OVERVIEW -->
-      <section id="Overview" class="cs-detail">
-        <p class="cs-lead">What are the design and business goals?</p>
-        <h2 class="cs-headline">Why career education needed to feel more alive</h2>
+      <section id="Overview" class="cs-section">
+        <div class="cs-impact-sub">Business Goals</div>
+        <h2 class="cs-impact-heading">Why career education needed to feel more alive</h2>
         <p class="cs-body">
-          Middle school is the core opportunity as we upgrade our MVP product with new features and "magic moments" to nail product market fit. We need to acquire new industry partners and grow sales funnel with school districts. We also found most competitors focus on tracking something to finish—tracking hours, scheduling, and video resources—few effectively capture or validate what students actually learn.
+          Middle school is the core opportunity as we upgrade our MVP product with new features and "magic moments" to nail product market fit. We need to acquire new industry partners and grow sales funnel with school districts. We also found most competitors focus on tracking things to finish—tracking hours, scheduling, and video resources—few effectively capture or validate what students actually learn.
         </p>
-        <div class="cs-images layout-2-col">
-          <div class="cs-image">
-            <div class="cs-image-box" style="height: 420px;">Image placeholder</div>
-            <div class="cs-image-caption">Student dashboard — overview</div>
+        <div class="cs-callouts">
+          <div class="cs-callout cs-callout--purple">
+            <span class="cs-callout-tag">District Needs</span>
+            <p class="cs-callout-body">Districts need structured, standards-aligned content — but coaches need the flexibility to adapt delivery in real time. Current models force a choice between the two.</p>
+            <div class="cs-callout-icon">👥</div>
           </div>
-          <div class="cs-image">
-            <div class="cs-image-box" style="height: 420px;">Image placeholder</div>
+          <div class="cs-callout cs-callout--cream">
+            <span class="cs-callout-tag">Our Technical Limitation</span>
+            <p class="cs-callout-body">The existing assignment framework and constraints within the Learnosity API integration slow down our ability to build scalable, brand-aligned gamified experiences.</p>
+            <div class="cs-callout-icon">⏳</div>
           </div>
+        </div>
+        <div class="cs-goal">
+          <div class="cs-goal-icon">🎯</div>
+          <h3 class="cs-goal-heading">2025 Q4 and 2026 Q1-2 Goal</h3>
+          <ul class="cs-goal-list">
+            <li><span class="cs-goal-check">✓</span><span>Boost at least #1M in school district sales and prove product market fit with MS program (app+workbooks+toolkit)</span></li>
+            <li><span class="cs-goal-check">✓</span><span>Empower and delight our users: create a virtuous cycle of engagement and</span></li>
+          </ul>
         </div>
       </section>
 
@@ -844,10 +1006,25 @@
           <p>The final experience centers on discovering career "Hats" across 16 clusters through engaging, easy-to-digest activities. Learners begin with broad exploration, progress into clusters and related pathways, and then unlock more specific career content based on their activity history.</p>
           <p>The product combines gamified moments like "Your Work Personality," "Unlock Hat Packs," and scenario-based activities with instructor-led lessons. This allows educators to run structured classroom workshops while still giving students a personalized sense of discovery.</p>
         </div>
-        <div class="cs-images layout-stacked">
-          <div class="cs-image"><div class="cs-image-box" style="height: 640px;">Image placeholder</div></div>
-          <div class="cs-image"><div class="cs-image-box" style="height: 640px;">Image placeholder</div></div>
-          <div class="cs-image"><div class="cs-image-box" style="height: 640px;">Image placeholder</div></div>
+        <div class="cs-split" data-tab-group="solution">
+          <div class="cs-split-left">
+            <div class="cs-tabs" role="tablist">
+              <button class="cs-tab is-active" data-tab="0" role="tab"><span class="cs-tab-num">01</span>Unlocking Career Content (Clusters & Pathways)</button>
+              <button class="cs-tab" data-tab="1" role="tab"><span class="cs-tab-num">02</span>Hat Search (Find what career connects with your interest)</button>
+              <button class="cs-tab" data-tab="2" role="tab"><span class="cs-tab-num">03</span>Profile: Where Progress Becomes Power</button>
+            </div>
+          </div>
+          <div class="cs-split-right">
+            <div class="cs-tab-panel is-active" data-panel="0">
+              <div class="cs-image"><div class="cs-image-box cs-image-contain"><img src="images/career-education/gif-01.gif" alt="Unlocking Career Content"></div></div>
+            </div>
+            <div class="cs-tab-panel" data-panel="1">
+              <div class="cs-image"><div class="cs-image-box cs-image-contain" style="height: 640px;">Image placeholder</div></div>
+            </div>
+            <div class="cs-tab-panel" data-panel="2">
+              <div class="cs-image"><div class="cs-image-box cs-image-contain" style="height: 640px;">Image placeholder</div></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -859,10 +1036,58 @@
           <p>I partnered closely with the sales team to synthesize prior research and uncover deeper industry insights from their conversations with school and district purchasers. We also ran four collaborative workshops with current users from the New York City Department of Youth and Community Development to validate the feature direction.</p>
           <p>To make feedback concrete, I created feature demos for prospective district administrators. Their reactions helped us iterate toward stronger product-market alignment and clarify which parts of the experience needed to support classroom delivery, buyer confidence, and student motivation at the same time.</p>
         </div>
-        <div class="cs-images layout-single">
-          <div class="cs-image">
-            <div class="cs-image-box" style="height: 640px;">Image placeholder</div>
-            <div class="cs-image-caption">Research synthesis and feature validation with district-facing stakeholders.</div>
+        <div class="cs-synth">
+          <div class="cs-synth-quotes">
+            <div class="cs-synth-col">
+              <div class="cs-synth-quote">
+                <div class="cs-synth-mark">"</div>
+                <p class="cs-synth-text">Managing multiple versions of design files is like assembling a puzzle with missing pieces.</p>
+                <div class="cs-synth-role">Front-end Developer</div>
+              </div>
+            </div>
+            <div class="cs-synth-col">
+              <div class="cs-synth-quote">
+                <div class="cs-synth-mark">"</div>
+                <p class="cs-synth-text">Our existing workflows are consistently hindered by inconsistencies and obstacles.</p>
+                <div class="cs-synth-role">Front-end Developer</div>
+              </div>
+              <div class="cs-synth-quote">
+                <div class="cs-synth-mark">"</div>
+                <p class="cs-synth-text">It's frustrating to waste time searching for the latest version of components and rebuilding things from scratch.</p>
+                <div class="cs-synth-role">UX Designer</div>
+              </div>
+            </div>
+            <div class="cs-synth-col">
+              <div class="cs-synth-quote">
+                <div class="cs-synth-mark">"</div>
+                <p class="cs-synth-text">We're eager to launch our new platform, but the lack of responsiveness and scalability is holding us back.</p>
+                <div class="cs-synth-role">Product Manager</div>
+              </div>
+            </div>
+          </div>
+          <div class="cs-synth-arrows" aria-hidden="true">
+            <svg viewBox="0 0 1000 80" preserveAspectRatio="none">
+              <path d="M 166 0 Q 166 60 166 72" stroke="#8b7fc4" stroke-width="1.5" fill="none"/>
+              <path d="M 500 0 Q 500 60 500 72" stroke="#8b7fc4" stroke-width="1.5" fill="none"/>
+              <path d="M 833 0 Q 833 60 833 72" stroke="#8b7fc4" stroke-width="1.5" fill="none"/>
+              <path d="M 166 72 L 160 64 M 166 72 L 172 64" stroke="#8b7fc4" stroke-width="1.5" fill="none"/>
+              <path d="M 500 72 L 494 64 M 500 72 L 506 64" stroke="#8b7fc4" stroke-width="1.5" fill="none"/>
+              <path d="M 833 72 L 827 64 M 833 72 L 839 64" stroke="#8b7fc4" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="cs-synth-challenges">
+            <div class="cs-synth-challenge">
+              <div class="cs-synth-challenge-label">Challenge #1</div>
+              <p class="cs-synth-challenge-title">Inefficient workflows for both Design and UX teams.</p>
+            </div>
+            <div class="cs-synth-challenge">
+              <div class="cs-synth-challenge-label">Challenge #2</div>
+              <p class="cs-synth-challenge-title">Insufficient communication among Design and UX teams.</p>
+            </div>
+            <div class="cs-synth-challenge">
+              <div class="cs-synth-challenge-label">Challenge #3</div>
+              <p class="cs-synth-challenge-title">Challenges in new business platforms due to lack of scalability.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -873,29 +1098,23 @@
         <h2 class="cs-impact-heading">The product needed modularity, feedback, guidance, and multiple ways to learn</h2>
         <div class="cs-section-body">
           <p>Multiple rounds of early testing and product discovery helped us identify the "aha" moments that spark curiosity about new careers. The strongest moments came when learners could connect broad cluster exploration to a specific career Hat and see evidence that their actions were shaping a more personal path.</p>
-          <ul>
-            <li>Learning activities should be modular and digestible so coaches, administrators, and students can adapt pacing to different instructional needs.</li>
-            <li>The feedback system should help users move from Career Cluster learning toward a more specific Career Hat.</li>
-            <li>Navigation should reinforce the gamified experience with timely prompts that guide learners to the next useful activity.</li>
-            <li>The interface should support multiple learning modalities to deepen understanding and retention.</li>
-          </ul>
         </div>
-        <div class="cs-images layout-4-col">
-          <div class="cs-image">
-            <div class="cs-image-box" style="height: 220px;">Image placeholder</div>
-            <div class="cs-image-caption">Modular activities</div>
+        <div class="cs-insight-grid">
+          <div class="cs-insight-card">
+            <div class="cs-insight-icon">🧱</div>
+            <p class="cs-insight-text">Learning activities should be modular and digestible, allowing flexible pacing that adapts to different instructional needs (individual coach or a school administrator).</p>
           </div>
-          <div class="cs-image">
-            <div class="cs-image-box" style="height: 220px;">Image placeholder</div>
-            <div class="cs-image-caption">Personalized feedback loop</div>
+          <div class="cs-insight-card">
+            <div class="cs-insight-icon">🔄</div>
+            <p class="cs-insight-text">The feedback system should provide personalized feedback to unblock users to move from Career Cluster learning to a specific Career Hat.</p>
           </div>
-          <div class="cs-image">
-            <div class="cs-image-box" style="height: 220px;">Image placeholder</div>
-            <div class="cs-image-caption">Guided navigation</div>
+          <div class="cs-insight-card">
+            <div class="cs-insight-icon">🖥️</div>
+            <p class="cs-insight-text">The navigation and interface should reinforce the gamified experience, with timely prompts that guide learners seamlessly to their next activity.</p>
           </div>
-          <div class="cs-image">
-            <div class="cs-image-box" style="height: 220px;">Image placeholder</div>
-            <div class="cs-image-caption">Multimodal content strategy</div>
+          <div class="cs-insight-card">
+            <div class="cs-insight-icon">🎛️</div>
+            <p class="cs-insight-text">Interface should have multi modality of learning can lead to deeper understanding and longer-term retention.</p>
           </div>
         </div>
       </section>
@@ -1004,7 +1223,6 @@
   </div>
 
   <footer class="footer">
-    <div>Designed in Figma, built with Claude, debugged with an AI-powered rubber duck.</div>
     <div class="socials">
       <a href="mailto:mengzheye@gmail.com" aria-label="Email">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
@@ -1050,22 +1268,61 @@
       });
     });
 
-    document.getElementById('case-close').addEventListener('click', () => {
+    function closeCase() {
       document.querySelectorAll('.case-study.open').forEach(cs => {
         cs.classList.remove('open');
         cs.setAttribute('aria-hidden', 'true');
         cs.scrollTop = 0;
       });
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.case-study.open').forEach(cs => {
-          cs.classList.remove('open');
-          cs.setAttribute('aria-hidden', 'true');
-          cs.scrollTop = 0;
+    }
+    document.getElementById('case-close')?.addEventListener('click', closeCase);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCase(); });
+
+    // Slide-in for split-layout left columns
+    const splitObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.cs-split-left').forEach(el => splitObserver.observe(el));
+
+    // Tab switching
+    document.querySelectorAll('[data-tab-group]').forEach(group => {
+      const tabs = group.querySelectorAll('.cs-tab');
+      const panels = group.querySelectorAll('.cs-tab-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const i = tab.dataset.tab;
+          tabs.forEach(t => t.classList.toggle('is-active', t.dataset.tab === i));
+          panels.forEach(p => p.classList.toggle('is-active', p.dataset.panel === i));
         });
-      }
+      });
     });
+
+    // Top-nav home button
+    document.getElementById('cs-topnav-home')?.addEventListener('click', closeCase);
+
+    // Update topnav right label to match current section's subheading
+    (function() {
+      const navRight = document.querySelector('.cs-topnav-right');
+      if (!navRight) return;
+      const defaultLabel = 'Context';
+      const sections = [...document.querySelectorAll('.case-study .cs-impact-sub')]
+        .map(el => el.closest('section'))
+        .filter(Boolean);
+      if (!sections.length) return;
+      const visibility = new Map();
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => visibility.set(e.target, e.intersectionRatio));
+        let best = null, bestRatio = 0;
+        visibility.forEach((r, sec) => { if (r > bestRatio) { bestRatio = r; best = sec; } });
+        if (best && bestRatio > 0) {
+          const sub = best.querySelector('.cs-impact-sub');
+          navRight.textContent = sub ? sub.textContent : defaultLabel;
+        } else {
+          navRight.textContent = defaultLabel;
+        }
+      }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+      sections.forEach(s => obs.observe(s));
+    })();
   </script>
 </body>
 </html>
