@@ -106,11 +106,16 @@
       transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
       background: transparent;
     }
-    .card:hover {
-      background: #ffffff;
-      transform: translateX(4px);
-      box-shadow: 0 8px 24px rgba(23, 32, 42, 0.08);
+    .card {
+      transform-origin: left center;
     }
+    .card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateX(4px) rotate(-10deg);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      z-index: 2;
+    }
+    .card .view-projects { color: #ffffff !important; }
     .card .card-logo {
       width: 44px; height: 44px;
       display: flex;
@@ -122,7 +127,7 @@
 
     .card .card-meta {
       font-family: 'Source Sans Pro', sans-serif;
-      font-size: 11px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
       color: #6b6558;
@@ -136,23 +141,24 @@
 
     .card .view-projects {
       position: absolute;
-      top: 24px;
-      right: 20px;
-      height: 44px;
+      bottom: -36px;
+      right: 0;
       display: flex;
       align-items: center;
       font-family: 'Source Sans Pro', sans-serif;
-      font-size: 11px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
       opacity: 0;
-      transform: translateX(-4px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
+      transform: rotate(10deg) translateY(-4px);
+      transform-origin: right center;
+      transition: opacity 0.3s ease, transform 0.3s ease;
       color: #ffffff;
+      white-space: nowrap;
     }
     .card:hover .view-projects {
       opacity: 1;
-      transform: translateX(0);
+      transform: rotate(10deg) translateY(0);
     }
 
     .bottom-nav {
