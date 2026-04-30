@@ -20,11 +20,20 @@
     }
 
     body {
-      background: #f4f1ea;
+      background: #0a0a0a;
       font-family: 'Source Sans Pro', sans-serif;
-      color: #17202a;
+      color: #ffffff;
       -webkit-font-smoothing: antialiased;
     }
+    /* Landing dark mode: flip dark text to white, keep purple accents */
+    body, .topbar, .topbar *:not(.status-online),
+    .hero-statement, .hero-statement em,
+    .hero-intro-text, .hero-intro-text strong,
+    .hero-meta, .hero-meta strong,
+    .preview-title, .preview-sub, .preview-meta,
+    .nav a, .nav-item, .nav-section-title,
+    .footer, .footer * { color: #ffffff; }
+    .hero-statement em, .preview-tag, .accent { color: #D1ADFE; }
 
     /* ===== Top bar ===== */
     .topbar {
@@ -37,7 +46,7 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
-      color: #17202a;
+      color: #ffffff;
       z-index: 50;
     }
     .status-online { color: #1f9d55; }
@@ -107,7 +116,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #17202a;
+      color: #ffffff;
     }
     .card .card-logo svg { width: 100%; height: 100%; }
 
@@ -120,7 +129,7 @@
       line-height: 1.6;
     }
     .card .card-meta .tags {
-      color: #17202a;
+      color: #ffffff;
       display: block;
       margin-bottom: 6px;
     }
@@ -139,7 +148,7 @@
       opacity: 0;
       transform: translateX(-4px);
       transition: opacity 0.25s ease, transform 0.25s ease;
-      color: #17202a;
+      color: #ffffff;
     }
     .card:hover .view-projects {
       opacity: 1;
@@ -157,7 +166,7 @@
       font-family: 'Source Sans Pro', sans-serif;
       font-size: 15px;
       font-weight: 500;
-      color: #17202a;
+      color: #ffffff;
       border-right: 1px solid #dcd6c8;
       cursor: pointer;
       transition: background 0.2s ease;
@@ -187,29 +196,66 @@
     }
     .hero.hidden { opacity: 0; pointer-events: none; }
 
-    .hero-headline {
+    .hero-statement {
       font-family: 'Source Sans Pro', sans-serif;
-      font-weight: 600;
-      font-size: clamp(36px, 4.4vw, 64px);
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-      max-width: 1100px;
-      color: #17202a;
+      font-weight: 700;
+      font-size: clamp(56px, 7.5vw, 120px);
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      color: #ffffff;
+      max-width: 1200px;
     }
-    .hero-bullet {
-      width: 14px; height: 14px;
+    .hero-statement em {
+      font-style: italic;
+      font-weight: 400;
+      color: #6b3fd4;
+    }
+    .hero-statement .line {
+      display: block;
+      overflow: hidden;
+    }
+    .hero-statement .line > span {
+      display: inline-block;
+      transform: translateY(100%);
+      opacity: 0;
+      animation: heroLineUp 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    }
+    .hero-statement .line:nth-child(1) > span { animation-delay: 0.05s; }
+    .hero-statement .line:nth-child(2) > span { animation-delay: 0.22s; }
+    .hero-statement .line:nth-child(3) > span { animation-delay: 0.39s; }
+    @keyframes heroLineUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .hero-intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      max-width: 720px;
+    }
+    .hero-avatar {
+      width: 64px; height: 64px;
       border-radius: 50%;
-      background: #17202a;
-      margin-left: 12%;
-      align-self: flex-start;
+      background: linear-gradient(135deg, #2F68B7 0%, #e8b64a 100%);
+      flex-shrink: 0;
+      overflow: hidden;
     }
-    .hero-meta {
+    .hero-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-intro-text {
       font-family: 'Source Sans Pro', sans-serif;
-      font-size: 20px;
-      line-height: 1.6;
-      color: #17202a;
+      font-size: 18px;
+      line-height: 1.55;
+      color: #ffffff;
+      padding-top: 4px;
     }
-    .hero-meta strong { font-weight: 700; }
+    .hero-intro-text strong { font-weight: 700; }
+    .hero-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b6558;
+    }
+    .hero-meta strong { color: #ffffff; font-weight: 700; }
 
     /* Preview (shown on hover) */
     .preview {
@@ -305,10 +351,10 @@
     .footer .socials {
       display: flex;
       gap: 18px;
-      color: #17202a;
+      color: #ffffff;
     }
     .footer .socials a {
-      color: #17202a;
+      color: #ffffff;
       display: inline-flex;
       align-items: center;
       gap: 4px;
@@ -319,7 +365,8 @@
     .case-study {
       position: fixed;
       inset: 0;
-      background: #f4f1ea;
+      background: #0a0a0a;
+      color: #ffffff;
       z-index: 100;
       overflow-y: auto;
       opacity: 0;
@@ -334,6 +381,82 @@
       padding: 64px 144px;
       max-width: none;
     }
+    /* Dark mode override for case study */
+    .case-study .cs-title,
+    .case-study .cs-subtitle,
+    .case-study .cs-facts h4,
+    .case-study .cs-facts li,
+    .case-study .cs-facts p,
+    .case-study .cs-impact-heading,
+    .case-study .cs-headline,
+    .case-study .cs-body,
+    .case-study .cs-section-body,
+    .case-study .cs-section-title,
+    .case-study .cs-callout-heading,
+    .case-study .cs-callout-body,
+    .case-study .cs-goal-title,
+    .case-study .cs-goal-item,
+    .case-study .cs-tab,
+    .case-study .cs-tab.active,
+    .case-study .cs-feature-title,
+    .case-study .cs-feature-body,
+    .case-study .cs-synth-quote,
+    .case-study .cs-insight-title,
+    .case-study .cs-insight-body,
+    .case-study .cs-insight-text { color: #ffffff !important; }
+    .case-study .cs-impact-sub,
+    .case-study .cs-section-sub,
+    .case-study .cs-meta,
+    .case-study [style*="#8a8372"],
+    .case-study [style*="#6b6558"],
+    .case-study [style*="#6b6b85"] { color: rgba(255,255,255,0.85) !important; }
+    .case-study .cs-tab { color: rgba(255,255,255,0.85); }
+    .case-study .cs-impact-sub,
+    .case-study .cs-section-sub,
+    .case-study .cs-stat-num { color: #EFD6FF !important; }
+    .case-study .cs-stat-desc { color: #ffffff !important; }
+    .case-study .cs-contribution-body { color: #ffffff !important; }
+    .case-study .cs-callout,
+    .case-study .cs-callout .cs-callout-tag,
+    .case-study .cs-callout .cs-callout-body,
+    .case-study .cs-callout .cs-callout-heading { color: #17202a !important; }
+    .case-study .cs-tab:hover { color: #ffffff; }
+    .case-study .cs-tab.active { background: rgba(107, 63, 212, 0.18); color: #ffffff; }
+    .case-study .cs-synth-quote { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); }
+    .case-study .cs-image-contain { background: rgba(255,255,255,0.04); }
+    /* Climber Insight Report — centered header, slightly smaller title */
+    #case-imagegen .cs-header { text-align: center; }
+    #case-imagegen .cs-title { font-size: clamp(32px, 4.4vw, 64px); }
+    #case-imagegen .cs-facts { margin-left: auto; margin-right: auto; }
+    /* Cover compare: legacy vs Figma Make */
+    .cs-hero-compare {
+      margin-top: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+    .cs-hero-compare-item { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+    .cs-hero-compare-title {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 18px; font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+    }
+    .cs-hero-compare-frame {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      flex: 1;
+    }
+    .cs-hero-compare-frame img,
+    .cs-hero-compare-frame video {
+      width: 100%; height: 100%; display: block; object-fit: cover;
+    }
+    .case-study hr,
+    .case-study .cs-divider { border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.12); }
 
     .case-close {
       position: fixed;
@@ -367,14 +490,14 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.05;
-      color: #17202a;
+      color: #ffffff;
       margin-bottom: 12px;
     }
     .cs-subtitle {
       font-family: 'Source Sans Pro', sans-serif;
       font-size: clamp(20px, 2vw, 28px);
       font-weight: 400;
-      color: #17202a;
+      color: #ffffff;
       margin-bottom: 64px;
     }
     .cs-facts {
@@ -387,7 +510,7 @@
       font-family: 'Source Sans Pro', sans-serif;
       font-size: 20px;
       font-weight: 700;
-      color: #17202a;
+      color: #ffffff;
       margin-bottom: 16px;
     }
     .cs-facts ul {
@@ -399,7 +522,7 @@
       font-size: 17px;
       font-weight: 400;
       line-height: 1.5;
-      color: #17202a;
+      color: #ffffff;
     }
 
     /* Hero image placeholder */
@@ -440,7 +563,7 @@
       font-weight: 700;
       line-height: 1.25;
       letter-spacing: -0.01em;
-      color: #17202a;
+      color: #ffffff;
       margin-bottom: 16px;
       max-width: 1000px;
     }
@@ -463,7 +586,7 @@
       font-size: 20px;
       font-weight: 400;
       line-height: 1.45;
-      color: #17202a;
+      color: #ffffff;
       max-width: 520px;
     }
 
@@ -476,7 +599,7 @@
       font-size: 20px;
       font-weight: 400;
       line-height: 1.55;
-      color: #17202a;
+      color: #ffffff;
       width: 100%;
     }
 
@@ -497,7 +620,7 @@
       font-size: 20px;
       font-weight: 400;
       line-height: 1.55;
-      color: #17202a;
+      color: #ffffff;
       width: 100%;
     }
     .cs-section-body p + p { margin-top: 16px; }
@@ -556,7 +679,7 @@
       font-family: 'Source Sans Pro', sans-serif;
       font-size: clamp(18px, 1.4vw, 22px);
       font-weight: 400;
-      color: #17202a;
+      color: #ffffff;
       margin-bottom: 24px;
     }
     .cs-headline {
@@ -565,7 +688,7 @@
       font-weight: 700;
       line-height: 1.15;
       letter-spacing: -0.01em;
-      color: #17202a;
+      color: #ffffff;
       margin-bottom: 40px;
     }
     .cs-body {
@@ -573,7 +696,7 @@
       font-size: clamp(17px, 1.2vw, 20px);
       font-weight: 400;
       line-height: 1.6;
-      color: #17202a;
+      color: #ffffff;
       max-width: 1100px;
     }
     /* Overview callouts */
@@ -583,13 +706,13 @@
     .cs-callout--cream { background: #f4e8d0; }
     .cs-callout-tag {
       display: inline-block; align-self: flex-start; padding: 8px 16px; border-radius: 10px;
-      font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 700; color: #17202a;
+      font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 700; color: #ffffff;
     }
     .cs-callout--purple .cs-callout-tag { background: #c9b5ea; }
     .cs-callout--cream .cs-callout-tag { background: #e8d5a5; }
     .cs-callout-body {
       font-family: 'Source Sans Pro', sans-serif; font-size: 22px; font-weight: 400;
-      line-height: 1.5; color: #17202a; margin: 0;
+      line-height: 1.5; color: #ffffff; margin: 0;
     }
     .cs-callout-icon { font-size: 40px; margin-top: auto; }
     .cs-goal {
@@ -599,7 +722,7 @@
     .cs-goal-icon { font-size: 48px; margin-bottom: 16px; }
     .cs-goal-heading {
       font-family: 'Source Sans Pro', sans-serif; font-size: 32px; font-weight: 700;
-      color: #17202a; margin: 0 0 24px 0;
+      color: #ffffff; margin: 0 0 24px 0;
     }
     .cs-goal-list {
       list-style: none; padding: 0; margin: 0 auto; display: flex; flex-direction: column;
@@ -607,7 +730,7 @@
     }
     .cs-goal-list li {
       display: flex; align-items: flex-start; gap: 16px;
-      font-family: 'Source Sans Pro', sans-serif; font-size: 22px; line-height: 1.5; color: #17202a;
+      font-family: 'Source Sans Pro', sans-serif; font-size: 22px; line-height: 1.5; color: #ffffff;
     }
     .cs-goal-check {
       flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px;
@@ -635,9 +758,9 @@
       font-size: 18px; font-weight: 500; line-height: 1.4; color: #6b7280;
       transition: all 0.25s ease;
     }
-    .cs-tab:hover { color: #17202a; }
+    .cs-tab:hover { color: #ffffff; }
     .cs-tab.is-active {
-      border-left-color: #6b3fd4; color: #17202a; font-weight: 700; background: #f5f0ff;
+      border-left-color: #6b3fd4; color: #ffffff; font-weight: 700; background: #f5f0ff;
     }
     .cs-tab-num {
       display: block; font-family: 'Space Mono', monospace; font-size: 12px;
@@ -660,11 +783,11 @@
     }
     .cs-synth-mark {
       font-family: 'Source Sans Pro', sans-serif; font-size: 40px; line-height: 1;
-      font-weight: 700; color: #4a3f8a; margin-bottom: 12px;
+      font-weight: 700; color: #D1ADFE; margin-bottom: 12px;
     }
     .cs-synth-text {
       font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 600;
-      line-height: 1.45; color: #4a3f8a; margin: 0 0 20px 0;
+      line-height: 1.45; color: #D1ADFE; margin: 0 0 20px 0;
     }
     .cs-synth-role {
       font-family: 'Source Sans Pro', sans-serif; font-size: 14px; color: #6b6b85;
@@ -691,14 +814,16 @@
     .cs-insight-icon { font-size: 48px; line-height: 1; }
     .cs-insight-text {
       font-family: 'Source Sans Pro', sans-serif; font-size: 20px; font-weight: 400;
-      line-height: 1.5; color: #17202a; margin: 0;
+      line-height: 1.5; color: #ffffff; margin: 0;
     }
     /* Case study top nav */
     .cs-topnav {
       position: sticky; top: 16px; z-index: 5;
       display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center;
-      padding: 16px 28px; margin: 16px 24px 0;
-      background: #0e1218; border: 1px solid #2a2f38; border-radius: 18px;
+      height: 96px; padding: 0 28px; margin: 16px 24px 0;
+      background: rgba(20, 22, 28, 0.55); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px;
+      backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
       font-family: 'Source Sans Pro', sans-serif; font-size: 16px; color: #d8dde5;
     }
     .cs-topnav-left { text-align: left; display: flex; align-items: center; gap: 10px; }
@@ -738,6 +863,22 @@
 
       <div class="cards">
 
+        <div class="card" data-project="imagegen">
+          <div class="card-logo">
+            <svg viewBox="0 0 44 44" fill="none">
+              <rect x="6" y="6" width="14" height="14" rx="2" fill="#17202a"/>
+              <rect x="24" y="6" width="14" height="14" rx="2" fill="#e8b64a"/>
+              <rect x="6" y="24" width="14" height="14" rx="2" fill="#2F68B7"/>
+              <rect x="24" y="24" width="14" height="14" rx="2" stroke="#17202a" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="card-meta">
+            <span class="tags">AI, EDTECH</span>
+            INSIGHT REPORT, BUILT IN FIGMA MAKE
+          </div>
+          <div class="view-projects">View project ↗</div>
+        </div>
+
         <div class="card" data-project="cluster">
           <div class="card-logo">
             <svg viewBox="0 0 44 44" fill="none">
@@ -750,22 +891,6 @@
           <div class="card-meta">
             <span class="tags">AI, EDTECH</span>
             UX/UI + DATA VIZ, AI STRATEGY
-          </div>
-          <div class="view-projects">View project ↗</div>
-        </div>
-
-        <div class="card" data-project="imagegen">
-          <div class="card-logo">
-            <svg viewBox="0 0 44 44" fill="none">
-              <rect x="6" y="6" width="14" height="14" rx="2" fill="#17202a"/>
-              <rect x="24" y="6" width="14" height="14" rx="2" fill="#e8b64a"/>
-              <rect x="6" y="24" width="14" height="14" rx="2" fill="#2F68B7"/>
-              <rect x="24" y="24" width="14" height="14" rx="2" stroke="#17202a" stroke-width="2"/>
-            </svg>
-          </div>
-          <div class="card-meta">
-            <span class="tags">AI, DESIGN TOOL</span>
-            UX/UI + AI WORKFLOWS, DESIGN SYSTEMS
           </div>
           <div class="view-projects">View project ↗</div>
         </div>
@@ -799,18 +924,48 @@
     <main class="main">
 
       <div class="hero" id="hero">
-        <h1 class="hero-headline">
-          I'm Mengzhe (Manzie). A product designer with 5+ years of experience specializing in EdTech, AI, and Healthcare.
+        <h1 class="hero-statement">
+          <span class="line"><span>Designing intuitive</span></span>
+          <span class="line"><span>tools that turn</span></span>
+          <span class="line"><span>ambiguity into <em>clarity</em></span></span>
         </h1>
-        <div class="hero-bullet"></div>
+        <div class="hero-intro">
+          <div class="hero-avatar" aria-hidden="true"></div>
+          <p class="hero-intro-text">
+            <strong>I'm Mengzhe (Manzie)</strong> — a product designer with 5+ years of experience specializing in EdTech, AI, and Healthcare. Currently at <strong>Hats &amp; Ladders</strong>, based in Seattle.
+          </p>
+        </div>
         <div class="hero-meta">
-          Currently at <strong>Hats &amp; Ladders</strong><br>
-          <strong>5 YOE</strong> Product Designer based in <strong>Seattle</strong><br>
-          From concept to execution — design, experiment, ship.
+          <strong>Available</strong> — From concept to execution: design, experiment, ship.
         </div>
       </div>
 
       <!-- Project previews -->
+      <div class="preview" data-preview="imagegen">
+        <div class="preview-bg" style="background:
+          radial-gradient(circle at 75% 25%, rgba(232,182,74,0.85), transparent 55%),
+          radial-gradient(circle at 25% 75%, rgba(47,104,183,0.85), transparent 55%),
+          linear-gradient(135deg, #1a1d2b 0%, #3b2a12 100%);"></div>
+        <div class="preview-scrim"></div>
+        <div class="preview-content">
+          <h2 class="preview-title">Climber Insight Report — Built in Figma Make</h2>
+          <div class="preview-info">
+            <div>
+              <h4>ROLE</h4>
+              <p><strong>Lead Designer</strong> prototyping an AI-driven Climber insight report end-to-end in Figma Make</p>
+            </div>
+            <div>
+              <h4>IMPACT</h4>
+              <ul>
+                <li><span class="ico">🧭</span><strong>Translated AI signals</strong> into educator-ready insights</li>
+                <li><span class="ico">⚡</span><strong>Shipped a working prototype</strong> in days, not sprints</li>
+                <li><span class="ico">🤝</span><strong>Aligned PM, eng, and learning</strong> around one artifact</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="preview" data-preview="cluster">
         <div class="preview-bg" style="background:
           radial-gradient(circle at 20% 30%, rgba(47,104,183,0.9), transparent 45%),
@@ -831,31 +986,6 @@
                 <li><span class="ico">🧭</span><strong>Clarified AI outputs</strong> into actionable insights</li>
                 <li><span class="ico">🤝</span><strong>Raised educator trust</strong> with transparent reasoning</li>
                 <li><span class="ico">📈</span><strong>Scaled reporting</strong> across 100+ district cohorts</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="preview" data-preview="imagegen">
-        <div class="preview-bg" style="background:
-          radial-gradient(circle at 75% 25%, rgba(232,182,74,0.85), transparent 55%),
-          radial-gradient(circle at 25% 75%, rgba(47,104,183,0.85), transparent 55%),
-          linear-gradient(135deg, #1a1d2b 0%, #3b2a12 100%);"></div>
-        <div class="preview-scrim"></div>
-        <div class="preview-content">
-          <h2 class="preview-title">Scalable AI Image Generation Tool</h2>
-          <div class="preview-info">
-            <div>
-              <h4>ROLE</h4>
-              <p><strong>Product Designer</strong> for an internal AI image tool used across marketing &amp; product</p>
-            </div>
-            <div>
-              <h4>IMPACT</h4>
-              <ul>
-                <li><span class="ico">⚡</span><strong>Cut production time</strong> by 70% on visual assets</li>
-                <li><span class="ico">🎨</span><strong>Preserved brand</strong> across AI-generated output</li>
-                <li><span class="ico">🧩</span><strong>Shipped prompt library</strong> adopted by 4 teams</li>
               </ul>
             </div>
           </div>
@@ -1216,6 +1346,158 @@
             <div class="cs-image-box" style="height: 760px;">Image placeholder</div>
             <div class="cs-image-caption">Launch moment for the Middle School career learning product.</div>
           </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ===== Case Study: Climber Insight Report — Built in Figma Make ===== -->
+  <div class="case-study" id="case-imagegen" aria-hidden="true">
+    <div class="case-study-inner">
+
+      <nav class="cs-topnav">
+        <div class="cs-topnav-left">
+          <button class="cs-topnav-back" aria-label="Back to home" onclick="document.querySelectorAll('.case-study.open').forEach(c=>{c.classList.remove('open');c.setAttribute('aria-hidden','true');c.scrollTop=0;});">← Home</button>
+        </div>
+        <div class="cs-topnav-center">Climber Insight Report — Built in Figma Make</div>
+        <div class="cs-topnav-right">Context</div>
+      </nav>
+
+      <section class="cs-header">
+        <h1 class="cs-title">Prototyping an AI-Driven Climber Insight Report in Figma Make.</h1>
+        <p class="cs-subtitle">Product Designer @Hats &amp; Ladders</p>
+
+        <div class="cs-facts">
+          <div>
+            <h4>Timeline</h4>
+            <p>3 weeks</p>
+          </div>
+          <div>
+            <h4>Role</h4>
+            <ul>
+              <li>AI Strategy</li>
+              <li>UX / UI Design</li>
+              <li>Prototyping in Figma Make</li>
+              <li>Data Visualization</li>
+            </ul>
+          </div>
+          <div>
+            <h4>With</h4>
+            <ul>
+              <li>Product Manager</li>
+              <li>Engineering Team</li>
+              <li>Data Scientist</li>
+              <li>Learning Designers</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Team</h4>
+            <p>Insights &amp; Reporting</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="cs-hero-compare">
+        <figure class="cs-hero-compare-item">
+          <figcaption class="cs-hero-compare-title">Legacy Report</figcaption>
+          <div class="cs-hero-compare-frame">
+            <img src="images/climber-insight-report/legacy-report-01.png"
+                 alt="Legacy spreadsheet-style documentation report"
+                 style="width: 100%; height: auto; display: block;">
+          </div>
+        </figure>
+        <figure class="cs-hero-compare-item">
+          <figcaption class="cs-hero-compare-title">New Report — Built in Figma Make</figcaption>
+          <div class="cs-hero-compare-frame">
+            <video src="images/climber-insight-report/report-video-01.mp4"
+                   autoplay loop muted playsinline preload="metadata"
+                   style="width: 100%; height: auto; display: block;"></video>
+          </div>
+        </figure>
+      </div>
+
+      <section class="cs-impact">
+        <div class="cs-impact-sub">Impact</div>
+        <h2 class="cs-impact-heading">What the prototype unlocked</h2>
+        <div class="cs-impact-grid">
+          <div>
+            <div class="cs-stat-num">3 wks</div>
+            <p class="cs-stat-desc">from concept to interactive prototype—built directly in Figma Make instead of waiting on engineering capacity.</p>
+          </div>
+          <div>
+            <div class="cs-stat-num">1</div>
+            <p class="cs-stat-desc">shared artifact aligned PM, engineering, and learning design around the same insight model.</p>
+          </div>
+          <div>
+            <div class="cs-stat-num">5+</div>
+            <p class="cs-stat-desc">AI-generated insight patterns validated with educators before a single line of production code.</p>
+          </div>
+          <div>
+            <div class="cs-stat-num">2×</div>
+            <p class="cs-stat-desc">faster stakeholder review cycles by replacing static decks with a clickable Figma Make build.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-contribution">
+        <div class="cs-impact-sub">My Contribution</div>
+        <h2 class="cs-impact-heading">How I shaped the report</h2>
+        <p class="cs-contribution-body">
+          I led the design and prototyping of the Climber Insight Report end-to-end—turning raw AI signals about each Climber's career-readiness journey into a clear, educator-facing artifact. Using Figma Make, I built a working prototype that simulated real data, AI-generated narrative, and interactive drill-downs, so PM, engineering, and learning design could react to a real product instead of a deck. The work defined the report's structure, the AI's voice, and the patterns we'd hand off to engineering.
+        </p>
+      </section>
+
+      <!-- DESIGN GOALS -->
+      <section id="design-goals" class="cs-section">
+        <div class="cs-impact-sub">Design Goals</div>
+        <h2 class="cs-impact-heading">What we set out to make true</h2>
+        <p class="cs-body">
+          The report had to translate noisy AI outputs into something educators could act on in under a minute—clear enough to trust, specific enough to guide a conversation with a Climber, and structured enough to scale across hundreds of cohorts.
+        </p>
+        <div class="cs-goal">
+          <div class="cs-goal-icon">🎯</div>
+          <h3 class="cs-goal-title">Trustworthy, actionable, and scalable</h3>
+          <ul class="cs-goal-list">
+            <li class="cs-goal-item">✓ Make AI reasoning transparent—every insight traceable to its source signals.</li>
+            <li class="cs-goal-item">✓ Surface the next best action for educators, not just the data.</li>
+            <li class="cs-goal-item">✓ Design a layout that scales from one Climber to a full cohort view.</li>
+            <li class="cs-goal-item">✓ Validate the AI's voice and tone with educators before engineering build-out.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- DISCUSS WITH ENGINEERS -->
+      <section id="discuss-engineers" class="cs-section">
+        <div class="cs-impact-sub">Discuss with Engineers</div>
+        <h2 class="cs-impact-heading">Aligning design intent with what the model can deliver</h2>
+        <p class="cs-body">
+          Prototyping in Figma Make gave engineering a concrete target to react to. Together we mapped which insights the AI could generate reliably, which needed guardrails, and which were better expressed as structured data than as natural language. These conversations shaped both the report's surface and the data contract behind it.
+        </p>
+        <div class="cs-callouts">
+          <div class="cs-callout cs-callout--purple">
+            <span class="cs-callout-tag">AI Reliability</span>
+            <p class="cs-callout-body">Free-form AI summaries drifted in tone across Climbers. We constrained the model to a structured template with named insight slots so output stayed consistent at scale.</p>
+            <div class="cs-callout-icon">⚙️</div>
+          </div>
+          <div class="cs-callout cs-callout--cream">
+            <span class="cs-callout-tag">Data Contract</span>
+            <p class="cs-callout-body">Some signals were noisy or sparse for early-stage Climbers. We defined fallbacks and confidence indicators with engineering so the report degraded gracefully instead of fabricating insight.</p>
+            <div class="cs-callout-icon">📊</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOLUTION -->
+      <section id="solution" class="cs-section">
+        <div class="cs-impact-sub">Solution</div>
+        <h2 class="cs-impact-heading">A clickable insight report, built in Figma Make</h2>
+        <p class="cs-body">
+          The final prototype is an interactive Climber Insight Report that pulls structured AI summaries, progress signals, and recommended next actions into one educator-facing surface. Built entirely in Figma Make, it served as the source of truth for design, engineering handoff, and educator validation—turning an AI roadmap item into something stakeholders could click through and trust.
+        </p>
+        <div class="cs-image-contain">
+          <div class="cs-image-box" style="height: 560px;">Figma Make prototype placeholder</div>
+          <div class="cs-image-caption">Climber Insight Report prototype: AI-generated narrative, signal-backed insights, and recommended next actions for educators.</div>
         </div>
       </section>
 

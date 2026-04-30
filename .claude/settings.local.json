@@ -27,7 +27,8 @@
       "Bash(pip3 install *)",
       "Bash(python3 /tmp/make_lime_doc.py)",
       "WebFetch(domain:www.mengzhe.design)",
-      "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.mengzhe.design/works/career-learning-app\" -o /tmp/mengzhe-case.html)"
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.mengzhe.design/works/career-learning-app\" -o /tmp/mengzhe-case.html)",
+      "WebFetch(domain:www.junyi-ding.com)"
     ]
   }
 }
