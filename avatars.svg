@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <style>
+      .stroke { stroke: #1a1a1a; stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+      .eye { fill: #1a1a1a; }
+      .smile { fill: none; stroke: #1a1a1a; stroke-width: 4.5; stroke-linecap: round; }
+    </style>
+  </defs>
+
+  <rect width="600" height="600" fill="#EDEDED"/>
+
+  <!-- ============ TOP LEFT: Boy, dark skin, green shirt ============ -->
+  <g transform="translate(0,0)">
+    <!-- shirt body -->
+    <path class="stroke" d="M45 295 C70 240, 120 215, 150 215 C180 215, 230 240, 255 295 L255 300 L45 300 Z" fill="#2F8F5A"/>
+    <!-- neckline V -->
+    <path class="stroke" d="M125 225 Q150 250 175 225" fill="#5A3520"/>
+    <!-- neck -->
+    <path class="stroke" d="M128 200 L128 230 Q150 245 172 230 L172 200 Z" fill="#6E4226"/>
+    <!-- head -->
+    <circle class="stroke" cx="150" cy="150" r="78" fill="#8A5532"/>
+    <!-- ears -->
+    <ellipse class="stroke" cx="73" cy="155" rx="10" ry="14" fill="#8A5532"/>
+    <ellipse class="stroke" cx="227" cy="155" rx="10" ry="14" fill="#8A5532"/>
+    <!-- hair: short curly cap -->
+    <path class="stroke" d="M78 130 C70 80, 110 55, 150 58 C195 55, 228 85, 222 135
+                            C218 125, 210 120, 200 122
+                            C195 110, 180 108, 170 115
+                            C160 105, 145 105, 138 113
+                            C125 108, 110 112, 103 122
+                            C92 118, 82 122, 78 130 Z" fill="#1F1410"/>
+    <!-- eyes -->
+    <circle class="eye" cx="123" cy="160" r="6.5"/>
+    <circle class="eye" cx="177" cy="160" r="6.5"/>
+    <!-- smile -->
+    <path class="smile" d="M125 188 Q150 208 175 188"/>
+  </g>
+
+  <!-- ============ TOP RIGHT: Girl, curly hair, purple shirt ============ -->
+  <g transform="translate(300,0)">
+    <path class="stroke" d="M45 295 C70 240, 120 215, 150 215 C180 215, 230 240, 255 295 L255 300 L45 300 Z" fill="#7A45C2"/>
+    <path class="stroke" d="M125 225 Q150 250 175 225" fill="#8B5E3C"/>
+    <path class="stroke" d="M128 200 L128 230 Q150 245 172 230 L172 200 Z" fill="#A77046"/>
+    <!-- head -->
+    <circle class="stroke" cx="150" cy="150" r="76" fill="#C08960"/>
+    <!-- ears -->
+    <ellipse class="stroke" cx="75" cy="155" rx="9" ry="13" fill="#C08960"/>
+    <ellipse class="stroke" cx="225" cy="155" rx="9" ry="13" fill="#C08960"/>
+    <!-- curly hair: big rounded shape with curl scallops -->
+    <path class="stroke" d="M68 145 C55 95, 90 55, 130 58
+                            C145 45, 175 50, 188 65
+                            C225 70, 245 110, 232 160
+                            C228 145, 218 140, 210 145
+                            C220 130, 215 115, 200 110
+                            C195 95, 175 90, 165 100
+                            C155 85, 130 90, 125 105
+                            C108 100, 92 115, 90 130
+                            C78 130, 70 138, 68 145 Z" fill="#2C1810"/>
+    <!-- side curls -->
+    <circle class="stroke" cx="65" cy="170" r="12" fill="#2C1810"/>
+    <circle class="stroke" cx="235" cy="170" r="12" fill="#2C1810"/>
+    <circle class="eye" cx="123" cy="160" r="6.5"/>
+    <circle class="eye" cx="177" cy="160" r="6.5"/>
+    <path class="smile" d="M125 188 Q150 208 175 188"/>
+  </g>
+
+  <!-- ============ BOTTOM LEFT: Boy with cap, blue hoodie ============ -->
+  <g transform="translate(0,300)">
+    <!-- hoodie body -->
+    <path class="stroke" d="M35 295 C60 235, 115 210, 150 210 C185 210, 240 235, 265 295 L265 300 L35 300 Z" fill="#1F6FB8"/>
+    <!-- hood neckline -->
+    <path class="stroke" d="M105 230 Q150 270 195 230" fill="#1F6FB8"/>
+    <!-- zipper hint -->
+    <line class="stroke" x1="150" y1="245" x2="150" y2="300"/>
+    <!-- neck -->
+    <path class="stroke" d="M132 205 L132 228 Q150 240 168 228 L168 205 Z" fill="#F2C394"/>
+    <!-- face -->
+    <circle class="stroke" cx="150" cy="160" r="75" fill="#FBD3A8"/>
+    <!-- ears -->
+    <ellipse class="stroke" cx="77" cy="165" rx="9" ry="13" fill="#FBD3A8"/>
+    <ellipse class="stroke" cx="223" cy="165" rx="9" ry="13" fill="#FBD3A8"/>
+    <!-- side hair tufts -->
+    <path class="stroke" d="M78 145 Q72 170 90 175 L100 145 Z" fill="#1F1410"/>
+    <path class="stroke" d="M222 145 Q228 170 210 175 L200 145 Z" fill="#1F1410"/>
+    <!-- cap crown -->
+    <path class="stroke" d="M75 125 C78 75, 125 55, 150 55 C175 55, 222 75, 225 125 L225 132 L75 132 Z" fill="#FFFFFF"/>
+    <!-- cap red panels -->
+    <path class="stroke" d="M75 125 C78 80, 110 60, 125 58 L125 132 L75 132 Z" fill="#D43229"/>
+    <path class="stroke" d="M175 58 C190 60, 222 80, 225 125 L225 132 L175 132 Z" fill="#D43229"/>
+    <!-- brim -->
+    <path class="stroke" d="M55 132 C150 158, 245 132, 245 132 L245 145 C150 170, 55 145, 55 145 Z" fill="#FFFFFF"/>
+    <!-- eyes -->
+    <circle class="eye" cx="123" cy="170" r="6.5"/>
+    <circle class="eye" cx="177" cy="170" r="6.5"/>
+    <path class="smile" d="M125 198 Q150 218 175 198"/>
+  </g>
+
+  <!-- ============ BOTTOM RIGHT: Girl, long red hair, yellow shirt ============ -->
+  <g transform="translate(300,300)">
+    <!-- shirt -->
+    <path class="stroke" d="M35 295 C60 235, 115 210, 150 210 C185 210, 240 235, 265 295 L265 300 L35 300 Z" fill="#E8BC2C"/>
+    <!-- back hair behind shoulders -->
+    <path class="stroke" d="M65 130 C60 80, 100 55, 150 55 C200 55, 240 80, 235 130
+                            L260 290 C240 270, 220 280, 215 295
+                            L205 220 Q200 200 195 230 L195 290
+                            L150 270 L105 290 L105 230
+                            Q100 200 95 220 L85 295
+                            C80 280, 60 270, 40 290 Z" fill="#D9682C"/>
+    <!-- neck -->
+    <path class="stroke" d="M132 205 L132 228 Q150 240 168 228 L168 205 Z" fill="#F2C394"/>
+    <!-- face -->
+    <circle class="stroke" cx="150" cy="155" r="72" fill="#FBD3A8"/>
+    <!-- ears (peek) -->
+    <ellipse class="stroke" cx="80" cy="160" rx="8" ry="12" fill="#FBD3A8"/>
+    <ellipse class="stroke" cx="220" cy="160" rx="8" ry="12" fill="#FBD3A8"/>
+    <!-- front hair / bangs sweeping -->
+    <path class="stroke" d="M80 130 C85 80, 130 60, 160 65
+                            C190 70, 218 95, 222 130
+                            C215 115, 200 110, 188 118
+                            C175 100, 150 105, 138 118
+                            C115 110, 90 118, 80 130 Z" fill="#D9682C"/>
+    <!-- eyes -->
+    <circle class="eye" cx="125" cy="165" r="6.5"/>
+    <circle class="eye" cx="175" cy="165" r="6.5"/>
+    <path class="smile" d="M127 192 Q150 210 173 192"/>
+  </g>
+</svg>

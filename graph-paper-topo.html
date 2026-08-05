@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warm Topo Lines Background</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-width: 1280px;
+    min-height: 800px;
+  }
+
+  .topo {
+    position: relative;
+    width: 100%;
+    min-width: 1280px;
+    min-height: 800px;
+    height: 100vh;
+    overflow: hidden;
+    /* vibrant warm wash */
+    background: linear-gradient(135deg, #ffd9a0 0%, #ffb877 32%, #ff9e63 60%, #f5854f 100%);
+  }
+
+  /* Topographic contour lines */
+  .topo__lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Warm amber glows at all four corners */
+  .topo__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at top left,     rgba(255, 233, 170, 0.55), transparent 45%),
+      radial-gradient(circle at top right,    rgba(255, 158, 99,  0.45), transparent 45%),
+      radial-gradient(circle at bottom left,  rgba(255, 140, 82,  0.42), transparent 48%),
+      radial-gradient(circle at bottom right, rgba(255, 110, 70,  0.48), transparent 48%);
+  }
+
+  /* Subtle grain texture overlay on top */
+  .topo__grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.42;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+</style>
+</head>
+<body>
+  <div class="topo">
+    <!-- Topographic contour lines -->
+    <svg class="topo__lines" viewBox="0 0 1280 800" preserveAspectRatio="xMidYMid slice"
+         xmlns="http://www.w3.org/2000/svg" fill="none"
+         stroke="rgb(120,68,32)" stroke-opacity="0.18" stroke-width="1.1">
+      <!-- flowing ridge lines -->
+      <path d="M -40 120 C 220 60, 520 180, 760 110 S 1180 40, 1320 130"/>
+      <path d="M -40 150 C 220 92, 520 210, 760 140 S 1180 72, 1320 162"/>
+      <path d="M -40 182 C 220 126, 520 242, 760 172 S 1180 106, 1320 196"/>
+
+      <path d="M -40 470 C 260 540, 540 410, 820 500 S 1180 600, 1320 520"/>
+      <path d="M -40 502 C 260 574, 540 444, 820 534 S 1180 634, 1320 554"/>
+      <path d="M -40 536 C 260 610, 540 480, 820 570 S 1180 670, 1320 590"/>
+
+      <path d="M -40 700 C 300 640, 620 760, 940 700 S 1200 640, 1320 700"/>
+      <path d="M -40 736 C 300 678, 620 798, 940 738 S 1200 678, 1320 738"/>
+
+      <!-- concentric hill (right) -->
+      <ellipse cx="1180" cy="120" rx="40"  ry="34"/>
+      <ellipse cx="1180" cy="120" rx="78"  ry="66"/>
+      <ellipse cx="1180" cy="120" rx="120" ry="102"/>
+      <ellipse cx="1180" cy="120" rx="166" ry="140"/>
+
+      <!-- concentric basin (left) -->
+      <ellipse cx="60" cy="430" rx="34"  ry="40"/>
+      <ellipse cx="60" cy="430" rx="70"  ry="82"/>
+      <ellipse cx="60" cy="430" rx="110" ry="126"/>
+    </svg>
+
+    <div class="topo__glow"></div>
+    <div class="topo__grain"></div>
+  </div>
+</body>
+</html>

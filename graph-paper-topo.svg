@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <defs>
+    <!-- warm paper vertical wash -->
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#efe7d6"/>
+      <stop offset="50%" stop-color="#e9e0cd"/>
+      <stop offset="100%" stop-color="#e3d9c4"/>
+    </linearGradient>
+
+    <!-- corner amber glows -->
+    <radialGradient id="g-tl" cx="0" cy="0" r="0.6">
+      <stop offset="0%" stop-color="rgb(255,196,120)" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="rgb(255,196,120)" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g-tr" cx="1" cy="0" r="0.6">
+      <stop offset="0%" stop-color="rgb(255,186,104)" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="rgb(255,186,104)" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g-bl" cx="0" cy="1" r="0.62">
+      <stop offset="0%" stop-color="rgb(255,178,92)" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="rgb(255,178,92)" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g-br" cx="1" cy="1" r="0.62">
+      <stop offset="0%" stop-color="rgb(255,204,132)" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="rgb(255,204,132)" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- grain -->
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+
+    <!-- shared light topo stroke -->
+    <g id="topo-stroke"/>
+  </defs>
+
+  <!-- base -->
+  <rect width="1280" height="800" fill="url(#paper)"/>
+
+  <!-- TOPOGRAPHIC CONTOUR LINES -->
+  <g fill="none" stroke="rgb(150,120,78)" stroke-opacity="0.16" stroke-width="1.1">
+
+    <!-- flowing ridge lines across the field -->
+    <path d="M -40 120 C 220 60, 520 180, 760 110 S 1180 40, 1320 130"/>
+    <path d="M -40 150 C 220 92, 520 210, 760 140 S 1180 72, 1320 162"/>
+    <path d="M -40 182 C 220 126, 520 242, 760 172 S 1180 106, 1320 196"/>
+
+    <path d="M -40 470 C 260 540, 540 410, 820 500 S 1180 600, 1320 520"/>
+    <path d="M -40 502 C 260 574, 540 444, 820 534 S 1180 634, 1320 554"/>
+    <path d="M -40 536 C 260 610, 540 480, 820 570 S 1180 670, 1320 590"/>
+
+    <path d="M -40 700 C 300 640, 620 760, 940 700 S 1200 640, 1320 700"/>
+    <path d="M -40 736 C 300 678, 620 798, 940 738 S 1200 678, 1320 738"/>
+
+    <!-- concentric hill (right) -->
+    <ellipse cx="1180" cy="120" rx="40" ry="34"/>
+    <ellipse cx="1180" cy="120" rx="78" ry="66"/>
+    <ellipse cx="1180" cy="120" rx="120" ry="102"/>
+    <ellipse cx="1180" cy="120" rx="166" ry="140"/>
+
+    <!-- concentric basin (left) -->
+    <ellipse cx="60" cy="430" rx="34" ry="40"/>
+    <ellipse cx="60" cy="430" rx="70" ry="82"/>
+    <ellipse cx="60" cy="430" rx="110" ry="126"/>
+  </g>
+
+  <!-- corner glows -->
+  <rect width="1280" height="800" fill="url(#g-tl)"/>
+  <rect width="1280" height="800" fill="url(#g-tr)"/>
+  <rect width="1280" height="800" fill="url(#g-bl)"/>
+  <rect width="1280" height="800" fill="url(#g-br)"/>
+
+  <!-- grain overlay -->
+  <rect width="1280" height="800" filter="url(#grain)" opacity="0.42" style="mix-blend-mode:overlay"/>
+</svg>

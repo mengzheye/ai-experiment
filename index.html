@@ -77,9 +77,8 @@
     }
     .brand-logo {
       width: 32px; height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2F68B7 0%, #e8b64a 100%);
       flex-shrink: 0;
+      background: url("images/landing/logo.svg") center / contain no-repeat;
     }
     .brand-name {
       font-family: 'Source Sans Pro', sans-serif;
@@ -94,10 +93,16 @@
       flex-direction: column;
     }
 
+    .card-wrap {
+      flex: 1;
+      position: relative;
+      border-bottom: 1px solid #dcd6c8;
+      display: flex;
+    }
+
     .card {
       flex: 1;
       padding: 24px 20px;
-      border-bottom: 1px solid #dcd6c8;
       cursor: pointer;
       position: relative;
       display: flex;
@@ -105,11 +110,9 @@
       justify-content: space-between;
       transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
       background: transparent;
-    }
-    .card {
       transform-origin: left center;
     }
-    .card:hover {
+    .card-wrap:hover .card {
       background: rgba(255, 255, 255, 0.06);
       transform: translateX(4px) rotate(-10deg);
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
@@ -139,26 +142,25 @@
       margin-bottom: 6px;
     }
 
-    .card .view-projects {
+    .view-projects {
       position: absolute;
-      bottom: -36px;
-      right: 0;
-      display: flex;
-      align-items: center;
+      bottom: 0;
+      right: 16px;
+      transform: translateY(calc(50% - 18px));
       font-family: 'Source Sans Pro', sans-serif;
-      font-size: 16px;
+      font-size: 24px;
       font-weight: 700;
-      letter-spacing: 1px;
+      line-height: 1;
+      background: #0a0a0a;
+      padding: 0 6px;
       opacity: 0;
-      transform: rotate(10deg) translateY(-4px);
-      transform-origin: right center;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.3s ease;
       color: #ffffff;
-      white-space: nowrap;
+      pointer-events: none;
+      z-index: 3;
     }
-    .card:hover .view-projects {
+    .card-wrap:hover .view-projects {
       opacity: 1;
-      transform: rotate(10deg) translateY(0);
     }
 
     .bottom-nav {
@@ -240,10 +242,8 @@
     }
     .hero-avatar {
       width: 64px; height: 64px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2F68B7 0%, #e8b64a 100%);
       flex-shrink: 0;
-      overflow: hidden;
+      background: url("images/landing/logo.svg") center / contain no-repeat;
     }
     .hero-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .hero-intro-text {
@@ -869,51 +869,57 @@
 
       <div class="cards">
 
-        <div class="card" data-project="imagegen">
-          <div class="card-logo">
-            <svg viewBox="0 0 44 44" fill="none">
-              <rect x="6" y="6" width="14" height="14" rx="2" fill="#17202a"/>
-              <rect x="24" y="6" width="14" height="14" rx="2" fill="#e8b64a"/>
-              <rect x="6" y="24" width="14" height="14" rx="2" fill="#2F68B7"/>
-              <rect x="24" y="24" width="14" height="14" rx="2" stroke="#17202a" stroke-width="2"/>
-            </svg>
+        <div class="card-wrap">
+          <div class="card" data-project="imagegen">
+            <div class="card-logo">
+              <svg viewBox="0 0 44 44" fill="none">
+                <rect x="6" y="6" width="14" height="14" rx="2" fill="#17202a"/>
+                <rect x="24" y="6" width="14" height="14" rx="2" fill="#e8b64a"/>
+                <rect x="6" y="24" width="14" height="14" rx="2" fill="#2F68B7"/>
+                <rect x="24" y="24" width="14" height="14" rx="2" stroke="#17202a" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="card-meta">
+              <span class="tags">AI, EDTECH</span>
+              INSIGHT REPORT, BUILT IN FIGMA MAKE
+            </div>
           </div>
-          <div class="card-meta">
-            <span class="tags">AI, EDTECH</span>
-            INSIGHT REPORT, BUILT IN FIGMA MAKE
-          </div>
-          <div class="view-projects">View project ↗</div>
+          <div class="view-projects">→</div>
         </div>
 
-        <div class="card" data-project="cluster">
-          <div class="card-logo">
-            <svg viewBox="0 0 44 44" fill="none">
-              <circle cx="12" cy="12" r="5" fill="#2F68B7"/>
-              <circle cx="32" cy="14" r="4" fill="#e8b64a"/>
-              <circle cx="18" cy="30" r="6" fill="#17202a"/>
-              <circle cx="34" cy="32" r="3" fill="#2F68B7"/>
-            </svg>
+        <div class="card-wrap">
+          <div class="card" data-project="cluster">
+            <div class="card-logo">
+              <svg viewBox="0 0 44 44" fill="none">
+                <circle cx="12" cy="12" r="5" fill="#2F68B7"/>
+                <circle cx="32" cy="14" r="4" fill="#e8b64a"/>
+                <circle cx="18" cy="30" r="6" fill="#17202a"/>
+                <circle cx="34" cy="32" r="3" fill="#2F68B7"/>
+              </svg>
+            </div>
+            <div class="card-meta">
+              <span class="tags">AI, EDTECH</span>
+              UX/UI + DATA VIZ, AI STRATEGY
+            </div>
           </div>
-          <div class="card-meta">
-            <span class="tags">AI, EDTECH</span>
-            UX/UI + DATA VIZ, AI STRATEGY
-          </div>
-          <div class="view-projects">View project ↗</div>
+          <div class="view-projects">→</div>
         </div>
 
-        <div class="card" data-project="icons">
-          <div class="card-logo">
-            <svg viewBox="0 0 44 44" fill="none">
-              <path d="M22 4 L40 22 L22 40 L4 22 Z" fill="#17202a"/>
-              <path d="M22 12 L32 22 L22 32 L12 22 Z" fill="#f4f1ea"/>
-              <circle cx="22" cy="22" r="3" fill="#17202a"/>
-            </svg>
+        <div class="card-wrap">
+          <div class="card" data-project="icons">
+            <div class="card-logo">
+              <svg viewBox="0 0 44 44" fill="none">
+                <path d="M22 4 L40 22 L22 40 L4 22 Z" fill="#17202a"/>
+                <path d="M22 12 L32 22 L22 32 L12 22 Z" fill="#f4f1ea"/>
+                <circle cx="22" cy="22" r="3" fill="#17202a"/>
+              </svg>
+            </div>
+            <div class="card-meta">
+              <span class="tags">DESIGN SYSTEMS, BRANDING</span>
+              UX/UI + ICONOGRAPHY, SCALABILITY
+            </div>
           </div>
-          <div class="card-meta">
-            <span class="tags">DESIGN SYSTEMS, BRANDING</span>
-            UX/UI + ICONOGRAPHY, SCALABILITY
-          </div>
-          <div class="view-projects">View project ↗</div>
+          <div class="view-projects">→</div>
         </div>
 
       </div>

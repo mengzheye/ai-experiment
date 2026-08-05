@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PLUS | Tutor Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#ffffff;
+    --ink:#0e1a2b;
+    --muted:#5a6776;
+    --accent:#2b5cff;
+    --accent-soft:#eef2ff;
+    --card:#f6f8fb;
+    --border:#e4e8ef;
+    --yellow:#ffd84d;
+  }
+  html,body{font-family:"Source Sans 3","Source Sans Pro",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* Nav */
+  header.nav{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:10}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{font-weight:800;font-size:22px;letter-spacing:.5px}
+  .logo span{color:var(--accent)}
+  nav ul{display:flex;gap:32px;list-style:none}
+  nav a{font-weight:500;color:var(--ink)}
+  nav a:hover{color:var(--accent)}
+  .nav-cta{display:flex;gap:12px;align-items:center}
+  .btn{display:inline-block;padding:10px 18px;border-radius:8px;font-weight:600;font-size:15px;transition:all .15s ease;border:1px solid transparent;cursor:pointer}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:#1e48d6}
+  .btn-ghost{color:var(--ink);border-color:var(--border)}
+  .btn-ghost:hover{background:var(--card)}
+
+  /* Announcement */
+  .announce{background:#fffbe6;border-bottom:1px solid #f3e9a8;padding:10px 0;text-align:center;font-size:14px}
+  .announce strong{color:#a17600}
+  .announce a{color:var(--accent);font-weight:600;margin-left:8px}
+
+  /* Hero */
+  .hero{padding:90px 0 80px;text-align:center;background:linear-gradient(180deg,#f8faff 0%,#fff 100%)}
+  .eyebrow{display:inline-block;font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:6px 14px;border-radius:999px;letter-spacing:.6px;text-transform:uppercase;margin-bottom:18px}
+  .hero h1{font-size:56px;font-weight:700;line-height:1.1;letter-spacing:-.02em;max-width:900px;margin:0 auto 18px}
+  .hero p.sub{font-size:20px;color:var(--muted);max-width:680px;margin:0 auto 32px}
+  .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* Feature grid */
+  section.features{padding:80px 0}
+  .features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .feature{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px}
+  .feature .icon{width:44px;height:44px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+  .feature h3{font-size:18px;font-weight:700;margin-bottom:8px}
+  .feature p{font-size:15px;color:var(--muted)}
+
+  /* SMART */
+  section.smart{padding:80px 0;background:var(--card)}
+  .section-head{text-align:center;margin-bottom:50px}
+  .section-head h2{font-size:42px;font-weight:700;letter-spacing:-.01em;margin-bottom:12px}
+  .section-head p{font-size:18px;color:var(--muted)}
+  .smart-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+  .smart-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:26px;text-align:center}
+  .smart-letter{font-size:34px;font-weight:800;color:var(--accent);margin-bottom:10px}
+  .smart-card h4{font-size:16px;font-weight:700;margin-bottom:8px}
+  .smart-card p{font-size:14px;color:var(--muted)}
+
+  /* Split sections */
+  section.split{padding:90px 0;border-top:1px solid var(--border)}
+  .split-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .split-row.reverse{direction:rtl}
+  .split-row.reverse > *{direction:ltr}
+  .split-row h2{font-size:38px;font-weight:700;letter-spacing:-.01em;margin-bottom:16px}
+  .split-row p{font-size:17px;color:var(--muted);margin-bottom:24px}
+  .visual{aspect-ratio:4/3;border-radius:16px;background:linear-gradient(135deg,#e8eeff 0%,#dfe9ff 100%);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--accent)}
+
+  /* Trusted */
+  section.trusted{padding:70px 0;text-align:center;background:#fafbfd;border-top:1px solid var(--border)}
+  .trusted h3{font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
+  .logos{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;opacity:.7}
+  .logos div{font-weight:700;font-size:20px;color:#7a8595}
+
+  /* CTA */
+  section.cta{padding:90px 0;text-align:center;background:linear-gradient(135deg,#0e1a2b 0%,#1d3163 100%);color:#fff}
+  section.cta h2{font-size:44px;font-weight:700;letter-spacing:-.01em;margin-bottom:14px}
+  section.cta p{font-size:18px;opacity:.85;margin-bottom:30px}
+  .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta .btn-primary{background:#fff;color:var(--accent)}
+  .cta .btn-primary:hover{background:#eef2ff}
+  .cta .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+  .cta .btn-ghost:hover{background:rgba(255,255,255,.08)}
+
+  /* Footer */
+  footer{padding:60px 0 30px;background:#0a1424;color:#aab4c4}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+  footer h5{color:#fff;font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+  footer ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px}
+  footer a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid #1d2a3f;padding-top:24px;display:flex;justify-content:space-between;font-size:14px;color:#7a8595;flex-wrap:wrap;gap:10px}
+
+  @media (max-width:900px){
+    .hero h1{font-size:38px}
+    .features-grid{grid-template-columns:repeat(2,1fr)}
+    .smart-grid{grid-template-columns:repeat(2,1fr)}
+    .split-row{grid-template-columns:1fr;gap:30px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    nav ul{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="announce">
+  <strong>🏆 PLUS named a 2026 Tools Competition finalist</strong> in the Datasets for Education track.
+  <a href="#">See announcement →</a>
+</div>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="logo">PLUS<span>+</span></div>
+    <nav>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Solutions</a></li>
+        <li><a href="#">Impact</a></li>
+        <li><a href="#">Get Involved</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost">Tutor login</a>
+      <a href="#" class="btn btn-primary">Try our demo</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Tutor Training</span>
+    <h1>Research-driven, AI-powered Training Proven to Improve Tutor Skills</h1>
+    <p class="sub">PLUS delivers personalized learning experiences with AI-powered tutor coaching — free for tutors from any organization.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary">Check out our demo</a>
+      <a href="#" class="btn btn-ghost">Get training for your tutors</a>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature">
+        <div class="icon">🆓</div>
+        <h3>Free For All</h3>
+        <p>PLUS training lessons and AI-feedback are free for tutors from any organization.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🌐</div>
+        <h3>Multilingual Support</h3>
+        <p>Available in English and Spanish for select lessons.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🎭</div>
+        <h3>Scenario-Based</h3>
+        <p>Real-life scenarios that prepare tutors for practical applications.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🤖</div>
+        <h3>AI-Powered Feedback</h3>
+        <p>Personalized feedback in select lessons, with more coming soon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="smart">
+  <div class="container">
+    <div class="section-head">
+      <h2>The SMART Framework</h2>
+      <p>Covers 13 key skills across five areas of effective tutoring.</p>
+    </div>
+    <div class="smart-grid">
+      <div class="smart-card">
+        <div class="smart-letter">S</div>
+        <h4>Social Emotional Learning</h4>
+        <p>Engage and motivate students to learn.</p>
+      </div>
+      <div class="smart-card">
+        <div class="smart-letter">M</div>
+        <h4>Mastering Content</h4>
+        <p>Learn math and related content knowledge.</p>
+      </div>
+      <div class="smart-card">
+        <div class="smart-letter">A</div>
+        <h4>Advocacy</h4>
+        <p>Apply bias awareness and culturally responsive teaching practices.</p>
+      </div>
+      <div class="smart-card">
+        <div class="smart-letter">R</div>
+        <h4>Relationships</h4>
+        <p>Foster relationships with students and caregivers.</p>
+      </div>
+      <div class="smart-card">
+        <div class="smart-letter">T</div>
+        <h4>Technology Tools</h4>
+        <p>Effectively use technology to optimize student learning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="split">
+  <div class="container">
+    <div class="split-row">
+      <div>
+        <h2>Customizable Lessons and Strategies</h2>
+        <p>Tailor training pathways to fit your organization's needs. Mix scenarios, align with your curriculum, and adapt to the tutors you serve.</p>
+        <a href="#" class="btn btn-primary">Explore our training</a>
+      </div>
+      <div class="visual">📚</div>
+    </div>
+  </div>
+</section>
+
+<section class="split" style="background:var(--card)">
+  <div class="container">
+    <div class="split-row reverse">
+      <div>
+        <h2>Admin Panel</h2>
+        <p>Manage tutors, track their performance, and assign training — all from one streamlined dashboard.</p>
+        <a href="#" class="btn btn-primary">Register your institution</a>
+      </div>
+      <div class="visual">📊</div>
+    </div>
+  </div>
+</section>
+
+<section class="split">
+  <div class="container">
+    <div class="split-row">
+      <div>
+        <h2>Tutor Certification and Badges</h2>
+        <p>Tutors receive a badge and certificate for completing all training lessons — recognition they can carry forward.</p>
+        <a href="#" class="btn btn-ghost">Become a tutor</a>
+      </div>
+      <div class="visual">🏅</div>
+    </div>
+  </div>
+</section>
+
+<section class="trusted">
+  <div class="container">
+    <h3>Trusted By</h3>
+    <div class="logos">
+      <div>Carnegie Mellon</div>
+      <div>Saga Education</div>
+      <div>OnYourMark</div>
+      <div>Air Tutors</div>
+      <div>CovEd</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>Ready to upskill your tutors?</h2>
+    <p>Join thousands of tutors learning with PLUS.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn btn-primary">Sign up</a>
+      <a href="#" class="btn btn-ghost">Take demo</a>
+      <a href="#" class="btn btn-ghost">Ask our Intercom</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px">PLUS<span style="color:var(--accent)">+</span></div>
+        <p style="font-size:15px;max-width:320px">Personalized Learning & Scalable Tutoring Solutions, powered by research from Carnegie Mellon University.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">Our story</a></li>
+          <li><a href="#">Our team</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Media kit</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Solutions</h5>
+        <ul>
+          <li><a href="#">PLUS Tutoring</a></li>
+          <li><a href="#">PLUS Training</a></li>
+          <li><a href="#">PLUS Toolkit</a></li>
+          <li><a href="#">Our research</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Get Involved</h5>
+        <ul>
+          <li><a href="#">Become a tutor</a></li>
+          <li><a href="#">Register now</a></li>
+          <li><a href="#">Contact us</a></li>
+          <li><a href="#">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>Carnegie Mellon University © 2026</span>
+      <span>All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Intern — Agent Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: #f5f6f8;
+      min-height: 100vh;
+      padding: 2.5rem 2rem;
+      color: #1f2937;
+    }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .header { margin-bottom: 1.75rem; }
+    h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; color: #111827; }
+    .subtitle { color: #6b7280; font-size: 0.9rem; margin-top: 0.35rem; }
+    .diagram-container {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+      padding: 0.5rem;
+      overflow-x: auto;
+    }
+    svg { width: 100%; min-width: 1000px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>AI Intern — Agent Architecture</h1>
+      <p class="subtitle">How a human router dispatches tasks to an agent backed by skills, a knowledge base, and persistent memory.</p>
+    </div>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1640 900">
+        <defs>
+          <marker id="arrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto">
+            <path d="M0 0 L8 4 L0 8 Z" fill="#9aa3af"/>
+          </marker>
+          <marker id="arrowDash" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto">
+            <path d="M0 0 L8 4 L0 8 Z" fill="#b0b7c2"/>
+          </marker>
+          <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.3" fill="#e7e9ee"/>
+          </pattern>
+        </defs>
+
+        <rect width="1640" height="900" fill="url(#dots)"/>
+
+        <!-- ================= CONNECTORS (drawn first, behind boxes) ================= -->
+        <g fill="none" stroke="#c2c8d2" stroke-width="2">
+          <!-- You -> Agent -->
+          <path d="M250 630 H400" marker-end="url(#arrow)"/>
+          <!-- Agent -> Skills -->
+          <path d="M610 600 C660 600 660 320 710 320" marker-end="url(#arrow)"/>
+          <!-- Skills -> three skill nodes -->
+          <path d="M920 290 C960 290 960 140 1030 140" marker-end="url(#arrow)"/>
+          <path d="M920 320 H1030" marker-end="url(#arrow)"/>
+          <path d="M920 350 C965 350 965 500 1030 500" marker-end="url(#arrow)"/>
+          <!-- Agent -> Knowledge Base -->
+          <path d="M610 645 C650 645 660 720 720 720" marker-end="url(#arrow)"/>
+          <!-- Knowledge Base -> Memory -->
+          <path d="M918 720 H1140" marker-end="url(#arrow)"/>
+          <!-- Memory -> Agent (auto-loaded, top return) -->
+          <path d="M1220 690 C1220 600 660 600 612 615" marker-end="url(#arrow)"/>
+          <!-- Agent -> Memory (bottom feed) -->
+          <path d="M560 660 C560 820 1220 820 1220 752" marker-end="url(#arrow)"/>
+          <!-- Memory -> Project background -->
+          <path d="M1300 690 C1340 690 1340 600 1400 600" marker-end="url(#arrow)"/>
+          <!-- Memory -> Design key decisions -->
+          <path d="M1300 750 C1340 750 1340 840 1400 840" marker-end="url(#arrow)"/>
+        </g>
+
+        <!-- edge labels -->
+        <g font-family="Inter" font-size="13" fill="#6b7280">
+          <text x="325" y="622" text-anchor="middle">dispatch task on demand</text>
+          <text x="900" y="595" text-anchor="middle">auto-loaded before each task</text>
+          <text x="1029" y="715" text-anchor="middle">feeds into</text>
+        </g>
+
+        <!-- ================= NODES ================= -->
+        <!-- You (Human = Router) -->
+        <rect x="40" y="592" width="210" height="76" rx="10" fill="#fdecd9" stroke="#e8924a" stroke-width="2"/>
+        <text x="145" y="636" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#7a4a18">You (Human = Router)</text>
+
+        <!-- AI Intern (Agent) -->
+        <rect x="400" y="592" width="210" height="76" rx="10" fill="#fdf3e6" stroke="#e8924a" stroke-width="2.5"/>
+        <text x="505" y="636" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#7a4a18">AI Intern (Agent)</text>
+
+        <!-- Skills (abilities) -->
+        <rect x="710" y="262" width="210" height="76" rx="10" fill="#ffffff" stroke="#aeb6c2" stroke-width="2"/>
+        <text x="815" y="306" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#374151">Skills (abilities)</text>
+
+        <!-- skill leaves -->
+        <rect x="1030" y="100" width="210" height="80" rx="10" fill="#ffffff" stroke="#aeb6c2" stroke-width="2"/>
+        <text x="1135" y="146" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#374151">Design Critique eye</text>
+
+        <rect x="1030" y="280" width="210" height="80" rx="10" fill="#ffffff" stroke="#aeb6c2" stroke-width="2"/>
+        <text x="1135" y="326" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#374151">Visual taste</text>
+
+        <rect x="1030" y="460" width="210" height="80" rx="10" fill="#ffffff" stroke="#aeb6c2" stroke-width="2"/>
+        <text x="1135" y="506" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#374151">… 22 skills total</text>
+
+        <!-- Knowledge Base -->
+        <rect x="720" y="680" width="198" height="80" rx="10" fill="#ffffff" stroke="#aeb6c2" stroke-width="2"/>
+        <text x="819" y="715" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#374151">Knowledge Base</text>
+        <text x="819" y="735" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#6b7280">(reference dictionary)</text>
+
+        <!-- Memory (subconscious) -->
+        <rect x="1140" y="680" width="160" height="92" rx="10" fill="#e6f0fb" stroke="#5b9bd5" stroke-width="2.5"/>
+        <text x="1220" y="722" text-anchor="middle" font-family="Inter" font-size="14.5" font-weight="600" fill="#1f4e79">Memory</text>
+        <text x="1220" y="740" text-anchor="middle" font-family="Inter" font-size="12" fill="#3a6ea5">(subconscious)</text>
+
+        <!-- Memory leaves -->
+        <rect x="1400" y="560" width="200" height="80" rx="10" fill="#ffffff" stroke="#aeb6c2" stroke-width="2"/>
+        <text x="1500" y="606" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#374151">Project background</text>
+
+        <rect x="1400" y="800" width="200" height="80" rx="10" fill="#ffffff" stroke="#aeb6c2" stroke-width="2"/>
+        <text x="1500" y="846" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#374151">Design key decisions</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
