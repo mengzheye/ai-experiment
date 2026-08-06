@@ -44,18 +44,19 @@
         </div>
 
         <div class="card-wrap">
-          <a class="card" href="career-education/" data-project="cluster">
+          <a class="card" href="students-usage-report/" data-project="usage">
             <div class="card-logo">
+              <!-- Ascending bars: the report is a usage trend, read at a glance. -->
               <svg viewBox="0 0 44 44" fill="none">
-                <circle cx="12" cy="12" r="5" fill="#2F68B7"/>
-                <circle cx="32" cy="14" r="4" fill="#e8b64a"/>
-                <circle cx="18" cy="30" r="6" fill="#17202a"/>
-                <circle cx="34" cy="32" r="3" fill="#2F68B7"/>
+                <rect x="6" y="26" width="7" height="12" rx="1.5" fill="#2F68B7"/>
+                <rect x="17" y="19" width="7" height="19" rx="1.5" fill="#e8b64a"/>
+                <rect x="28" y="10" width="7" height="28" rx="1.5" fill="#17202a"/>
+                <path d="M6 8 L17 14 L28 5" stroke="#2F68B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="card-meta">
-              <span class="tags">AI, EDTECH</span>
-              UX/UI + DATA VIZ, AI STRATEGY
+              <span class="tags">DATA VIZ, EDTECH</span>
+              USAGE REPORTING, AI ITERATION
             </div>
           </a>
           <div class="view-projects">→</div>
@@ -108,7 +109,7 @@
         </div>
       </div>
 
-      <!-- Project previews -->
+      <!-- Project previews (shown on card hover) -->
       <div class="preview" data-preview="imagegen">
         <div class="preview-bg" style="background:
           radial-gradient(circle at 75% 25%, rgba(232,182,74,0.85), transparent 55%),
@@ -116,25 +117,32 @@
           linear-gradient(135deg, #1a1d2b 0%, #3b2a12 100%);"></div>
         <div class="preview-scrim"></div>
         <div class="preview-content">
-          <h2 class="preview-title">Climber Insight Report — Built in Figma Make</h2>
-          <div class="preview-info">
-            <div>
-              <h4>ROLE</h4>
-              <p><strong>Lead Designer</strong> prototyping an AI-driven Climber insight report end-to-end in Figma Make</p>
+          <div class="preview-main">
+            <h2 class="preview-title">Climber Insight Report</h2>
+            <p class="preview-desc">
+              Raw AI signals about each Climber's career-readiness journey, turned into a
+              clear educator-facing artifact — <strong>prototyped end-to-end in Figma Make</strong>
+              so stakeholders could click through it instead of reading a deck.
+            </p>
+            <hr class="preview-rule">
+            <dl class="preview-meta">
+              <div><dt>Role</dt><dd>Lead Designer</dd></div>
+              <div><dt>Team</dt><dd>Insights &amp; Reporting</dd></div>
+              <div><dt>Timeline</dt><dd>3 weeks</dd></div>
+            </dl>
+          </div>
+          <div class="preview-aside">
+            <div class="preview-media">
+              <!-- 5.4 MB: src is attached on first hover, not on page load. -->
+              <video data-src="images/climber-insight-report/report-video-01.mp4"
+                     loop muted playsinline preload="none"></video>
             </div>
-            <div>
-              <h4>IMPACT</h4>
-              <ul>
-                <li><span class="ico">🧭</span><strong>Translated AI signals</strong> into educator-ready insights</li>
-                <li><span class="ico">⚡</span><strong>Shipped a working prototype</strong> in days, not sprints</li>
-                <li><span class="ico">🤝</span><strong>Aligned PM, eng, and learning</strong> around one artifact</li>
-              </ul>
-            </div>
+            <span class="preview-cta">View case study <span class="arrow" aria-hidden="true">&rarr;</span></span>
           </div>
         </div>
       </div>
 
-      <div class="preview" data-preview="cluster">
+      <div class="preview" data-preview="usage">
         <div class="preview-bg" style="background:
           radial-gradient(circle at 20% 30%, rgba(47,104,183,0.9), transparent 45%),
           radial-gradient(circle at 80% 20%, rgba(232,182,74,0.75), transparent 50%),
@@ -142,20 +150,28 @@
           linear-gradient(135deg, #0c1a2e 0%, #1b3a63 100%);"></div>
         <div class="preview-scrim"></div>
         <div class="preview-content">
-          <h2 class="preview-title">Gamified Middle School Career Learning Platform</h2>
-          <div class="preview-info">
-            <div>
-              <h4>ROLE</h4>
-              <p><strong>Lead Designer</strong> of AI-driven insight reports for career-readiness educators</p>
+          <div class="preview-main">
+            <h2 class="preview-title">Students Usage Report</h2>
+            <p class="preview-desc">
+              Four metrics that mean the same thing at every level, carrying a reader from a
+              district rollup down to <strong>a named student and a last-activity date</strong>
+              — while showing each role only the students they're allowed to see.
+            </p>
+            <hr class="preview-rule">
+            <dl class="preview-meta">
+              <div><dt>Role</dt><dd>Product Designer</dd></div>
+              <div><dt>For</dt><dd>Coaches &amp; Admins</dd></div>
+              <div><dt>Views</dt><dd>District → School → Climber</dd></div>
+            </dl>
+          </div>
+          <div class="preview-aside">
+            <div class="preview-media">
+              <!-- Nav-rail cropped out so the report is legible at card size. -->
+              <img src="images/students-usage-report/school-view-card.png"
+                   alt="Students Usage Report, school view"
+                   loading="lazy" width="1600" height="960">
             </div>
-            <div>
-              <h4>IMPACT</h4>
-              <ul>
-                <li><span class="ico">🧭</span><strong>Clarified AI outputs</strong> into actionable insights</li>
-                <li><span class="ico">🤝</span><strong>Raised educator trust</strong> with transparent reasoning</li>
-                <li><span class="ico">📈</span><strong>Scaled reporting</strong> across 100+ district cohorts</li>
-              </ul>
-            </div>
+            <span class="preview-cta">View case study <span class="arrow" aria-hidden="true">&rarr;</span></span>
           </div>
         </div>
       </div>
@@ -167,20 +183,24 @@
           linear-gradient(135deg, #0f1420 0%, #26304a 100%);"></div>
         <div class="preview-scrim"></div>
         <div class="preview-content">
-          <h2 class="preview-title">Scalable Icon System</h2>
-          <div class="preview-info">
-            <div>
-              <h4>ROLE</h4>
-              <p><strong>Design Systems Lead</strong> on a unified iconography library across platforms</p>
-            </div>
-            <div>
-              <h4>IMPACT</h4>
-              <ul>
-                <li><span class="ico">🧱</span><strong>Unified 400+ icons</strong> into a single token system</li>
-                <li><span class="ico">🚀</span><strong>Cut handoff time</strong> for new features by 40%</li>
-                <li><span class="ico">🪞</span><strong>Consistent brand</strong> across web, mobile &amp; docs</li>
-              </ul>
-            </div>
+          <div class="preview-main">
+            <h2 class="preview-title">Scalable Icon System</h2>
+            <p class="preview-desc">
+              A unified iconography library across web, mobile, and docs —
+              <strong>400+ icons on one token system</strong>, with the guidelines and
+              asset pipeline to keep it that way.
+            </p>
+            <hr class="preview-rule">
+            <dl class="preview-meta">
+              <div><dt>Role</dt><dd>Design Systems Lead</dd></div>
+              <div><dt>Focus</dt><dd>Design systems, branding</dd></div>
+            </dl>
+          </div>
+          <div class="preview-aside">
+            <div class="preview-media preview-media--swatch" style="background:
+              radial-gradient(circle at 32% 30%, rgba(47,104,183,0.85), transparent 58%),
+              radial-gradient(circle at 72% 72%, rgba(244,241,234,0.22), transparent 55%),
+              linear-gradient(140deg, #0f1420 0%, #26304a 100%);"></div>
           </div>
         </div>
       </div>
@@ -208,13 +228,35 @@
     const hero = document.getElementById('hero');
     const previews = document.querySelectorAll('.preview');
 
+    // Preview videos are heavy, so they load on first hover and pause when hidden.
+    function setVideo(preview, playing) {
+      const video = preview.querySelector('video');
+      if (!video) return;
+      if (playing) {
+        if (video.dataset.src) {
+          video.src = video.dataset.src;
+          delete video.dataset.src;
+        }
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    }
+
     function show(projectId) {
       hero.classList.add('hidden');
-      previews.forEach(p => p.classList.toggle('active', p.dataset.preview === projectId));
+      previews.forEach(p => {
+        const on = p.dataset.preview === projectId;
+        p.classList.toggle('active', on);
+        setVideo(p, on);
+      });
     }
     function reset() {
       hero.classList.remove('hidden');
-      previews.forEach(p => p.classList.remove('active'));
+      previews.forEach(p => {
+        p.classList.remove('active');
+        setVideo(p, false);
+      });
     }
 
     cards.forEach(card => {

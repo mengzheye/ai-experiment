@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" class="case-page">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students Usage Report — Mengzhe Ye</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="case-study" id="case-usage">
+  <div class="case-study-inner">
+
+    <nav class="cs-topnav">
+      <div class="cs-topnav-left">
+        <a class="cs-topnav-back" href="../" aria-label="Back to home">← Home</a>
+      </div>
+      <div class="cs-topnav-center">Hats &amp; Ladders — Students Usage Report</div>
+      <div class="cs-topnav-right">Context</div>
+    </nav>
+
+    <section class="cs-header">
+      <h1 class="cs-title">Giving coaches and administrators one honest answer: are students actually using this?</h1>
+      <p class="cs-subtitle">Students Usage Report (AI iteration) · Product Designer @Hats &amp; Ladders</p>
+
+      <div class="cs-facts">
+        <div>
+          <h4>Timeline</h4>
+          <p><span class="tk">TK</span></p>
+        </div>
+        <div>
+          <h4>Role</h4>
+          <ul>
+            <li>Product Design</li>
+            <li>Data Visualization</li>
+            <li>Information Architecture</li>
+            <li>AI-Assisted Iteration</li>
+          </ul>
+        </div>
+        <div>
+          <h4>For</h4>
+          <ul>
+            <li>Administrators</li>
+            <li>School Staff</li>
+            <li>Coaches</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Views</h4>
+          <p>District → School → Climber</p>
+        </div>
+      </div>
+    </section>
+
+    <figure class="cs-hero-shot">
+      <img src="../images/students-usage-report/school-view.png"
+           alt="Students Usage Report, school view: four metric cards for Climbers Activated, Active Climbers, Median Active Days and Median XP, above a searchable class table."
+           width="3068" height="1818">
+    </figure>
+
+    <!-- LONG STORY SHORT -->
+    <section class="cs-contribution">
+      <div class="cs-impact-sub">Long story short</div>
+      <h2 class="cs-impact-heading">One data model, two very different readers</h2>
+      <p class="cs-contribution-body">
+        An administrator opens this report to compare schools across a district and find the
+        ones falling behind. A coach opens it to find the students in their own classes who
+        have gone quiet this month. Both need the same four numbers to mean exactly the same
+        thing at every level — district, school, class, and individual Climber — while seeing
+        only the students they're allowed to see. I designed the report end-to-end around that
+        constraint, and used AI tooling to iterate on layout and data-shape decisions faster
+        than a conventional spec-and-handoff cycle.
+      </p>
+    </section>
+
+    <!-- GUIDING QUESTION -->
+    <section class="cs-section">
+      <div class="cs-impact-sub">The question</div>
+      <h2 class="cs-headline">How might we show educators whether students are really using the platform — and where to intervene first?</h2>
+      <p class="cs-body">
+        Usage is only useful if it points somewhere. A number that says a district is "62%
+        activated" tells a coach nothing they can act on Monday morning. The report had to
+        carry a reader from a district-wide figure down to a named student with a last-activity
+        date, without ever making them re-learn what a metric means.
+      </p>
+    </section>
+
+    <!-- THE FOUR METRICS -->
+    <section class="cs-section">
+      <div class="cs-impact-sub">Vocabulary</div>
+      <h2 class="cs-impact-heading">Four metrics, defined once and used everywhere</h2>
+      <div class="cs-section-body">
+        <p>
+          The hardest part of a rollup report is not the chart — it's the definitions. These
+          four are computed identically at district, school, and class level, so a reader can
+          compare any row to any other row without a footnote.
+        </p>
+      </div>
+      <div class="cs-insight-grid">
+        <div class="cs-insight-card">
+          <div class="cs-insight-icon">🔑</div>
+          <p class="cs-insight-text">
+            <strong>Climbers Activated</strong> — students who have logged in at least once,
+            meaning the account has been initialized.
+          </p>
+        </div>
+        <div class="cs-insight-card">
+          <div class="cs-insight-icon">📈</div>
+          <p class="cs-insight-text">
+            <strong>Active Climbers</strong> — students who were active at any point during
+            the selected time period.
+          </p>
+        </div>
+        <div class="cs-insight-card">
+          <div class="cs-insight-icon">📆</div>
+          <p class="cs-insight-text">
+            <strong>Median Active Days</strong> — the median number of days a student was
+            active within the period.
+          </p>
+        </div>
+        <div class="cs-insight-card">
+          <div class="cs-insight-icon">⭐</div>
+          <p class="cs-insight-text">
+            <strong>Median XP</strong> — the median experience points students earned during
+            the period.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO SEES WHAT -->
+    <section class="cs-section">
+      <div class="cs-impact-sub">Access model</div>
+      <h2 class="cs-impact-heading">Two entry points, because two roles carry different responsibility</h2>
+      <p class="cs-body">
+        Access isn't a settings problem here — it's the thing that decides where each reader
+        starts. Getting this wrong either exposes students a coach has no business seeing, or
+        buries an administrator three clicks from the comparison they came for.
+      </p>
+      <div class="cs-callouts">
+        <div class="cs-callout cs-callout--purple">
+          <span class="cs-callout-tag">Administrators &amp; School Staff</span>
+          <p class="cs-callout-body">
+            Enter from the main page with full district scope. They start at the comparison —
+            every school in the district, ranked and filterable — then drill into whichever
+            school needs attention.
+          </p>
+          <div class="cs-callout-icon">🏛️</div>
+        </div>
+        <div class="cs-callout cs-callout--cream">
+          <span class="cs-callout-tag">Coaches</span>
+          <p class="cs-callout-body">
+            Enter from the school page, and see only the classes and students they have access
+            to. The district rollup simply isn't a surface they have — the report starts where
+            their responsibility starts.
+          </p>
+          <div class="cs-callout-icon">🧭</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE THREE VIEWS -->
+    <section class="cs-section">
+      <div class="cs-impact-sub">Solution</div>
+      <h2 class="cs-impact-heading">A single drill-down path: district, school, then the individual Climber</h2>
+      <div class="cs-section-body">
+        <p>
+          Each level answers one question and hands the reader to the next. Nothing is a
+          dead end, and the filter state follows you down.
+        </p>
+      </div>
+      <div class="cs-split" data-tab-group="views">
+        <div class="cs-split-left">
+          <div class="cs-tabs" role="tablist">
+            <button class="cs-tab is-active" data-tab="0" role="tab"><span class="cs-tab-num">01</span>District view — which schools need attention?</button>
+            <button class="cs-tab" data-tab="1" role="tab"><span class="cs-tab-num">02</span>School view — which classes are behind?</button>
+            <button class="cs-tab" data-tab="2" role="tab"><span class="cs-tab-num">03</span>Climber list — which students went quiet?</button>
+          </div>
+        </div>
+        <div class="cs-split-right">
+          <div class="cs-tab-panel is-active" data-panel="0">
+            <div class="cs-section-body">
+              <p>
+                Every school in the district, each row carrying its enrollment count plus the
+                same four metrics. Schools sitting <strong>40% or more below district-wide
+                median active days or XP</strong> are visually identifiable, so the reader
+                doesn't have to scan for them. Rows are clickable straight into the school.
+              </p>
+            </div>
+            <div class="cs-image"><div class="cs-image-box" style="height: 560px;">District view — image placeholder</div></div>
+          </div>
+          <div class="cs-tab-panel" data-panel="1">
+            <div class="cs-section-body">
+              <p>
+                School-level aggregates on the same four metrics, then every class in the
+                school with its own Climbers Activated, Active Climbers, Median Active Days,
+                Median XP, and <strong>Most Recent Activity</strong>. Searchable by class name
+                or teacher name.
+              </p>
+            </div>
+            <div class="cs-image"><div class="cs-image-box" style="height: 560px;">School view — image placeholder</div></div>
+          </div>
+          <div class="cs-tab-panel" data-panel="2">
+            <div class="cs-section-body">
+              <p>
+                A separate tab listing every Climber at the school: first and last name,
+                student ID, class, activation date, last activity date, active days, and XP
+                earned. Searchable by first name, last name, or student ID — because a coach
+                usually arrives already knowing who they're worried about.
+              </p>
+            </div>
+            <div class="cs-image"><div class="cs-image-box" style="height: 560px;">Climber list — image placeholder</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="cs-section">
+      <div class="cs-impact-sub">Filtering</div>
+      <h2 class="cs-impact-heading">Filters that survive the drill-down</h2>
+      <div class="cs-section-body">
+        <p>
+          The filter set is deliberately small, and it mirrors between the district and school
+          views in both directions — narrow to two grades at district level, drill into a
+          school, and those grades are still applied. Results update live rather than behind
+          an "apply" button.
+        </p>
+        <ul>
+          <li><strong>School</strong> — multi-select</li>
+          <li><strong>Grade</strong> — multi-select</li>
+          <li><strong>Session</strong> — single-select</li>
+          <li><strong>Time period</strong> — single-select, last 90 / 60 / 3 days within the chosen session</li>
+        </ul>
+        <p>
+          The school view adds sorting and filtering by grade, class, session, and time period
+          on top of the same state.
+        </p>
+      </div>
+      <div class="cs-images layout-single">
+        <div class="cs-image">
+          <div class="cs-image-box" style="height: 620px;">Filter bar — image placeholder</div>
+          <div class="cs-image-caption">Filter state carries from the district rollup into the school view and back.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSTRAINTS -->
+    <section class="cs-section">
+      <div class="cs-impact-sub">Constraints</div>
+      <h2 class="cs-impact-heading">What the report had to guarantee</h2>
+      <div class="cs-goal">
+        <div class="cs-goal-icon">🎯</div>
+        <h3 class="cs-goal-heading">Non-negotiables</h3>
+        <ul class="cs-goal-list">
+          <li><span class="cs-goal-check">✓</span><span>Loads and refreshes within roughly 3 seconds, so the filters feel live rather than submitted.</span></li>
+          <li><span class="cs-goal-check">✓</span><span>Data accurate to within 1–2 hours, and consistent between every level of the report.</span></li>
+          <li><span class="cs-goal-check">✓</span><span>Exports to CSV, because some analysis will always happen in a spreadsheet.</span></li>
+          <li><span class="cs-goal-check">✓</span><span>Dates read as "Jun 1, 2026" — never an ISO string or an ambiguous numeric format.</span></li>
+          <li><span class="cs-goal-check">✓</span><span>Table headers stay visible while rows scroll, so a long class list never loses its column meaning.</span></li>
+          <li><span class="cs-goal-check">✓</span><span>Restricted to authorized personnel, with coaches scoped to their own classes and students.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- AI ITERATION -->
+    <section class="cs-section">
+      <div class="cs-impact-sub">AI iteration</div>
+      <h2 class="cs-impact-heading">Prototyping the report instead of specifying it</h2>
+      <div class="cs-section-body">
+        <p>
+          Rather than hand engineering a static spec for a data-dense report, I built working
+          iterations with AI tooling — testing real table densities, filter behaviours, and
+          drill-down states against realistic data shapes before committing to them.
+        </p>
+        <p>
+          <span class="tk">TK</span> — which tools, how many iterations, and which specific
+          decisions changed as a result. Worth naming the ones where the prototype overturned
+          the original assumption.
+        </p>
+      </div>
+      <div class="cs-images layout-2-col">
+        <div class="cs-image">
+          <div class="cs-image-box" style="height: 420px;">Early iteration — image placeholder</div>
+          <div class="cs-image-caption">Early iteration.</div>
+        </div>
+        <div class="cs-image">
+          <div class="cs-image-box" style="height: 420px;">Final direction — image placeholder</div>
+          <div class="cs-image-caption">Final direction.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARNINGS -->
+    <section class="cs-section">
+      <div class="cs-impact-sub">Learnings &amp; impact</div>
+      <h2 class="cs-impact-heading">What shipped, and what it changed</h2>
+      <div class="cs-section-body">
+        <p>
+          <span class="tk">TK</span> — adoption, coach and administrator feedback, and any
+          measured change in how districts respond to low-usage schools. This section needs
+          real numbers before the page is shared; everything above is grounded in the
+          shipped acceptance criteria, but nothing here is yet.
+        </p>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+  <script src="../case-study.js"></script>
+</body>
+</html>

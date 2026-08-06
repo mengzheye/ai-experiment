@@ -263,15 +263,20 @@ body, .topbar, .topbar *:not(.status-online),
   pointer-events: none;
   transition: opacity 0.35s ease;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 14px;
+  background: #0f1117;
+  border: 1px solid rgba(255, 255, 255, 0.10);
 }
 .preview.active { opacity: 1; }
 
+/* Ambient wash, keyed per project via the inline gradient on .preview-bg.
+   Kept far back so the panel reads as a dark card, not a photo. */
 .preview-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
+  opacity: 0.20;
   transform: scale(1.04);
   transition: transform 0.6s ease;
 }
@@ -280,59 +285,135 @@ body, .topbar, .topbar *:not(.status-online),
 .preview-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10,18,32,0.25) 0%, rgba(10,18,32,0.6) 100%);
+  background: linear-gradient(105deg, #0f1117 34%, rgba(15, 17, 23, 0.72) 100%);
 }
 
+/* Two columns: the argument on the left, the evidence on the right. */
 .preview-content {
   position: relative;
   height: 100%;
-  padding: 48px 48px 56px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  padding: 52px 52px 52px 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 56px;
   color: #ffffff;
 }
+
 .preview-title {
   font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 600;
-  font-size: clamp(36px, 4.4vw, 64px);
-  letter-spacing: -0.02em;
-  line-height: 1.25;
-  max-width: 900px;
+  font-weight: 700;
+  font-size: clamp(30px, 3.4vw, 56px);
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  margin-bottom: 20px;
 }
-.preview-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  max-width: 900px;
+
+.preview-desc {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 46ch;
 }
-.preview-info h4 {
+.preview-desc strong { color: #ffffff; font-weight: 600; }
+
+.preview-rule {
+  height: 1px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.14);
+  margin: 28px 0 24px;
+}
+
+.preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 44px;
+}
+.preview-meta dt {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1px;
-  opacity: 0.8;
-  margin-bottom: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+  margin-bottom: 7px;
 }
-.preview-info p {
+.preview-meta dd {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 17px;
-  line-height: 1.5;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #ffffff;
+  margin: 0;
 }
-.preview-info p strong { font-weight: 700; }
-.preview-info ul {
-  list-style: none;
+
+/* Right column: media card over a label. */
+.preview-aside {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 22px;
+  align-items: flex-start;
 }
-.preview-info ul li {
+
+.preview-media {
+  width: 100%;
+  /* Matches report-video-01.mp4 (1800x1080) so nothing is cropped. */
+  aspect-ratio: 5 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.06s, opacity 0.5s ease 0.06s;
+}
+.preview.active .preview-media { transform: translateY(0); opacity: 1; }
+.preview-media img,
+.preview-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Projects without a real asset get their own colour field instead of a
+   broken frame; the gradient is set inline per project. */
+.preview-media--swatch { position: relative; }
+
+.preview-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0a0a0a;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 17px;
-  line-height: 1.4;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
-.preview-info ul li .ico { margin-right: 8px; }
+.preview-cta .arrow { font-size: 16px; line-height: 1; }
+
+@media (max-width: 1080px) {
+  .preview-content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-content: center;
+    padding: 36px;
+  }
+  .preview-aside { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview-bg,
+  .preview-media {
+    transition: none;
+    transform: none;
+  }
+  .preview-media { opacity: 1; }
+}
 
 /* ===== Footer ===== */
 .footer {
@@ -750,19 +831,28 @@ body, .topbar, .topbar *:not(.status-online),
   .cs-split-left { position: static; }
 }
 .cs-tabs { display: flex; flex-direction: column; gap: 8px; }
+.cs-tabs { --tab-accent: #D1ADFE; }
 .cs-tab {
-  text-align: left; background: transparent; border: none; border-left: 3px solid #e5e7eb;
+  text-align: left; background: transparent; border: none;
+  border-left: 3px solid rgba(255, 255, 255, 0.14);
   padding: 14px 20px; cursor: pointer; font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px; font-weight: 500; line-height: 1.4; color: #6b7280;
+  font-size: 18px; font-weight: 500; line-height: 1.4;
+  color: rgba(255, 255, 255, 0.62);
   transition: all 0.25s ease;
 }
-.cs-tab:hover { color: #ffffff; }
+.cs-tab:hover { color: #ffffff; border-left-color: rgba(255, 255, 255, 0.35); }
+.cs-tab:focus-visible { outline: 2px solid var(--tab-accent); outline-offset: 2px; }
+/* The panel is dark, so the active tab lifts with a tinted fill rather than
+   the light lavender this rule used to carry. */
 .cs-tab.is-active {
-  border-left-color: #6b3fd4; color: #ffffff; font-weight: 700; background: #f5f0ff;
+  border-left-color: var(--tab-accent);
+  color: #ffffff;
+  font-weight: 700;
+  background: rgba(107, 63, 212, 0.26);
 }
 .cs-tab-num {
   display: block; font-family: 'Space Mono', monospace; font-size: 12px;
-  color: #6b3fd4; letter-spacing: 0.08em; margin-bottom: 4px;
+  color: var(--tab-accent); letter-spacing: 0.08em; margin-bottom: 4px;
 }
 .cs-tab-panel { display: none; }
 .cs-tab-panel.is-active { display: block; }
@@ -855,4 +945,33 @@ html.case-page .case-study {
   opacity: 1;
   pointer-events: auto;
   overflow: visible;
+}
+
+/* Marks copy that still needs real content before this page is shared. */
+.tk {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 5px;
+  background: rgba(232, 182, 74, 0.18);
+  border: 1px dashed rgba(232, 182, 74, 0.55);
+  color: #e8b64a;
+  font-size: 0.82em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Real screenshot in a case-study header, in place of the .cs-hero-image placeholder. */
+.cs-hero-shot {
+  margin: 80px 0 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+.cs-hero-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
